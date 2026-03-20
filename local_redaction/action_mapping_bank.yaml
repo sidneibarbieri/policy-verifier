@@ -1,0 +1,37 @@
+rules:
+  - action_id: isolate_host
+    approval_proxy: true
+    match_policy: any_keyword
+    priority: 90
+    keywords:
+      - "resposta"
+      - "conten"
+      - "isola"
+      - "contain"
+      - "erradica"
+
+  - action_id: collect_forensics
+    approval_proxy: false
+    match_policy: any_keyword
+    priority: 80
+    keywords:
+      - "triagem"
+      - "triage"
+      - "detec"
+      - "cadeia"
+      - "binar"
+      - "forens"
+      - "investig"
+
+  - action_id: reset_admin_credentials
+    approval_proxy: false
+    match_policy: any_keyword
+    priority: 70
+    keywords:
+      - "pós incidente"
+      - "pos incidente"
+      - "pos-incidente"
+      - "causa raiz"
+      - "rca"
+      - "credencial"
+      - "identidade"

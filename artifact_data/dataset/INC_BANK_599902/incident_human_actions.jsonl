@@ -1,0 +1,3 @@
+{"action_id": "collect_forensics", "timestamp": "2026-01-26T09:32:31.978000Z", "approval": false, "order": 1}
+{"action_id": "isolate_host", "timestamp": "2026-01-26T09:45:59.300000Z", "approval": true, "order": 2}
+{"action_id": "reset_admin_credentials", "timestamp": "2026-01-27T22:38:14.504000Z", "approval": false, "order": 3}

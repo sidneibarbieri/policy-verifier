@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_593037",
+  "incident_type": "falcon_detection_method",
+  "severity": "low",
+  "asset_criticality": "low",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-01-13T13:03:00Z",
+  "time_window_end": "2026-01-13T21:25:40.135000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

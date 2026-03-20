@@ -1,0 +1,11 @@
+{
+  "task_count": 2,
+  "mapped_task_count": 2,
+  "unmatched_task_count": 0,
+  "unmatched_task_examples": [],
+  "ambiguous_tie_count": 0,
+  "ambiguous_tie_examples": [],
+  "deduplicated_action_count": 1,
+  "fallback_used": false,
+  "mapping_coverage": 1.0
+}

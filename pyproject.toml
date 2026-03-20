@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soc-llm-policy"
+version = "0.0.1"
+requires-python = ">=3.11"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ANN", "PL", "RUF"]
+ignore = [
+    # ANN401: disallowing `Any` here causes systemic false positives in code
+    # that handles arbitrary JSON/YAML payloads (SIEM telemetry, catalog, rules).
+    # Aliases like JsonObject = dict[str, Any] still contain the same underlying Any.
+    "ANN401",
+]
+fixable = ["ALL"]
+
+[tool.ruff.lint.pylint]
+max-branches = 20
+
+[tool.ruff.lint.per-file-ignores]
+"src/soc_llm_policy/__init__.py" = ["ANN"]
+"src/soc_llm_policy/verify.py" = ["ANN"]
+"test_llm.py" = ["T201"]
+"tests/**/*.py" = ["ANN", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["artifact", "releases", "private"]

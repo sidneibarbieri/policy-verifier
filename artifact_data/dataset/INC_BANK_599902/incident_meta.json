@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_599902",
+  "incident_type": "authentication",
+  "severity": "medium",
+  "asset_criticality": "medium",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-01-22T14:56:36.579000Z",
+  "time_window_end": "2026-01-27T22:39:01.146000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

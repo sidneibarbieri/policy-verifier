@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_608187",
+  "incident_type": "potential_exploit",
+  "severity": "low",
+  "asset_criticality": "low",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-02-18T17:18:04.849000Z",
+  "time_window_end": "2026-02-24T12:44:34.927000Z",
+  "final_status": "not_an_issue",
+  "asset_host": "host_0001"
+}

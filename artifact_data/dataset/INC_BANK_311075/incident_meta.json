@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_311075",
+  "incident_type": "exploit",
+  "severity": "medium",
+  "asset_criticality": "medium",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2025-10-04T23:20:20.081000Z",
+  "time_window_end": "2025-10-07T09:22:50.625000Z",
+  "final_status": "false_positive",
+  "asset_host": "host_0001"
+}
