@@ -4,13 +4,11 @@
 # These rules map normalized SOAR telemetry events to MITRE ATT&CK
 # techniques via weighted signal scoring (see attack.py).
 #
-# Telemetry characteristics (51-incident corpus):
-#   - event_type: command_execution_attempt (51), case_note (546)
-#   - source_type: SOAR_EXPORT (uniform; no discriminative power)
-#   - category on command_execution_attempt: rich detection name
-#     (e.g., edr_detection_powershell_exe_*, siem_id_*_sql_injection)
-#   - command on case_note: SIEM category label
-#     (e.g., "Suspicious Activity", "Adware Detected", "Web Exploit")
+# Telemetry characteristics:
+#   - command_execution events carry the richest detection-name signal
+#   - case_note events carry normalized SIEM or analyst label text
+#   - source_type is effectively uniform (SOAR_EXPORT) and is therefore kept
+#     at near-zero discriminative weight
 #
 # Weight design:
 #   event_type_weight: 0.40  - necessary but not sufficient alone

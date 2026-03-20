@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-20T01:22:10.219332+00:00",
+  "generated_at_utc": "2026-03-20T02:38:14.802844+00:00",
   "status": "warning",
   "issue_count": 6,
   "issues_by_severity": {
@@ -17,13 +17,7 @@
     {
       "severity": "medium",
       "code": "non_public_data_present",
-      "path": "incoming/redacted",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "private",
+      "path": "dataset",
       "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
     },
     {
@@ -35,13 +29,19 @@
     {
       "severity": "medium",
       "code": "non_public_data_present",
-      "path": "dataset",
+      "path": "incoming/raw",
       "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
     },
     {
       "severity": "medium",
       "code": "non_public_data_present",
-      "path": "incoming/raw",
+      "path": "incoming/redacted",
+      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
+    },
+    {
+      "severity": "medium",
+      "code": "non_public_data_present",
+      "path": "private",
       "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
     }
   ]

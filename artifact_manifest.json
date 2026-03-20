@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-20T01:22:37.436176+00:00",
+  "generated_at_utc": "2026-03-20T12:21:43.357760+00:00",
   "dataset_release_id": "submission_freeze",
   "incident_count": 100,
   "incidents": [
@@ -2126,7 +2126,7 @@
     },
     {
       "path": "artifact_data/global/action_catalog.yaml",
-      "sha256": "27476c0c3ed22b0bf6fbb154f89634c83407f530870953c39e5553cf612f7136"
+      "sha256": "7aa3438044a26122e05454cb2f7ffba64ff5757c85e4e070a6be5a6ca3eeaa27"
     },
     {
       "path": "artifact_data/global/constraints.yaml",
@@ -2134,7 +2134,7 @@
     },
     {
       "path": "artifact_outputs/analysis/analysis_bundle.json",
-      "sha256": "62df3707cd89c51fcd08ce61e63ff50931bb51e548ae9270aa9557b311a436b8"
+      "sha256": "208154b817614f8eaac0f3845225f2ee719904da097fbfe954ebf110c8b96e50"
     },
     {
       "path": "artifact_outputs/analysis/corpus_readiness.json",
@@ -2178,11 +2178,11 @@
     },
     {
       "path": "artifact_outputs/analysis/protocol_freeze.json",
-      "sha256": "2121eea5c1e54c6a4818d5b545c46fa5fdb59e477b3e78355ed0ca20447d12dd"
+      "sha256": "e073b3ac935aa937fc19879d8d2ac73ae6562f0d04e9e3125794bfa1e1bcd015"
     },
     {
       "path": "artifact_outputs/analysis/release_readiness.json",
-      "sha256": "c096ac0a1b4723fe9997fa548265589fd3b207aa3f3036470f9277c44cd19387"
+      "sha256": "c5d0411eab40af0649b078d858b13f54268c8915b6996323899649027d6584f2"
     },
     {
       "path": "artifact_outputs/analysis/summary.json",
@@ -2194,7 +2194,7 @@
     },
     {
       "path": "config/attack_mapping.yaml",
-      "sha256": "7d1cb011c3a2e589bb331034e101f51934ef0a65b7b2ca2c17ce5dd6ad86e640"
+      "sha256": "13cfe0189b3dce1b7f49cae5fc221d3d7b4622258fc3d36f2700fb5826dc68aa"
     },
     {
       "path": "config/models.example.yaml",

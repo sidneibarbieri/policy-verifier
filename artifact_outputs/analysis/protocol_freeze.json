@@ -126,7 +126,7 @@
   "input_hashes": {
     "action_catalog": {
       "path": "artifact_data/global/action_catalog.yaml",
-      "sha256": "27476c0c3ed22b0bf6fbb154f89634c83407f530870953c39e5553cf612f7136"
+      "sha256": "7aa3438044a26122e05454cb2f7ffba64ff5757c85e4e070a6be5a6ca3eeaa27"
     },
     "constraints": {
       "path": "artifact_data/global/constraints.yaml",
@@ -142,7 +142,7 @@
     },
     "attack_mapping": {
       "path": "config/attack_mapping.yaml",
-      "sha256": "7d1cb011c3a2e589bb331034e101f51934ef0a65b7b2ca2c17ce5dd6ad86e640"
+      "sha256": "13cfe0189b3dce1b7f49cae5fc221d3d7b4622258fc3d36f2700fb5826dc68aa"
     },
     "anonymization_policy": {
       "path": "config/anonymization_policy.yaml",
@@ -150,7 +150,7 @@
     },
     "release_readiness": {
       "path": "artifact_outputs/analysis/release_readiness.json",
-      "sha256": "c096ac0a1b4723fe9997fa548265589fd3b207aa3f3036470f9277c44cd19387"
+      "sha256": "c5d0411eab40af0649b078d858b13f54268c8915b6996323899649027d6584f2"
     }
   },
   "notes": [
