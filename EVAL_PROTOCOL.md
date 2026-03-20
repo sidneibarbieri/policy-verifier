@@ -14,12 +14,16 @@ Evaluate whether LLM-generated incident-response plans violate formal SOC constr
 - `artifact_outputs/analysis/summary.json`
 - `artifact_outputs/analysis/analysis_bundle.json`
 - `artifact_outputs/analysis/global_artifact_provenance.json`
+- `artifact_outputs/official_evaluation/summary.json`
+- `artifact_outputs/official_evaluation/analysis_bundle.json`
+- `artifact_outputs/official_evaluation/official_checklist.json`
 
 ## Public-bundle scope
 - The packaged zero-cost bundle includes the frozen protocol manifest, canonical non-private analysis outputs, and the code needed to rerun integrity checks and dataset audits.
 - `artifact_outputs/analysis/analysis_bundle.json` in this public package covers the human-baseline analysis included at packaging time.
 - The completed official LLM evaluation bundle, including the paid full-corpus execution lineage, is not included in this package because reproducing it requires paid API access.
 - The private raw-export anonymization workflow is intentionally excluded; this package starts from the canonical anonymized dataset already included under `artifact_data/dataset/`.
+- To preserve the paper-facing reported results, the package ships aggregate official outputs under `artifact_outputs/official_evaluation/` without redistributing raw paid snapshots.
 
 ## Inspectable frozen arm surfaces
 - `src/soc_llm_policy/pipeline.py`: binds `llm_zero` to `policy_prompt_mode=none` and `llm_policy_prompt` to `policy_prompt_mode=inline_constraints`.

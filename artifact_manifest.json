@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-20T12:47:43.233342Z",
+  "generated_at_utc": "2026-03-20T14:10:58.109686Z",
   "dataset_release_id": "submission_freeze",
   "incident_count": 100,
   "incidents": [
@@ -106,11 +106,15 @@
   ],
   "include_analysis": true,
   "run_id": null,
-  "file_count": 560,
+  "file_count": 569,
   "files": [
     {
+      "path": ".env.example",
+      "sha256": "516f44dae72b8f28d56fbb9fe188c86403023f7745fa4f8c602b8c3ca4fcc654"
+    },
+    {
       "path": ".gitignore",
-      "sha256": "1401e7f37137adf8c673a0fb8a2d518ea5685cf51165724f395e2e427b94bb5b"
+      "sha256": "01b6c7093341182009eff3bb4440a5d451f2c529b7856c2bf1bf9ea5ea89533f"
     },
     {
       "path": "ARTIFACT_BOUNDARY.md",
@@ -118,15 +122,15 @@
     },
     {
       "path": "ARTIFACT_README.md",
-      "sha256": "1115a0fbeae4538156d034224f9a86e9cbfb2985b4df627122d9b4b555ad5f0d"
+      "sha256": "98e9053289b864e7cf4f375b61383ddfd264a4ffe4404e7b7a5b4939201daf2d"
     },
     {
       "path": "EVAL_PROTOCOL.md",
-      "sha256": "0338f04efdab25b856cfb93a161d7c077f91413d7bf474d48d075ca192765e5f"
+      "sha256": "22fe37a4285c9420283402a092cd54ee7483b8758fed37b13b4a3e0391d1fcf4"
     },
     {
       "path": "README.md",
-      "sha256": "fcfb93a594f489f95e48a743f277675a654299a6c8968397f242e2c296bf914f"
+      "sha256": "4c8f95d6dc2ecaa12c7b921142fc72f2769eb59423320023e28a5a0533609356"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_311075/evidence/conversion_quality.json",
@@ -2145,6 +2149,10 @@
       "sha256": "e3a68be253ecd3cae90976d42b220c579fb0b9faf4a1299ea4481ed9fdf0b148"
     },
     {
+      "path": "artifact_outputs/analysis/corpus_readiness_recheck.json",
+      "sha256": "16f5ba48a5c3c2d5cf16ae79056ff45e55b7328003343a76bc02830c76694e7e"
+    },
+    {
       "path": "artifact_outputs/analysis/data_preflight.json",
       "sha256": "6810f250bf766788d8126641a5d79062f28b5bcab70da8ee58f3f472e0c7241b"
     },
@@ -2155,6 +2163,10 @@
     {
       "path": "artifact_outputs/analysis/dataset_audit.json",
       "sha256": "81d8869437d761c825f0be699ca90ac76002723ce6b3ef0550c5e572d4a7d712"
+    },
+    {
+      "path": "artifact_outputs/analysis/dataset_audit_recheck.json",
+      "sha256": "d888283607ab3000efce1f525b22f7036ac7b96f83139b5dda4307f06ef32384"
     },
     {
       "path": "artifact_outputs/analysis/figures/attack_tactic_frequency.png",
@@ -2185,8 +2197,28 @@
       "sha256": "49aa3541bb8f921065c1499876d8f8e73b9628ad5cb142be00b9c34a5af1dd4d"
     },
     {
+      "path": "artifact_outputs/analysis/release_readiness_recheck.json",
+      "sha256": "69573cb7ea9ecc1f63520acca8865bd2594999a84d4ada2c27bf11b901217c0c"
+    },
+    {
       "path": "artifact_outputs/analysis/summary.json",
       "sha256": "3537af0e013626793183e96502cfc5a30a0e328bb60c1c852ecc28fefb591461"
+    },
+    {
+      "path": "artifact_outputs/official_evaluation/README.md",
+      "sha256": "169c204467bba011f5fd422b91289ea352813130501c304a2da11e42a23ef23a"
+    },
+    {
+      "path": "artifact_outputs/official_evaluation/analysis_bundle.json",
+      "sha256": "c7c893b2f130f48029b9c9657eae94eb1a3d4154e93760a9d7570de3bb4a41fd"
+    },
+    {
+      "path": "artifact_outputs/official_evaluation/official_checklist.json",
+      "sha256": "4844d59ecd863d1901769ef0625b73fbf8f5376ad21931f895a53c9c02858680"
+    },
+    {
+      "path": "artifact_outputs/official_evaluation/summary.json",
+      "sha256": "217189d245842060f140b2fa29df34502393848b3e41cbae9ec08998ba473f82"
     },
     {
       "path": "config/anonymization_policy.yaml",
@@ -2215,6 +2247,10 @@
     {
       "path": "pyproject.toml",
       "sha256": "09da85ba7f068d06c3125e100bf9796c95d5e8664d70fceb5b58de2ada4df76e"
+    },
+    {
+      "path": "release_candidate_checklist.json",
+      "sha256": "2f0083023e5dce4dbb21cf43e7978ebb40c42a24c18d34790bc716396e32adb8"
     },
     {
       "path": "requirements-dev.txt",

@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-03-19T23:54:25.666300+00:00",
+  "run_id": "exp_final_submission_freeze_100_20260319T233224Z",
+  "status": "ok",
+  "missing_files": [],
+  "missing_optional_files": [
+    "results/analysis/experiment_failures.json",
+    "results/experiments/exp_final_submission_freeze_100_20260319T233224Z/experiment_failures.json"
+  ],
+  "missing_figures": [],
+  "missing_summary_keys": [],
+  "missing_readiness_keys": [],
+  "privacy_issue_count": 0
+}

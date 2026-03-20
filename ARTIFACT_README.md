@@ -6,6 +6,7 @@ This package is the canonical public artifact for the official frozen evaluation
 - `artifact_data/`: anonymized dataset and active global artifacts used by the study.
 - `artifact_outputs/analysis/protocol_freeze.json`: single source of truth for the official protocol freeze.
 - `artifact_outputs/analysis/`: canonical non-private analysis outputs included at packaging time.
+- `artifact_outputs/official_evaluation/`: aggregate outputs from the canonical paid full-corpus run used in the paper.
 - `src/`, `scripts/`, `config/`: code and frozen audit inputs needed to audit and reproduce the artifact.
 - `local_redaction/action_mapping_bank.yaml`: frozen mapping contract retained for paired-baseline auditability.
 - `config/models.freeze.yaml`: the frozen model registry used for the reported study, retained for auditability and cost reconstruction.
@@ -56,5 +57,15 @@ time, including the human-baseline analysis bundle.
 Per-run prompt messages and run snapshots belong to the paid execution lineage;
 the public bundle exposes the frozen arm definition and global inputs, but not
 the paid execution payloads.
+For comparison against the paper, the package additionally ships aggregate
+official outputs under `artifact_outputs/official_evaluation/` without the raw
+paid snapshots.
+
+## Optional paid reruns with your own keys
+The code path for provider-backed reruns is included, but it is optional and
+never required for artifact verification. To use it, create a repository-root
+`.env` from `.env.example`, optionally create `config/models.local.yaml` from
+`config/models.example.yaml`, and run `python -m soc_llm_policy.experiment_runner`
+with your own credentials and budget.
 
 Reviewers should treat `artifact_outputs/analysis/protocol_freeze.json` as the canonical protocol manifest for this package.

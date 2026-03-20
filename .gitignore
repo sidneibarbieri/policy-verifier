@@ -1,8 +1,10 @@
 .venv/
+.env
 __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 *.pyc
+config/models.local.yaml
 release_candidate_checklist.json
 artifact_outputs/analysis/*_recheck.json
