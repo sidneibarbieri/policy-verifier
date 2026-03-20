@@ -1,0 +1,2384 @@
+{
+  "generated_at_utc": "2026-03-20T01:22:37.436176+00:00",
+  "dataset_release_id": "submission_freeze",
+  "incident_count": 100,
+  "incidents": [
+    "INC_BANK_311075",
+    "INC_BANK_464030",
+    "INC_BANK_496109",
+    "INC_BANK_516957",
+    "INC_BANK_537542",
+    "INC_BANK_541678",
+    "INC_BANK_555534",
+    "INC_BANK_586647",
+    "INC_BANK_591046",
+    "INC_BANK_593037",
+    "INC_BANK_593125",
+    "INC_BANK_593686",
+    "INC_BANK_598207",
+    "INC_BANK_598381",
+    "INC_BANK_599218",
+    "INC_BANK_599638",
+    "INC_BANK_599856",
+    "INC_BANK_599902",
+    "INC_BANK_600166",
+    "INC_BANK_600272",
+    "INC_BANK_600326",
+    "INC_BANK_601209",
+    "INC_BANK_601249",
+    "INC_BANK_601274",
+    "INC_BANK_601904",
+    "INC_BANK_601925",
+    "INC_BANK_601944",
+    "INC_BANK_603383",
+    "INC_BANK_603595",
+    "INC_BANK_603615",
+    "INC_BANK_603618",
+    "INC_BANK_603700",
+    "INC_BANK_603705",
+    "INC_BANK_603915",
+    "INC_BANK_604276",
+    "INC_BANK_604576",
+    "INC_BANK_604618",
+    "INC_BANK_604857",
+    "INC_BANK_604913",
+    "INC_BANK_604931",
+    "INC_BANK_605040",
+    "INC_BANK_605540",
+    "INC_BANK_605544",
+    "INC_BANK_605755",
+    "INC_BANK_605779",
+    "INC_BANK_605783",
+    "INC_BANK_606407",
+    "INC_BANK_606638",
+    "INC_BANK_606639",
+    "INC_BANK_606641",
+    "INC_BANK_606992",
+    "INC_BANK_607056",
+    "INC_BANK_607153",
+    "INC_BANK_607193",
+    "INC_BANK_607468",
+    "INC_BANK_607473",
+    "INC_BANK_607474",
+    "INC_BANK_607531",
+    "INC_BANK_607534",
+    "INC_BANK_608187",
+    "INC_BANK_608340",
+    "INC_BANK_608543",
+    "INC_BANK_609108",
+    "INC_BANK_610619",
+    "INC_BANK_627737",
+    "INC_BANK_628041",
+    "INC_BANK_628093",
+    "INC_BANK_628504",
+    "INC_BANK_628662",
+    "INC_BANK_628960",
+    "INC_BANK_628964",
+    "INC_BANK_629041",
+    "INC_BANK_629157",
+    "INC_BANK_629570",
+    "INC_BANK_629780",
+    "INC_BANK_629799",
+    "INC_BANK_629812",
+    "INC_BANK_629906",
+    "INC_BANK_630138",
+    "INC_BANK_630594",
+    "INC_BANK_630872",
+    "INC_BANK_631238",
+    "INC_BANK_632018",
+    "INC_BANK_632208",
+    "INC_BANK_633049",
+    "INC_BANK_633053",
+    "INC_BANK_633145",
+    "INC_BANK_633181",
+    "INC_BANK_633456",
+    "INC_BANK_633910",
+    "INC_BANK_633954",
+    "INC_BANK_634564",
+    "INC_BANK_634573",
+    "INC_BANK_634614",
+    "INC_BANK_635235",
+    "INC_BANK_645004",
+    "INC_BANK_645038",
+    "INC_BANK_663624",
+    "INC_BANK_669244",
+    "INC_BANK_669315"
+  ],
+  "include_analysis": true,
+  "run_id": null,
+  "file_count": 568,
+  "files": [
+    {
+      "path": "ARTIFACT_BOUNDARY.md",
+      "sha256": "63ff7caebe4d2deedc72a3423053a27b50fef1ceafcf83cb632f6ee37c4b80a2"
+    },
+    {
+      "path": "ARTIFACT_README.md",
+      "sha256": "15fa116cae8fc11e7f05f78bbf7ae1f9389d7dcd9e371ac01b987b8cccb2c4d0"
+    },
+    {
+      "path": "EVAL_PROTOCOL.md",
+      "sha256": "b4801f0f9414380517821dc8733cec0d2eb0406d949422137cb08eac7bb7a2c1"
+    },
+    {
+      "path": "README.md",
+      "sha256": "bf219935a8124551520d550d144c49d69b56bc3430315f9607faacb82d31cb19"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/evidence/source_manifest.json",
+      "sha256": "56610dc4745c3fea48392909fc75793f4059db105388fa24154f5d70ed24f5e9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/incident_human_actions.jsonl",
+      "sha256": "db14976e8e9cef6b2cfeb5b81e8603d0229a0d5d7d2264d6d2d82c628785ace3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/incident_meta.json",
+      "sha256": "e0f1df342bc38984d8d986109f01764e244d51f644c7a46c39df5b479dcac50f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/incident_telemetry.jsonl",
+      "sha256": "e424aa2f9fabc859a9e6b18f90824e44f0bd528d767e08ec0e8c49464798ed27"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_464030/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_464030/evidence/source_manifest.json",
+      "sha256": "e890ad647c76160d3b22ae72c10c2969c47b8aae7a16f06f7aedd8607ab9161a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_464030/incident_human_actions.jsonl",
+      "sha256": "8e0e937910a5ee263d34b701f420d158129a035a78d206990692247ea8ff8cd6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_464030/incident_meta.json",
+      "sha256": "ef9d741a255d18f7306c13e1e1ccc05a019aec7513153d8d54f8320f3290e6f0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_464030/incident_telemetry.jsonl",
+      "sha256": "dc5f7c482f0c5837b2718c001e9751657fe027ce60ddd700702d29e91683daee"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/evidence/source_manifest.json",
+      "sha256": "48d1c2554211344ae2024614529211d016970d24d22bd55ba87a0c02bea80625"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/incident_human_actions.jsonl",
+      "sha256": "5b360c03677fa6aa809ce6ae2550409b943a313b56bc339a8d30f1eb5a347796"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/incident_meta.json",
+      "sha256": "f170e5d169eebddb2940c86ea4aa1f57609f90146ade947008d96606c77418d3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/incident_telemetry.jsonl",
+      "sha256": "367602938039fe6e76e260c6d738c9a9f8fc0ec77c9ed3f97ff5b36fb53f4e3e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_516957/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_516957/evidence/source_manifest.json",
+      "sha256": "5aa592091892ac5a5eeea1c6605a9bbee0b2e2dfb4fc7881f51f54a978680135"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_516957/incident_human_actions.jsonl",
+      "sha256": "b2f39cb7e24fa6de489e39cdf07e6bfa1a9d11f10b49a3cace7248d625d45d44"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_516957/incident_meta.json",
+      "sha256": "6370a233022e497f7a20ac83a90a32d10a22f93217e60766105349ddbfc06155"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_516957/incident_telemetry.jsonl",
+      "sha256": "f951e0a9f6f1fc7506eba90a506448af222a9553ccce9c971642185e5f7c78c3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/evidence/source_manifest.json",
+      "sha256": "eaa2353bf31253ee8f8560de37deed36dedd9ad3cffccbee8660d34f747b4dd5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/incident_human_actions.jsonl",
+      "sha256": "33332fd1ebd1b97eede1e897d6b8b790ff00bb681137ab6eb3997844fb5b4fd0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/incident_meta.json",
+      "sha256": "e2e2f05cecc5d773798a15f8959ce3f5dfa5f5fc265969d3f487d3322db883e6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/incident_telemetry.jsonl",
+      "sha256": "2ce1bd6d37605157268e7ee2b795119e1e362dfbf8d98c61d736517d3fec204e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_541678/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_541678/evidence/source_manifest.json",
+      "sha256": "89592f48529c4e2a7dbff9c1455b46b91114b91aad81ff165850ed73bfee43e7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_541678/incident_human_actions.jsonl",
+      "sha256": "e65a2d733963911c8025db66a38f08488fb5b3655b6e3ce030d15329e60d50a4"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_541678/incident_meta.json",
+      "sha256": "ce962c6527e50d3b8c1989dee77029abf9651b959b3aacc5c2a3f739ca07793a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_541678/incident_telemetry.jsonl",
+      "sha256": "01a75c1173d092e09ca81dbf815439f30135cf6da480f4a4bdea1dfb0ae46130"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/evidence/conversion_quality.json",
+      "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/evidence/source_manifest.json",
+      "sha256": "5c1ad4dba1ff08c7fee200db4a2b78cbdde2589abeea1fbce8221ebfb9d46099"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/incident_human_actions.jsonl",
+      "sha256": "2a5687852d1f61e41b450dc8ff3dd9c4344170f93d8f64782207770cafe3a714"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/incident_meta.json",
+      "sha256": "6bb175bec5a185bd1051259ac50270266d51b964a40ee38b535e0b3b73373565"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/incident_telemetry.jsonl",
+      "sha256": "545eb8b398f3d1969ea35bac4853d953e37508c99199969c71c859ca7b1f4cf0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_586647/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_586647/evidence/source_manifest.json",
+      "sha256": "4e6c79849ceac831d5c28e9004c71a6824997d3370a4dca228bbca17b12c7db3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_586647/incident_human_actions.jsonl",
+      "sha256": "be77a36c2a9ca1aacde4e58c63f7574bb044d979b9e22e407f9d023cf27530c0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_586647/incident_meta.json",
+      "sha256": "1100a3d971ea6a0c2aa5a2095219e5bde3cdefe3ae16ea3dc7e44df0401ad0ad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_586647/incident_telemetry.jsonl",
+      "sha256": "e6a5f7ee77526e9539ef42ce0a50bb27b3882cb766ebd6d606d6fa8c41893d2c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/evidence/conversion_quality.json",
+      "sha256": "e822d467a8b96d3bca3a3fcd06e23f279d72eb415b5a1766a98bb7abfd100a8d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/evidence/source_manifest.json",
+      "sha256": "a5910c20bd94b0aee91a69a0d71c44ce32424256b87e3b3ee730f6ac88006508"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/incident_human_actions.jsonl",
+      "sha256": "f3bde543a01064b579eb109ce9fa633b3985cb0c223539675bb395acc15c24e1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/incident_meta.json",
+      "sha256": "a5f91e5e1d6d598f212423f86326a21c7ee03703dbcec3f845df87099a372785"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/incident_telemetry.jsonl",
+      "sha256": "ec1ba2206e5a363bd49987cd86eb97129a80c46604fba9448f34ab2405c9e0ca"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593037/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593037/evidence/source_manifest.json",
+      "sha256": "f371942025d7139c05acdb476ffbdd3a0d2ba8d62c9a199031752bdf1996207a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593037/incident_human_actions.jsonl",
+      "sha256": "abd11246329a18851155fad09b93077fa7ccd2b49a4faadb8431db1ca6a760c3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593037/incident_meta.json",
+      "sha256": "5af42eedd4e0aaba0ce0881af48c9dbd2a01010c464476f8a38f63db86dae008"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593037/incident_telemetry.jsonl",
+      "sha256": "01e5a53d1fad882e009ed06b8071bca8416b6f152086f7cf0804ac501081cdf6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/evidence/source_manifest.json",
+      "sha256": "9ed7ea8b87fc956c60475b97eb6e6ab0184ed05a22d55335bf72bdc745058a9b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/incident_human_actions.jsonl",
+      "sha256": "5361c22238c0786851b2f75c42880a1e319d36c73cae80e6ab5412fe5ae411f1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/incident_meta.json",
+      "sha256": "066c215df175309572dc4261fd85708cb77b5c1d5939360aab0fc22819ee5e3e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/incident_telemetry.jsonl",
+      "sha256": "1aa9f378fbaef7351d59e44da40f443eb2aface8800b14e5ad1e4f4d41d75734"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593686/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593686/evidence/source_manifest.json",
+      "sha256": "94ab4a5f8dd3b286e7fa655a0b96990939bd9ed0442a7f25647cc05fc46167c8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593686/incident_human_actions.jsonl",
+      "sha256": "596c3d936399dc93057e86b5c79ec140e101ee0b136d0a2e528a00a898b90e06"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593686/incident_meta.json",
+      "sha256": "a35a0772a6236321cc3db8fa0fb0737c44d7d5162ab3c7532f0b17e98e89bac7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593686/incident_telemetry.jsonl",
+      "sha256": "328240ddfca2728f9040bf1602e3a9324ad52a22b328ccf385658477db8bef1a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/evidence/conversion_quality.json",
+      "sha256": "902aa2d687c2f8b32ebad990cd3ac49732a1cf76f67bc2d2fe67351f619a6615"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/evidence/source_manifest.json",
+      "sha256": "d31681630584cb5703364ab5cdb333784e7a8effbbd45f709ccb39036a99d8eb"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/incident_human_actions.jsonl",
+      "sha256": "80d8deacd3e98798ed2e6da20dbe75dfecaf7d974d52581e80f984493428d1cd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/incident_meta.json",
+      "sha256": "4650b76326df82d4c95f0cb613b719433419e731f3be2accc973dc4857ad7f20"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/incident_telemetry.jsonl",
+      "sha256": "f05db3af27a85bf2b1a7f13d3bdbe6652b09ee2833e7f41dc1441bd36cae6b48"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598381/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598381/evidence/source_manifest.json",
+      "sha256": "1d1530599a715aeb920859f2d183da08d3cfb6c46f776b567eb15ac7b36bda3d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598381/incident_human_actions.jsonl",
+      "sha256": "efe013f146913704fe162e2f3a8c93933209c2cf8ee849ff5d685aee6c2def15"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598381/incident_meta.json",
+      "sha256": "526d7436143774ee480e60c9f1a14d738d1f621a31166af069a55bcd70a76b91"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598381/incident_telemetry.jsonl",
+      "sha256": "a18f55d29ad35590d85d07ba81ed7f2cedb37aa65d3a651587e3109defe7e678"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/evidence/source_manifest.json",
+      "sha256": "6ffa3584dd8b4347315fafd88188a203f7c804c435b96ca65ea6fd27e61d2299"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/incident_human_actions.jsonl",
+      "sha256": "4a2796b9604869145fff1ae0737f34002cadd138d4947cd89747a1954d6ec8fe"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/incident_meta.json",
+      "sha256": "a320bd3f00ed5892782f641b90aa366af63e7c85fbd2b3a119fc378ba9a73083"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/incident_telemetry.jsonl",
+      "sha256": "d664ecca0e437e40a5700a0054ec1cc2966b7444df1848435b98d5e257efaa54"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599638/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599638/evidence/source_manifest.json",
+      "sha256": "32365d8f60c3be4de97bd3f21fc71e15b38bc959090d3706888837171548ce2e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599638/incident_human_actions.jsonl",
+      "sha256": "671701c4b3526c148be236d9096afb6fc2d84dc18ae820cb8f81cebad66827c6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599638/incident_meta.json",
+      "sha256": "88d2e50ee4a584588e4e81bb69419e1a85b46ede3fabb35d9e5cfe1fcad8c8de"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599638/incident_telemetry.jsonl",
+      "sha256": "cf4ecb7e665d297e99c28618c85bfe40060d199e125a349215a388ead57b53dd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/evidence/source_manifest.json",
+      "sha256": "1016574df59228c15fd0fa36dbf3d9bd4768603d9197339f058b43ac4b390746"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/incident_human_actions.jsonl",
+      "sha256": "e220b891aaa9681aa8caf545ed094795ae31c5ece545b3d7d1084db24a897e37"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/incident_meta.json",
+      "sha256": "a9ed6b2d4e517ef8489dfd34479c422c29c307b0d32277c05fea6eacf57dd02a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/incident_telemetry.jsonl",
+      "sha256": "112a80d4b7af80863ff8cba94768b467352e32103a1d79f83b790213bceb5855"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599902/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599902/evidence/source_manifest.json",
+      "sha256": "e69cefab21a3c26189c6295ad55750df9c4a879450d3575f2ea471f10834a715"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599902/incident_human_actions.jsonl",
+      "sha256": "d07455e576c2375f387b2766b4e20b20356033699218994903efa3a7fb805891"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599902/incident_meta.json",
+      "sha256": "e88f5bdbb502116b2f01404c1da16f85462d3013d437b2da30713ed4106a1719"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599902/incident_telemetry.jsonl",
+      "sha256": "55bc208e9c20497d0bffcc7e19395fd9822c0e0b9678156a316ac87f8712f54e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/evidence/source_manifest.json",
+      "sha256": "dd67818b280d3e258ea6c799e543a18e39e903e4a92a5d966515d17440c16bb3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/incident_human_actions.jsonl",
+      "sha256": "ee892e70ab2ad03ea51a33c474a9dfe81a32633fee72a9f63c2ea5ecc8044642"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/incident_meta.json",
+      "sha256": "dc233ede835f9273af9bb04d8b3917980e64ace4eacf5ea17f6b707d2a51e463"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/incident_telemetry.jsonl",
+      "sha256": "04c29edb661534c99e4f43bf9c00ec9ad0962348d0b1216dc380d0e00f98865b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600272/evidence/conversion_quality.json",
+      "sha256": "287c5b84a8b61cfbf68b2aa4ac7f20cdb184e63b72d315daf4561af3c765e62f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600272/evidence/source_manifest.json",
+      "sha256": "8e8bd1df479e6efea2ae806e131d11262c21e22b051b9a999ca22debb2d1e455"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600272/incident_human_actions.jsonl",
+      "sha256": "3d18ae36a14af76853e574dc508b0734ab96fa04615da4a563329fd3f0924f91"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600272/incident_meta.json",
+      "sha256": "0e239dcc19a2b0b1faa7b39f67cd0404d320c43c46087455d7efe884e0b74c94"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600272/incident_telemetry.jsonl",
+      "sha256": "7fc94bcfcc500f351a9dcff84cfb4513834d3398733bbdb560042fe2292577d5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/evidence/source_manifest.json",
+      "sha256": "13b9fd4f7d6f92aebd83cf402f3981b79039fbad6e811ea937d4a3088b3b5c86"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/incident_human_actions.jsonl",
+      "sha256": "1253f89f0be7fc48616e1f654c3d2989f13facc9b45b490d838d4c04d7575512"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/incident_meta.json",
+      "sha256": "37b09175f1201c8d4477e032f80edcd9a91c86d27c5fd2cd752adb0efebb1499"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/incident_telemetry.jsonl",
+      "sha256": "60e06d66e23e4e782f01cda9c3133484fdbdec0781e1dfffe9f256a9db8481b2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601209/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601209/evidence/source_manifest.json",
+      "sha256": "692cb98afaec724ffa56a6b64dfd14c9b15afd01ad60f17c506d36a33db2d0b9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601209/incident_human_actions.jsonl",
+      "sha256": "2300c0ffeb6832116ec3f6a16fa5614785c387bb197a7920a0f9fd931afd316c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601209/incident_meta.json",
+      "sha256": "2faa67bcc19ff0e3187e43596dad0f13656a0dcb0c5231457cd1ccdba340d9db"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601209/incident_telemetry.jsonl",
+      "sha256": "b0459b071d417cf84fda01cafd0792a26e681deb95ac938dc0a28ad14043452b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/evidence/source_manifest.json",
+      "sha256": "3bb2875a819865698f93dbe9dfac4de88aa989f827d32fad7eeab8f426655f48"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/incident_human_actions.jsonl",
+      "sha256": "456e50eaebc0e396e1443cd05c0aa1b9d08509d7e0cb10d229d258a907565b89"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/incident_meta.json",
+      "sha256": "a16d6c49c7ddfb29d53a178f2447e1c8ef0025e23f5dd5d70bcdddaea41161ed"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/incident_telemetry.jsonl",
+      "sha256": "193e4400033dc229c15a0e60e6d11668863c8f3e86c4b17241ee29180ba0f5ab"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601274/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601274/evidence/source_manifest.json",
+      "sha256": "4c662d0d64bbbf9504c588946e13865c6eb1061b1b5c9d9ccce95bd7a17fc465"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601274/incident_human_actions.jsonl",
+      "sha256": "1105b3e51457e96e400dd3e032629268a57df5d42776a7c8c3b48d42f7b91c05"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601274/incident_meta.json",
+      "sha256": "9980c9a889e9dc96927423d57fb4b5ca3e26cf28f092227b0882b5592b8319c6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601274/incident_telemetry.jsonl",
+      "sha256": "f4be4b941ff659c7afc0c5b07bbeffc3ec76097c0aff638d87de6855477dd2f5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/evidence/source_manifest.json",
+      "sha256": "91ba1b5521e4c74a219a0ec3785e93f3d9a83ff0dd4d7efc076e9605bc422903"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/incident_human_actions.jsonl",
+      "sha256": "f550a34cc4950a55abca3de46484839c16fe5a6c4efd91a01b0121b5ee4c445a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/incident_meta.json",
+      "sha256": "2c3434deb1d6ccb1e165551958b039042c0c4f048a4f46b7193cf2c19ecf79ab"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/incident_telemetry.jsonl",
+      "sha256": "93e46fb242096de559b9cd66def26a97dcd59a2a807b463cc1523016719459ad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601925/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601925/evidence/source_manifest.json",
+      "sha256": "0bd50193f311f4e78bdd73cb9ba1838854e425d2a16ef87c4c70301c93000c94"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601925/incident_human_actions.jsonl",
+      "sha256": "0f87759e4ee31dacf37e744d4001df36d2b098f8c07570be1202d0687b38d4ab"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601925/incident_meta.json",
+      "sha256": "c0f355f8544ff7e110870c68d63631f17cea5e385b358f8433b96005451d52c9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601925/incident_telemetry.jsonl",
+      "sha256": "fee66001941b763692ce33d4adba19c4bdc38dcb027464928834c9c480beff3e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/evidence/source_manifest.json",
+      "sha256": "0b5c55d73edf334c764982a135ac28533d920d5bea779b70c7e837d96ecf62ac"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/incident_human_actions.jsonl",
+      "sha256": "f9b38a8ed48fcc93bb43c66e41104d4ed09ae27df48f0b59142db278dcb8553e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/incident_meta.json",
+      "sha256": "406d7e22960c9826e989592ed67659f8e9561ebcf8f3bffcfba7985b99546d4a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/incident_telemetry.jsonl",
+      "sha256": "ba831449503f09964dccf1f7a20752485e175e0522af78b43c50a4177bb2e4c2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603383/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603383/evidence/source_manifest.json",
+      "sha256": "7a23ebd04ca6d629fbd7019de1aa0a8fc21447acfc6b9566fff745e103c1d942"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603383/incident_human_actions.jsonl",
+      "sha256": "1ed8053d16f8d24eff5645012b96205df36c801c5430f854f5fca705795a72e6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603383/incident_meta.json",
+      "sha256": "7ff011e69146457618e3b4fa43706527293550c5dbe9d8fcb2dae481a7f956ad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603383/incident_telemetry.jsonl",
+      "sha256": "2247c2f6506e63abb5a95d038dddfdb9a815275029f494d3d4753d58fa07e9f8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/evidence/source_manifest.json",
+      "sha256": "d6460e5f5b7ea7d37e00324ed1bcd525917aec5e2cb09fe95b98d81dee5fcb2e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/incident_human_actions.jsonl",
+      "sha256": "512342cc142d6c259ef7ec37c69041deafb6c17814c44f38020a03b47a8b91ad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/incident_meta.json",
+      "sha256": "f09b1bbf0a2fd8769171a93faef78f982d11c614a371dd636692e527d413f3fb"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/incident_telemetry.jsonl",
+      "sha256": "456b6fcf6ff1e011aea5e300c52f24969d8230724a6ca25276ecf6b908a5229d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603615/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603615/evidence/source_manifest.json",
+      "sha256": "48f837b77b937fa65b40c334997bd398816493faee9bc31d188169022d42c367"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603615/incident_human_actions.jsonl",
+      "sha256": "3ee781943f18c04caff3de7d88e2c8134269e297baa16dc64ca922080572bd98"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603615/incident_meta.json",
+      "sha256": "8557f869f711ffb348bd8ca02e8df461cab7fa5d7dd0c731d17120c4cbc18dd8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603615/incident_telemetry.jsonl",
+      "sha256": "b22151da63bb130c109d644ed0fef5a03fe953e766f8d7145c1f4d411d7ab35c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/evidence/source_manifest.json",
+      "sha256": "39761a78d483fc0732e311763800b782c99ba18481707e2b6b45fd2952b75fd8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/incident_human_actions.jsonl",
+      "sha256": "e75ada03a73d62bb3c9f2cc7ac01d160e973a9d9d9cd5c100d29421a4aaeb20f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/incident_meta.json",
+      "sha256": "ae24b18d2282f118d79335c61f9013f4c8bfac13d56dc7ab393ee53039063424"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/incident_telemetry.jsonl",
+      "sha256": "b9c6d7d7253a8b242708ea28fb1e4c62cee2c1b8808d24bf4f3150e5ff0abbad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603700/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603700/evidence/source_manifest.json",
+      "sha256": "532aa8139fd2fcdbac611245830736932483dece35601b0c3b6708f03cca2e9f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603700/incident_human_actions.jsonl",
+      "sha256": "eebd71d7c2229c9db99970b7b348259cdba38b3daa6312c9f0bc6e38f71f200d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603700/incident_meta.json",
+      "sha256": "4d73519e25039d76a66215fb5e3ebcc2da730a4cf322c975cd42d5f2b4a2461e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603700/incident_telemetry.jsonl",
+      "sha256": "33649e90a1838921fead17b6a676c56f3e7e528e4a7cbd7c1ffff83a63ef90f6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/evidence/source_manifest.json",
+      "sha256": "88c9536bab4fed62cbc9976055f2ab69b288c6f912cc572a2afc60e6624ddf99"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/incident_human_actions.jsonl",
+      "sha256": "23f8dca526f0f821a33241a304b90fc5772ed0e4dbc9846fc9d6bcc8bad6d4c5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/incident_meta.json",
+      "sha256": "ac474aa62a45ad4ab5d62c88dc1ac0c8421b3031b191c1b060a82eaf8dd9cf8f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/incident_telemetry.jsonl",
+      "sha256": "9df0e3c21c306f004415ed0551e891fd11cb089660cf90d9d40615e00bc81b60"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603915/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603915/evidence/source_manifest.json",
+      "sha256": "85804159d838e7cc6c9ff89ccc89c45fba516b20ae949f27f52e2649000e170f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603915/incident_human_actions.jsonl",
+      "sha256": "a9af11190e420520377d926093c69c9baa05eeddee65dda1504436076efe6098"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603915/incident_meta.json",
+      "sha256": "4ed5f5992d5da73c230c6d1618a7f744b5ae4656c960cb239ab6146b4d47e4c7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603915/incident_telemetry.jsonl",
+      "sha256": "fb33ff73ac000ee105a41098f699b2752e054cfb9d50365e9c592ff61103cfb5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/evidence/source_manifest.json",
+      "sha256": "14a8b40fb5423bc19944592baa45c99f36d072a37c282f43ab4c8eb9dc297760"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/incident_human_actions.jsonl",
+      "sha256": "7d7c41186b47bddc2d1a6db21e7d43fd12593b8f674101180761cea2e4e17d80"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/incident_meta.json",
+      "sha256": "dcd7f42dfa68dbf293e5bcdc78e01a20177f32e27635ccb3ee88e498107afc82"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/incident_telemetry.jsonl",
+      "sha256": "c6f66d453ca2cc298c6101de8e975ae4454efd717a9a5f6b7988fca0a82f5ecc"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604576/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604576/evidence/source_manifest.json",
+      "sha256": "66ae76668a3692139591ffd51cc8ec79fb30ccd302c3b055aed3f29d30d80716"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604576/incident_human_actions.jsonl",
+      "sha256": "41264b44b887f707699165461029dc58a311dfd964cbcb6d2baee65958e02307"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604576/incident_meta.json",
+      "sha256": "7c98ceb8708b7935e616f775381b969c38b1e83c61498a83a707f41cb5c222b7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604576/incident_telemetry.jsonl",
+      "sha256": "4d94a528be26d8a90efde1d38310e0104f8e8070d96aab0e3a6e5ae28d0035a5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/evidence/source_manifest.json",
+      "sha256": "51ee9ae3f18d02e0d3a5a481872ed17f6b4522bc5fcbe77edb1c1d4af26ecb34"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/incident_human_actions.jsonl",
+      "sha256": "89ed8caa0175169fe7201a77308f7ec5f95d166c35ee934b12357d40e1373981"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/incident_meta.json",
+      "sha256": "d396951bebc091c9b923a2a15d5865e3d85642777067884fde6327ae42a1b0ef"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/incident_telemetry.jsonl",
+      "sha256": "568dedf46eb302d68bda06ac62d04303b910537cb051a7d975bbf7ce14dce469"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604857/evidence/conversion_quality.json",
+      "sha256": "d363ccd0cc33b80381577f38e8e1a936892aa09fe403e0c199b0c4a1be97ea3b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604857/evidence/source_manifest.json",
+      "sha256": "6082953c71d21d0a81e231101ee43145265b67756dfcf73e3fad34774f5a6de1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604857/incident_human_actions.jsonl",
+      "sha256": "a7486f6a97adba381e8c42a95f6fcc7b17f114926876bd7fc319f1d1b9ab4e2e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604857/incident_meta.json",
+      "sha256": "362f9fdeb9f55002bcf6893e0433cb2593db849f40a7764d8387ef5b9fa12ae3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604857/incident_telemetry.jsonl",
+      "sha256": "be4b65b1ca4e916a1eab788b5605dc35bc6be9a4e529da1f2de3162a7fc14d66"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/evidence/source_manifest.json",
+      "sha256": "274b653e510cdcc484b91277ccd3e9ff93e2312b2a07c700a27e9f24c39617ac"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/incident_human_actions.jsonl",
+      "sha256": "c8dd73c2baf50912363e24843749f061f0fa656403d4640c9b54cf2e9ed8c69a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/incident_meta.json",
+      "sha256": "04a480b2bfaeb811b49334e575507e9aef8e61b7e59c191a5674882f444acb76"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/incident_telemetry.jsonl",
+      "sha256": "70d3305e7217da67f9bb5252af2243ca9def356b2377c0a437d86f521e495af0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604931/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604931/evidence/source_manifest.json",
+      "sha256": "dd677d8b14f8b75378f2b4ba0a9f15ca027072584259f8d751aa8f0b100071a3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604931/incident_human_actions.jsonl",
+      "sha256": "aa587beb890f0f650384406989341d8f04a124ba935203a236e9837cf3f8aed1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604931/incident_meta.json",
+      "sha256": "f62f0acc796c6f75f09496e500c8d6494c775c1981129f423c501648602f6d60"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604931/incident_telemetry.jsonl",
+      "sha256": "dcd0266c72760cb51976e7695ce25bdd495a545ff30acbf2192a536a9674531d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/evidence/source_manifest.json",
+      "sha256": "305dc51e4efcb0dac33a8706506e48a37b7afb6460c08cdb56f5d919f89bac82"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/incident_human_actions.jsonl",
+      "sha256": "11dc2158f7524ef47e4bd0db31361f8b3aa5827b2a4c4da2d97436e4609986c2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/incident_meta.json",
+      "sha256": "80856e0ff78c61aa2adc9545f392130c7110d3f5fcdeb4724844dc8d05a67bd6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/incident_telemetry.jsonl",
+      "sha256": "d3ae6f2236ffa1c4884395fc9f70fa01b2d071237809c2857514e419dce2f8c6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605540/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605540/evidence/source_manifest.json",
+      "sha256": "f4bc031b2e2c23c7b68b3f80b1283b42afd3b83ca7cdf8ff34447ee35dd9d1fd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605540/incident_human_actions.jsonl",
+      "sha256": "d21deb73dae41f3455480f69c052817f01312f2cbbd4baba693b5e070de4f484"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605540/incident_meta.json",
+      "sha256": "7edf4bb769d8b65c8c09d0dee33edb38654e375230800b028ccd6fb0a7ab01d3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605540/incident_telemetry.jsonl",
+      "sha256": "fdbff9450f631f039b3598b524280ab2eefe9dfd66774a58f2eb8f1f28e81a12"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/evidence/source_manifest.json",
+      "sha256": "5bc47085048651b68e26b369d869307a9ba9bb125d7d2ffd73df199f1d0a7a99"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/incident_human_actions.jsonl",
+      "sha256": "7ca04605d5d1384bd52ba89db7aeed6845b7ec82b1d37d7bcc95fe5d2569d2ff"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/incident_meta.json",
+      "sha256": "60a7ab7c013433120ad3992522cce8c9b0e31f52b053a7825dc584474c803ddf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/incident_telemetry.jsonl",
+      "sha256": "85003b33c7385e4ac2e84756a2472e5fe99b7121d3fea100b2534f3401e0730b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605755/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605755/evidence/source_manifest.json",
+      "sha256": "d348ec08682774a56a3040159ac2a1ec71637e026104a6ebed154ca82424609b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605755/incident_human_actions.jsonl",
+      "sha256": "11d35e9f23a193243306f4fa24ea307ff89c9b6837aea201877cf3f74f2f1c6d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605755/incident_meta.json",
+      "sha256": "d1787e98e95fe5bb403dff26722a2df10f0aa1c18faad3006d6ef21f1c793e04"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605755/incident_telemetry.jsonl",
+      "sha256": "3fb0e72eb36f96aaf8e930181bbacad7ca5a05f9db5437758bdc90b55ef4ac9f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/evidence/source_manifest.json",
+      "sha256": "14f95c0593f5314ab05ea718a9766c3ddb9525c55d9a0b6a3352b84f3fcfda12"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/incident_human_actions.jsonl",
+      "sha256": "cd51d846e70c9adf86a0006e9e28bb0d517064f7e732af5f5c081aa00557a571"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/incident_meta.json",
+      "sha256": "be8028a09b8c3d83da199a9e214726446673b74e7d86f4b82d328196798b3f7a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/incident_telemetry.jsonl",
+      "sha256": "aebf85abbaae8cebf8e8f3bb836603dcc3aa340e90335b88c1b732d280515fda"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605783/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605783/evidence/source_manifest.json",
+      "sha256": "5ae973e6eed51c8a621301994dd9405c3b39d2c1d059f8bd1747c25fbe072cae"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605783/incident_human_actions.jsonl",
+      "sha256": "fb187fee5596f3521ffbe6f166e7b55410dd3d07d42d3f08b4f2bc690c5432f3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605783/incident_meta.json",
+      "sha256": "8f72f354e1bfbb8b3b0f048be5bd152d6974229c46d4ac66f171fd3094e100cd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605783/incident_telemetry.jsonl",
+      "sha256": "a84e4206d683ecc801714b2b5fdae45afa83e86698fe2a26e2b2ecbf8e522092"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/evidence/source_manifest.json",
+      "sha256": "80113d6a7abf215e76bb8ea9b9d930614f1a9d6af0a7fdb0aaadd39ba9eb0459"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/incident_human_actions.jsonl",
+      "sha256": "0ccd0d6fc4cb658ce7b52e56e44322f8d222143a2846829fb4759d9f8621afb6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/incident_meta.json",
+      "sha256": "df35420c627ab352ee88e5005c229c67d94fbc2b30cf1e86946b7fe6a6d3a299"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/incident_telemetry.jsonl",
+      "sha256": "04b3bc01efe469e5b8cba27f41591335d1d1e0e45bd6b083341f8006f50998c9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606638/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606638/evidence/source_manifest.json",
+      "sha256": "1ba7182c6804c3860004430d425ecb8c1e9d921437cdcda432f556e41a93c94c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606638/incident_human_actions.jsonl",
+      "sha256": "ee8037945ccc1fca2d8d00ac7595012601babfbf15966098e127e94893594e92"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606638/incident_meta.json",
+      "sha256": "4e15447e5a381e2b003f2aee953e00848e327c12d576b77863c3df03b46e4c91"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606638/incident_telemetry.jsonl",
+      "sha256": "2bedac0cfe58e48e4ef7facab477540a808dc6c2aaed7ec0047218491a2d815b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/evidence/source_manifest.json",
+      "sha256": "a3bd354bb0e9b275f378f1ad59e6f212f8a770e2812ff63976a9e7b64f192d85"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/incident_human_actions.jsonl",
+      "sha256": "febe4573c47e4dd89c97c4fbf7a44c5ef6630af4c9069323de00f78d7ac0be0e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/incident_meta.json",
+      "sha256": "c36a023f349772778105b8996fe9ba9630dbf6979f65d3a204d552175f1d02ab"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/incident_telemetry.jsonl",
+      "sha256": "0a2f8ff15ae86b147689bc4fe2385d89dd05102002f2c955bcffc9a46ea33908"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606641/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606641/evidence/source_manifest.json",
+      "sha256": "30b9138e58958ad7b8a2a70d657287406d6e2124130ea3d27bda16471af4d32f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606641/incident_human_actions.jsonl",
+      "sha256": "5a84e9d33fff4632b460f4f7fc9ab9626490fefd17d322cb1732d5cbc6c2ec4a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606641/incident_meta.json",
+      "sha256": "1e0a1b67b7a9742c3fa16be32b4af9b0faa89a17910aa5ebf02319bd39922da7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606641/incident_telemetry.jsonl",
+      "sha256": "7fadb4a8381234dd831772886579a2c9fd92baedacc7118cb3d0984b846bc770"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/evidence/source_manifest.json",
+      "sha256": "5e31c75002e65895e6da008ea8ec004312725f38ea5deffd618403021fb4dba3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/incident_human_actions.jsonl",
+      "sha256": "e817d9fb79f0a4f1e84065c332a54c72a998397f93bd25041f8f3f5f5d77ed85"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/incident_meta.json",
+      "sha256": "678b5a66c930d4faa7f50c5f920cf9917260a1cb362fe9718d7b1715db1f461c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/incident_telemetry.jsonl",
+      "sha256": "69c98703b59d2a53e6391183ea6141968396aeda8de2e2ddb08c177abdc1a823"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607056/evidence/conversion_quality.json",
+      "sha256": "902aa2d687c2f8b32ebad990cd3ac49732a1cf76f67bc2d2fe67351f619a6615"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607056/evidence/source_manifest.json",
+      "sha256": "3bb8139c8bc7bed34037cab3f9ffb8824483647f2e77795b702bce60888cd085"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607056/incident_human_actions.jsonl",
+      "sha256": "83a7b4dcce966e9571ef56c4a5dc210c21c6d78a75061919831e4f344461b12f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607056/incident_meta.json",
+      "sha256": "d08b352b0f4ad1c6a4eba1d540e50799b339030bd88096cecd6f4d8c34ce97ac"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607056/incident_telemetry.jsonl",
+      "sha256": "53a1d4bdaced6e29c615b5a9c4605d96a2d2f98560c824b7bfd00d8f16b5bd43"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/evidence/source_manifest.json",
+      "sha256": "07d4bf05d30e51f56f5b1009f594d2a5ef6a0f0495b8ca82a57f5c3cb5b01100"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/incident_human_actions.jsonl",
+      "sha256": "5085afdb6ca46dbea5e77060bc69f651365e27e4aea2410fbf0d6e89bbfe2bec"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/incident_meta.json",
+      "sha256": "d791097f2c214d327b507c8bc5c9c9f4e1255f68587cecbbc4225b46941bfa7b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/incident_telemetry.jsonl",
+      "sha256": "99838ff00447a6512d36c475b6e813474aa424eeb71db7cacfcc2447a98d61e6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607193/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607193/evidence/source_manifest.json",
+      "sha256": "5a4b3fa9f1edeb9fcf3498e759dc3022dac009fcef0e11ce69633f50dc14bfa6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607193/incident_human_actions.jsonl",
+      "sha256": "b118d6c44b8fdca6b0967f1299b6a7179f999a6b3e90c44ae8c151546e088c2b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607193/incident_meta.json",
+      "sha256": "5334d3ad023f79c7c496993cefbc0910adbc991277ffede476773248bb205afe"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607193/incident_telemetry.jsonl",
+      "sha256": "37d72c845133e38b65476c8fba02b50535fedea143f7d97b1f3e339855eab5e5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/evidence/source_manifest.json",
+      "sha256": "ed7f073d98f68b71348b1b8d913b6b8352c3f249537d6169bd09ca888064016b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/incident_human_actions.jsonl",
+      "sha256": "3736b0cc54afa76dbf2d4d6c5b447177710c415fa9b4896d801a7026aee250ec"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/incident_meta.json",
+      "sha256": "5101ceaf6cf8c6f64cf456e96290ba72c665d90bf89770c84ed3bdde8e7ad381"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/incident_telemetry.jsonl",
+      "sha256": "4646074314c5f430ff74efce1818b256af01a017a99b26d6a5920bc254c96b50"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607473/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607473/evidence/source_manifest.json",
+      "sha256": "b56b38bf53fd95939627688c77d5cefbb7d79d531eff8d5f8a0f00524b38be29"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607473/incident_human_actions.jsonl",
+      "sha256": "2802f4409d88e88d80d11b41553b928e239185870163197346ea04756040a5f3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607473/incident_meta.json",
+      "sha256": "bfca342250538039faee57026e02363356f4ac087e4c4085c5c8b739fd07f21c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607473/incident_telemetry.jsonl",
+      "sha256": "f31868f733ff1ad5facbd4c20b02213badef4d4bb29eb10e43d351ee185d2d13"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/evidence/source_manifest.json",
+      "sha256": "68aecc08a4ea3f9fe339b0bfb6b935793878343c12b59910770863fbd020d5c5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/incident_human_actions.jsonl",
+      "sha256": "b25a638eea33feddecc769c9b67841d6f09024d43f75a62cd533785e388728c6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/incident_meta.json",
+      "sha256": "316051a509e2d8a19cbe699d940ecfd2abe1bf5dcb3cfca4551e0eacd4e62e05"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/incident_telemetry.jsonl",
+      "sha256": "0685679a567b40d39860b7d94ba909b2e1382ff648b9c922afdda67707b00cc1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607531/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607531/evidence/source_manifest.json",
+      "sha256": "478808a16b1ff3319eb068003fa2fe06d033b73f8534c0c831d9cf4f57877a99"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607531/incident_human_actions.jsonl",
+      "sha256": "8ab7a78ec6010eb641c983ff060605d917c8e3d5adec3108b907ff76da8f18d9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607531/incident_meta.json",
+      "sha256": "226859558236975a0b6ee9c97099bfb30b4bd415d861036e0b86b38e08ef7798"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607531/incident_telemetry.jsonl",
+      "sha256": "f467a45da5425092b44a5df63c73910b141e08dc87a870d425e21520d43f7e82"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/evidence/source_manifest.json",
+      "sha256": "ed117560438b6c9f77387d08669dc33817ecd2d1ab556dbd112ee02c93a3dc80"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/incident_human_actions.jsonl",
+      "sha256": "88b099f6fdb2fb204088db39d91e671702b8a2dd51fb31954cf8a4ac16154260"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/incident_meta.json",
+      "sha256": "a110178d116b75fa267e774347858ee439c610983ccccff0fdf8ffc1cd691627"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/incident_telemetry.jsonl",
+      "sha256": "8a698eb61c100fcb029194d5b3eae18c92598d978578591ff6cafe9f073b7473"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608187/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608187/evidence/source_manifest.json",
+      "sha256": "072ec630c226bd02447aa2ca95b0d359e77fe003ca76b19c9dac2296e1b126c1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608187/incident_human_actions.jsonl",
+      "sha256": "d98e52eeb76396cbe20bddeedc16d26020fe7dd1611dc64fb67743b94832030b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608187/incident_meta.json",
+      "sha256": "d656bf01da6390c97d261a49aa23014c6fb289f853709cd4fbfb7f825c9e3284"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608187/incident_telemetry.jsonl",
+      "sha256": "40b4d36b252439df62525c3a1db7e025f88a38ea3c5888b80804250ee72b5d4a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/evidence/source_manifest.json",
+      "sha256": "01e04258b84a330266be6ba10fa6c740db4907cd4f6a8ca3a0aef7ae5dabaa2c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/incident_human_actions.jsonl",
+      "sha256": "8c57aae7b312c4279ee6d5c3842b4028a1a685b785094f5f79459d0628ef343a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/incident_meta.json",
+      "sha256": "ebdd3b70aab0755297763450f420c5e45e806077edb70e34c58c686c4d2f5d3d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/incident_telemetry.jsonl",
+      "sha256": "10d5a3a73bfd5a5542a73e6cc045da4a2fd74551741bec9e69713531dcdafb06"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608543/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608543/evidence/source_manifest.json",
+      "sha256": "a27e6a05312649c0845819997febee8fcbc965d6fcec642a851de64be07ba415"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608543/incident_human_actions.jsonl",
+      "sha256": "e864f6bddb87c3e3968df966b75096601582524401a02e4bd9f3d0ae1db79786"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608543/incident_meta.json",
+      "sha256": "5c6d8d78685c2707919966720ce808f9bf42ea93cf4945cc233b2dc1b6e6caf9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608543/incident_telemetry.jsonl",
+      "sha256": "374607a200944a73d780aaed2f329458d6975fb32ca1aa0e51ddc3248463d836"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/evidence/source_manifest.json",
+      "sha256": "594b3e660a0ae1f38daec2ed3524ec407d92c0409fb80218047a2900220ddbb1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/incident_human_actions.jsonl",
+      "sha256": "991aa1efe57ee6586e9cb9fa87855882d5618ff4539947002feb600acb687efe"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/incident_meta.json",
+      "sha256": "3f6c7311c20c0991a8c5098083a09de85b396dafbecd50961cdf7dfa87569fbb"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/incident_telemetry.jsonl",
+      "sha256": "a890abed6b2efce1e4efb0eafa271e5a6b0305d3785986f3984b2eb360ed4495"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_610619/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_610619/evidence/source_manifest.json",
+      "sha256": "98a4dafd814b6f31b2dbc0c65339350cfaadf097b424befc2e9bc287b566a38d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_610619/incident_human_actions.jsonl",
+      "sha256": "7bb37bf20c9d2354f6dae3c53685e8d1c063a02865b3b81c42d43069fa2cdc1d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_610619/incident_meta.json",
+      "sha256": "fadf4960986ccce3ae22d48e17dd28face97f758fdf17b4a300ab72ac124908f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_610619/incident_telemetry.jsonl",
+      "sha256": "9cf2152b57c5f9bc6839a557a27bcac307939b5095d9b198e0919474669f3080"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/evidence/source_manifest.json",
+      "sha256": "02974b1a4d2328c0012cdc05f48d69a4b86c17bfa4b732c6be7ab2b3186f550d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/incident_human_actions.jsonl",
+      "sha256": "7e2fcd8f3602940a57195d34ea8e741ca4bedb1d4ac8837988345ca8bbe126f3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/incident_meta.json",
+      "sha256": "b0a6a4284bcbf61b8cd227b346927a1fb4ade02fdb4614d77eaa3e3f5bac3cb0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/incident_telemetry.jsonl",
+      "sha256": "ee000edc56326c789c21181809320fc415f8b7d15cbd51a6247dec29b75130d0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628041/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628041/evidence/source_manifest.json",
+      "sha256": "de4cdce5b8ca3fd8c4c80d8e2208cecd4e46f42c2e66340d22bbb933fb5b98f7"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628041/incident_human_actions.jsonl",
+      "sha256": "1f3143ba172ab9e31088acff966a1477f3baa7a42b22cdfbf0577c825965c6fa"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628041/incident_meta.json",
+      "sha256": "325cf31c4aa14163ec7e5bda54f142e7badf1d9a307302afcd4b27087fe8ccfb"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628041/incident_telemetry.jsonl",
+      "sha256": "deb8b3a7d91c7cb01361af6db69dc00c325ddce46481b508f2b6e293b44e3833"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/evidence/source_manifest.json",
+      "sha256": "ddda4bea250e83a2b2cd2ebeca4ffa38e1f9e4b64cb5cb67b4c87495320d02fc"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/incident_human_actions.jsonl",
+      "sha256": "7cac5f255f194086b84e6c26b72e035c3e90704f03f6e8965ad6ff83e440585d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/incident_meta.json",
+      "sha256": "7d01dea18a6a8322266c298a8dbc40ff741a4909886b3d06e24e5a182a2b3e40"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/incident_telemetry.jsonl",
+      "sha256": "8c4113b3908b4221b0ff4137a947b429fe0391b04bf6c579112657f47554ed68"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628504/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628504/evidence/source_manifest.json",
+      "sha256": "d4d6af49e575d73f3270aa1368f57aa63d84dc57aca124dccf6af578f174cc6a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628504/incident_human_actions.jsonl",
+      "sha256": "d073aaa32291f30ac6e81f191133c550c29b02d18f99d2996fce286206bb3c6f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628504/incident_meta.json",
+      "sha256": "30504f16a520201690c07a4ef14af91aa45265ccf90920fdea45bf98cd82bc2d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628504/incident_telemetry.jsonl",
+      "sha256": "4fa5dae46835f1740b5d09e5df3a7d6f3f78ac7fdb37bca2870d30e20e0b0331"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/evidence/source_manifest.json",
+      "sha256": "2139fe1381c310f8f189ca6cab48c85d250541fdc2fe63e800f7a2e706a58aa0"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/incident_human_actions.jsonl",
+      "sha256": "911d22865bee2c758515a85d756be240a7cc2b3c6452dd2070e40fb0732793ad"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/incident_meta.json",
+      "sha256": "f7d2ab01cc5a476c2562da30b71ee74be1fb3da4b9270b0dfa2361e5925e5287"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/incident_telemetry.jsonl",
+      "sha256": "f4728c1c8abcf177ad6672c181176ddf392a14a92e49d501e82dfd616dc57f9a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628960/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628960/evidence/source_manifest.json",
+      "sha256": "1db7e75702ae234d4f8f498fb465d7acaad67a903b45e007bfc9a8bfab94ea99"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628960/incident_human_actions.jsonl",
+      "sha256": "264ea5188d2fe4c6a21d84e26f8d9d67cfa893995f70bb657d4f77accdf942c8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628960/incident_meta.json",
+      "sha256": "cfbe677fabbc4dc12dd8f468da4bdb6e630c2e34e005cb36b545f52120637986"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628960/incident_telemetry.jsonl",
+      "sha256": "1cebe2d028cab93a0cbfdc0eee036d1f003236beaa3a43c53017510e207afc9e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/evidence/source_manifest.json",
+      "sha256": "268bb7e267775713646cd766d7c1218e025dddb4b87507529fa9f6cf53f390ca"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/incident_human_actions.jsonl",
+      "sha256": "024a8e6c51793b631363458fe945dfb222315330d37fa3770764e33a7d2b47a3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/incident_meta.json",
+      "sha256": "5536ff4e8e85e3b0be6cdeb101ecb89d63625f764911c96aca97fd94cf7d9014"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/incident_telemetry.jsonl",
+      "sha256": "2429823e3c6e6cf5591ba24e9941025ae34556d8287a2fdebb99857d80bbb789"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629041/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629041/evidence/source_manifest.json",
+      "sha256": "7930ff2f046cc159bc9e2f05e32213dbdc66ab3a75f8bd1e4aeeb610fc43b3cd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629041/incident_human_actions.jsonl",
+      "sha256": "2e3bc3cbf3b32dad6e42788714516cad03de345fd45b1ce2a178dc9e1645c7a5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629041/incident_meta.json",
+      "sha256": "2bf02e178bc9dcf4eadb00c365de78cdf245a08811f4b9a15893ff19afa3eb98"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629041/incident_telemetry.jsonl",
+      "sha256": "b46d26a4babcb23bf27325f65ae2e32228fa92854b206ff8d67861650c7a7bf6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/evidence/source_manifest.json",
+      "sha256": "5fe720ce17e5e74e0b231f9ee7683fdcf9a57cd7ee77c6025be97bee11de80c3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/incident_human_actions.jsonl",
+      "sha256": "dfaf34dc2c8d954ac84ae1f321895cdf55995c6ff471ded620a2fced56445ecf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/incident_meta.json",
+      "sha256": "609378beb40a083f9612e089bc29b9ab3887fe7b74249bb9403fb1d7d9de02df"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/incident_telemetry.jsonl",
+      "sha256": "e141b5187dd8dc87858001c7dae72ad5adbe332e7d6a4b80cd51a426995bec2e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629570/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629570/evidence/source_manifest.json",
+      "sha256": "d80e5771ff0508a580125e5b2a9f95898b79ea3d2dc028e87498b75d4d665a3a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629570/incident_human_actions.jsonl",
+      "sha256": "dbe2f91a567f7d9f043d92c7ab58810f5e6029cf33bdbff3ef241bbe4e622806"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629570/incident_meta.json",
+      "sha256": "31870a40fea34d5f9cbb20bf757f814d2ac54047644bfec1a8c2455280b4ea12"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629570/incident_telemetry.jsonl",
+      "sha256": "6ab41b055eeb5e6541ae89e48cc58482cefb476e80cd20dec7d163231b7a244b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/evidence/source_manifest.json",
+      "sha256": "41446fb55dbf4de23a34911d95701a62a56dedce6cc978cdceb35a94886bb0ba"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/incident_human_actions.jsonl",
+      "sha256": "cacf2ee31c0b96f88af3d786efdfbf77d309d01c386dcfeac5e0931e5c312200"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/incident_meta.json",
+      "sha256": "d55e6c29bab99c7e337b54d461362c6a0116d8969bb93860576604fc7a01f2cf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/incident_telemetry.jsonl",
+      "sha256": "006e25edba504b2bcbdd293f3a590008cc6cca1202f352c814e730528e968ba5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629799/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629799/evidence/source_manifest.json",
+      "sha256": "d5eb7ff38ba39e0799b05f56b5dd06f15065a00253e214d155c41537ce81b83b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629799/incident_human_actions.jsonl",
+      "sha256": "f62d1785050fbec852fce7be6a928a5178177864d30434478e05118511fa5e2f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629799/incident_meta.json",
+      "sha256": "9924e7759e68faf18025b7325ceef2dce231774cf0aa0e33a6623b60ba266d6c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629799/incident_telemetry.jsonl",
+      "sha256": "8cce1ee51c4a9f05321d762b0de9b05385aa82f16635e87537dac5b00108059a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/evidence/source_manifest.json",
+      "sha256": "a14c833f5cebc4e35388b6f0d793f241a3e886ea15b6bdf410fd56ba9b90c204"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/incident_human_actions.jsonl",
+      "sha256": "97f9b9903c8c29ddc8e7ecc2f8199a15067c0867ef61092cb6a133ae080038bf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/incident_meta.json",
+      "sha256": "2af3f9ab15faa6809be962f238cee63a7d7d0eaeb2dfca037c4797a60edab506"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/incident_telemetry.jsonl",
+      "sha256": "65cb144bc7996fb25f9589442ed3e998d913d54ed4b5aa04fee9fc7447755973"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629906/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629906/evidence/source_manifest.json",
+      "sha256": "fc49e1aa4a61461a0565de44de3094de3a7b09304dd95f0d4fe973ddf9d5a018"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629906/incident_human_actions.jsonl",
+      "sha256": "99c20ab9dcc5425edb3b9c32c8f9c4d55bf9d6edbfa547727a90301c9e77b4f1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629906/incident_meta.json",
+      "sha256": "c17b1dfa7068885c2165d960f31a375caee84755cd1a4ddae2ba72fe47d17ac8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629906/incident_telemetry.jsonl",
+      "sha256": "026ed682ce46828a42985b2575872bb21748732367520712d35c4b122ce73d6b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/evidence/source_manifest.json",
+      "sha256": "e51358e80430c2d0bc4ce912c11837157c9dde6ca6b6d2b6e0b88882c11d6214"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/incident_human_actions.jsonl",
+      "sha256": "c7a16503508e78899e4aa22d2ceaf7ae14841c62c83be727c0c3e0d180c6e803"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/incident_meta.json",
+      "sha256": "aa5703dcae0a90db296bf0a209c8d6b7548420b13635ce08aa7154eca5473351"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/incident_telemetry.jsonl",
+      "sha256": "4ad418535a3f6fad6d6b9f5caee6d98201c3110b6513d48f251959e5af2c54c8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630594/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630594/evidence/source_manifest.json",
+      "sha256": "48a83052022021f7c675fe984fc4feef7f81a6e5822897da1a416dce89509533"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630594/incident_human_actions.jsonl",
+      "sha256": "f233c7e00f02d8a579c8558498eabccb63578eec99923f906758ba3358bd8d16"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630594/incident_meta.json",
+      "sha256": "f3d7f51e4ac28ca9e1b04f34f812a46ddc25ae7fce20b48c51c3b59a16196f56"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630594/incident_telemetry.jsonl",
+      "sha256": "a44b562b69912281dabd1c14e78b64147d463a2f7f3c6c573e6d338bf04fcc22"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/evidence/source_manifest.json",
+      "sha256": "62fd18f4019716a97f1f9d4b52c41424c302ac9b1757600f64c57cc003f844f6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/incident_human_actions.jsonl",
+      "sha256": "af6f711c3688fcd5faa805c3cb9dc06ea7641b4e28b6df10d84f3d143a0569ae"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/incident_meta.json",
+      "sha256": "9dc1823b492b16315909be548b07783bf31265ced2d266459feb9bdfcd6da286"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/incident_telemetry.jsonl",
+      "sha256": "6e7fcd515502c246c277ca7ff399a3f49d4cf94c98b07e6f2be3adfddb18d210"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_631238/evidence/conversion_quality.json",
+      "sha256": "287c5b84a8b61cfbf68b2aa4ac7f20cdb184e63b72d315daf4561af3c765e62f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_631238/evidence/source_manifest.json",
+      "sha256": "897741671bc174dcfec78e86d7bf43953be1f960f5b1dba9d3d1d1a5e5bf3d75"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_631238/incident_human_actions.jsonl",
+      "sha256": "2ea243d9957756eb147d5b71c9651becb719b0aec13f3aadbf1f7b401756d42e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_631238/incident_meta.json",
+      "sha256": "50f213f6c69515d8fb0752ff9b8e30dcfc586a17ef54dbbbdadc4cf0b435e013"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_631238/incident_telemetry.jsonl",
+      "sha256": "37a753873c6e7d646b9aec7fb98b0e55d1d72a58a10f0f0abcae04778a888fbf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/evidence/source_manifest.json",
+      "sha256": "b326830fd78d06c67fffe4d5c719d842175a2f26909e748b7317cc5dfa01990c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/incident_human_actions.jsonl",
+      "sha256": "f5386f3a3a2b4ebe914b30650a4b18ee8572ff398b3160da4a01a8b1de750187"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/incident_meta.json",
+      "sha256": "712d1f32ebfe0a1047457197aa269b4b82a939fd197a7a619e056f39f6d15049"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/incident_telemetry.jsonl",
+      "sha256": "79d66a3b6f95009775246035af855008cde5c844b9d5bf3b314d811b0d06b6ff"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632208/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632208/evidence/source_manifest.json",
+      "sha256": "e4e82d704706107f8f801e1bb92864c472ed82aba36c9235bf9d6d9daaa92afe"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632208/incident_human_actions.jsonl",
+      "sha256": "947f98c44384a81f5bab8db33bb32b1377cde1e16bb3d7945b34875a3ee4acab"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632208/incident_meta.json",
+      "sha256": "b90ce0884e547e3a0efe9d60943274697f8c6291c827987ebaf8d42d446815be"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632208/incident_telemetry.jsonl",
+      "sha256": "97063708ecc807f3541d01774f8c87f405bec6565c2ba41557a914dad718894f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/evidence/source_manifest.json",
+      "sha256": "8227c74101cd4ad3f396555606e4dce9e6ad7fef19f152c9664289fab0b9ae52"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/incident_human_actions.jsonl",
+      "sha256": "f6e7f543e279485713c6606e7d325dbf8ea628747fe11908ac096e449146d18e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/incident_meta.json",
+      "sha256": "0ccc1685f30d1d85f53b52e0004e72a5cfbe688b10c4040a991e2fd7e4a4d7d8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/incident_telemetry.jsonl",
+      "sha256": "8d4a94de519309b5a3611c8afb2fd65c8f18494be124c2b43095affd49aa7732"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633053/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633053/evidence/source_manifest.json",
+      "sha256": "fd6f8c73ec9a1a93155b6684d6e281218804f80c9e8f6205233e9bc22be84dd9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633053/incident_human_actions.jsonl",
+      "sha256": "39a074dbb3fff9cf3d863cdf9ee2f2cbde5c8ef8fc3b8b158c7465973d9decc2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633053/incident_meta.json",
+      "sha256": "ca24d91ba8b6233bf01f66aa42737bb149695d78e0960983eb78d9e96e561f1a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633053/incident_telemetry.jsonl",
+      "sha256": "08946cff14d0456fbb251b9edfe5e6d89e8a514a88d5845e57588b8333aef51e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/evidence/source_manifest.json",
+      "sha256": "f8aea5dcb065db0b37466e78e66b3a29eca01310124a6e44b4f9c382262b3720"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/incident_human_actions.jsonl",
+      "sha256": "23ecbf94de479ee3e8c397e6c480e65387116b56d06a3dad879d35504a31597a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/incident_meta.json",
+      "sha256": "185738941aab7b8b62f50256371c1426aaf2e99c4a8bf014324022a4930180f1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/incident_telemetry.jsonl",
+      "sha256": "b04a4ea0453b9705479accbcff7da74a22e56a55596311a51cf4e721e82e54e4"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633181/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633181/evidence/source_manifest.json",
+      "sha256": "7bf979f7437084c1e18be5ed0a05964f2cdba5855119a632200e0fa2f255ed8c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633181/incident_human_actions.jsonl",
+      "sha256": "e8f1fa3c7b84e6d6cc4c553bddf652a64720f62b2c069ecc87376813990a4ea3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633181/incident_meta.json",
+      "sha256": "1557b7faea1cf6b554bff55faef9cb7a02eb7c50c7488800a77d84b4f92ba275"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633181/incident_telemetry.jsonl",
+      "sha256": "c0d2b93e6272227e9c92eaf14c5630b27e009baf941e2384ece6f027c7b8c5a3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/evidence/source_manifest.json",
+      "sha256": "777c93fd77a36605365ca5ea6c9e90a83f63c84d3ea43626827bdd4562820086"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/incident_human_actions.jsonl",
+      "sha256": "c86546cbfcab41e9081b193b66c0b295ca56c12c2aaa20fd61bd656d85fea436"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/incident_meta.json",
+      "sha256": "555069483cf40e40f33a818dfcfbd8b4110490070593f286e6fe29338c637fe4"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/incident_telemetry.jsonl",
+      "sha256": "d13ef5ef47b663a9e919990b59d84420a6cf63771abe0306dbff79072c8e06a4"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633910/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633910/evidence/source_manifest.json",
+      "sha256": "c3a41f1eda54f3e13dc95c8e6f67f4fd4f9e633a861b6ca8f38767eba7f4f8ca"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633910/incident_human_actions.jsonl",
+      "sha256": "b9dc154501c217822563aa50794bfdc053f742d457bc553ff139e9f4be461c11"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633910/incident_meta.json",
+      "sha256": "75528e04b4d11d402a533c3b3bf8b51fe4bd9e9984a4edebcb3f135379b98eae"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633910/incident_telemetry.jsonl",
+      "sha256": "3000f3e22466259f9463398c35a1f0cb1ed1ba33febcafc86dfab1654d33599f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/evidence/source_manifest.json",
+      "sha256": "71f37b22f16c16ab195c01c7efe810fadb4ef711baa5574f6227abed59828216"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/incident_human_actions.jsonl",
+      "sha256": "253439d7b319ddc425712f453eaa6c3a3641a6c7955b61bf0cbf4417aa009bb6"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/incident_meta.json",
+      "sha256": "b584ef346ac33d114b5543e28e3d45ae717636c30180cc34ec0c3648d5795d6d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/incident_telemetry.jsonl",
+      "sha256": "b5e76cef83357706e56c443f4f0c281441519c39d807f18dca5fccb44d7f50e1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634564/evidence/conversion_quality.json",
+      "sha256": "e822d467a8b96d3bca3a3fcd06e23f279d72eb415b5a1766a98bb7abfd100a8d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634564/evidence/source_manifest.json",
+      "sha256": "2e05fb2d2ea53e035fad83e190e966345155fb5e3506aefc059b3d73c951ce09"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634564/incident_human_actions.jsonl",
+      "sha256": "20f58bde856b3e0a34fa628369381ed543773d18a0962bb2d1c6e8512e0fa3d9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634564/incident_meta.json",
+      "sha256": "4e5b31b0bd8dabe289c4439c40b1a5f96432d90fcf5b5700281280d12cc67add"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634564/incident_telemetry.jsonl",
+      "sha256": "66c0e246f2d53a7e1798959bfb604ee5be0196a50168b898437bc20c8b23bd24"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/evidence/source_manifest.json",
+      "sha256": "f3fb01c330be0cbdc8cf6c2fada444a773e2ad50820b255534d2e707b82eeec9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/incident_human_actions.jsonl",
+      "sha256": "b458256befbb87ba091f6cb752fd513a8063049cb116a4a80ba53b81a7e7d9dd"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/incident_meta.json",
+      "sha256": "d11746ac38ba54239ac56df03ad70db8b0e5b8e747da8c2c61ad1216eab7ebdf"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/incident_telemetry.jsonl",
+      "sha256": "90993d625bfacb5dfaf867411efce0646735d2a3eeab8f97d832b342fc01afb9"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634614/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634614/evidence/source_manifest.json",
+      "sha256": "1ec1e39e5a37ee56d1c95fe84f996202b2b31ded048335ea6662da23a393cc2a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634614/incident_human_actions.jsonl",
+      "sha256": "685a9bfb934c613539e1bde5027f2f866d3aedf7743815dc453dd64c9d577c0d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634614/incident_meta.json",
+      "sha256": "a1e42073e30c1b9c490cbcdab703f52f6731f95373f2e4849193409f190c154e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634614/incident_telemetry.jsonl",
+      "sha256": "8d5d9061b5fe87e05665c6b00a9068b535ec1d40ceaee6fc019b7a6a18e869c3"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/evidence/source_manifest.json",
+      "sha256": "9e6dad958cefad5b0208e1de180a1ebb4ecddad9f8e8621037a18e707596337c"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/incident_human_actions.jsonl",
+      "sha256": "f0ef41c92fe516a3414d5cdca2359e0cb55cf7976141b05cca90e22de88f048b"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/incident_meta.json",
+      "sha256": "31c68d3e2245003e92a1edbb5187784f51bd5dd029d7f00bf535e77764f08236"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/incident_telemetry.jsonl",
+      "sha256": "eda246abbf9771121afaf036bfe3008cbcc01e81375f5f1db2e4cedd990d8a3a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645004/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645004/evidence/source_manifest.json",
+      "sha256": "24d45080bc256512888ecc47e35b9dbf4b11167c40ac85d8d1365ed2ee4c3c90"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645004/incident_human_actions.jsonl",
+      "sha256": "054208c9e9ce0c266d23ebd05d33051d2989eb8ca2e55d2f76de1d3cf545e428"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645004/incident_meta.json",
+      "sha256": "1e380b15d2b7ddaa8be9a32e5b7c8f3885ffce97ab883b0427d1c7144663ff0f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645004/incident_telemetry.jsonl",
+      "sha256": "d0600bdd806a62ce5d8b0ff726f8f5ad56fe3908b07893fc1e600bd314657ecc"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/evidence/source_manifest.json",
+      "sha256": "2766e6081eaaf1ebd3826b59f24fd3978508a06cfe800b38569ff03381935174"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/incident_human_actions.jsonl",
+      "sha256": "49336eef0f90a9d2eff898fb4a258b92c2d5f4d362808f81956461ab3ec12913"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/incident_meta.json",
+      "sha256": "59aa12354ff5207bd49b8192607904b8a7cb96c6a90759b470c6deea295bf8ce"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/incident_telemetry.jsonl",
+      "sha256": "03e53a03e4ee93ef755d8b4bbfdc2436b560db2c4bd341645da6d71d75c521d8"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_663624/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_663624/evidence/source_manifest.json",
+      "sha256": "db5c16af755d9ff5807b87469b0756c471235d1498eca0b414c2a66c60946bf2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_663624/incident_human_actions.jsonl",
+      "sha256": "11083c88a94e3020af9a326d911f35ca4469481c17a283dfee565703f253a05f"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_663624/incident_meta.json",
+      "sha256": "f5f89d830b065d1e9a464f28b5eaf4b69d9b1ea49f916ef35eb17c93afeaf4f5"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_663624/incident_telemetry.jsonl",
+      "sha256": "76539c116ed6c42975afc186fb4be0ceffb1489c8e035da4a010425aa511689d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669244/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669244/evidence/source_manifest.json",
+      "sha256": "286c2f2b00565e2936521be639d2cb4e7f1297413753d2478dba160cb83fbcfe"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669244/incident_human_actions.jsonl",
+      "sha256": "3bb9361c4496e77c39a526adb2e92eba22d5508a872912dcd19d6b2524cba8f4"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669244/incident_meta.json",
+      "sha256": "5c2fa4220a0753bb4670ce274b2d7d1cae1a8b4802516b09661b2728903f8cb2"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669244/incident_telemetry.jsonl",
+      "sha256": "01e0b9783942e5daf4a52cc0e1d9fc4396c9eca7d8c9082207765b75b605221e"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/evidence/conversion_quality.json",
+      "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/evidence/source_manifest.json",
+      "sha256": "0262f4482850d058ac9a5f4f219d397775d902101ded609fb12ead63385bb134"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/incident_human_actions.jsonl",
+      "sha256": "bd619aa50a8e820037e90aaa47b37130b95e041276f13e915267d8b4c7fffa44"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/incident_meta.json",
+      "sha256": "c2e2cecd73eb6f98be2fa95762a79a9d40b996fa384ab940de960c7fb4f603f1"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/incident_telemetry.jsonl",
+      "sha256": "62f231f00c08fb7bd023cf51de9ce96e8ccd7cb219254b92c99568d992e1de8e"
+    },
+    {
+      "path": "artifact_data/global/action_catalog.yaml",
+      "sha256": "27476c0c3ed22b0bf6fbb154f89634c83407f530870953c39e5553cf612f7136"
+    },
+    {
+      "path": "artifact_data/global/constraints.yaml",
+      "sha256": "5e6b4be7f4ddf3bbb67ec98c1b005320aaf2181154a2fbc7af22abed635a375b"
+    },
+    {
+      "path": "artifact_outputs/analysis/analysis_bundle.json",
+      "sha256": "62df3707cd89c51fcd08ce61e63ff50931bb51e548ae9270aa9557b311a436b8"
+    },
+    {
+      "path": "artifact_outputs/analysis/corpus_readiness.json",
+      "sha256": "5f3ab0e11323f9d2c2108b455e25f87b9be157b8d4be37f19fdad4bec269e787"
+    },
+    {
+      "path": "artifact_outputs/analysis/data_preflight.json",
+      "sha256": "6810f250bf766788d8126641a5d79062f28b5bcab70da8ee58f3f472e0c7241b"
+    },
+    {
+      "path": "artifact_outputs/analysis/data_quality_report.json",
+      "sha256": "368fd7ee5cb6a265cebcf880887b27392675d49a6c9004dc7b413ad25cd94909"
+    },
+    {
+      "path": "artifact_outputs/analysis/dataset_audit.json",
+      "sha256": "a9373c37eae84b8f0700ac82c033b110ce90956221028c18df548bdaa9f7c8d0"
+    },
+    {
+      "path": "artifact_outputs/analysis/figures/attack_tactic_frequency.png",
+      "sha256": "5a85d4a0f3de176ce5b23de4331a7c168ed740fb58a7aef071aa6fc32eb308b7"
+    },
+    {
+      "path": "artifact_outputs/analysis/figures/usage_budget.png",
+      "sha256": "33e597f7e89bf92b7b8ffcd017b7927440fecb79ab386c400e09844e2fba95b5"
+    },
+    {
+      "path": "artifact_outputs/analysis/figures/violation_rate_by_model.png",
+      "sha256": "c878a274d22171d772c246f65d2f74c5ab5f67a2b77eb42f80f0751c48bc6da5"
+    },
+    {
+      "path": "artifact_outputs/analysis/figures/violations_by_rule_model.png",
+      "sha256": "b69eb0215549803a5863e141773a0b08ee27fe01575489d2ab48a99018c8b331"
+    },
+    {
+      "path": "artifact_outputs/analysis/global_artifact_provenance.json",
+      "sha256": "c39e09181940bb66183a533bd1a1726c1e083895933c0e7cb5d0d8fbe67a6d02"
+    },
+    {
+      "path": "artifact_outputs/analysis/mini_batch_selection.json",
+      "sha256": "c65436710f3eb55eba9af00ffdb4d4188695e71de7a2a8dc0d92be63ba36d28a"
+    },
+    {
+      "path": "artifact_outputs/analysis/protocol_freeze.json",
+      "sha256": "2121eea5c1e54c6a4818d5b545c46fa5fdb59e477b3e78355ed0ca20447d12dd"
+    },
+    {
+      "path": "artifact_outputs/analysis/release_readiness.json",
+      "sha256": "c096ac0a1b4723fe9997fa548265589fd3b207aa3f3036470f9277c44cd19387"
+    },
+    {
+      "path": "artifact_outputs/analysis/summary.json",
+      "sha256": "3537af0e013626793183e96502cfc5a30a0e328bb60c1c852ecc28fefb591461"
+    },
+    {
+      "path": "config/anonymization_policy.yaml",
+      "sha256": "57cd2d82cb84c71bafc72ff683e44d3c71b580eb6b8ada3600ef1bd3ba59b988"
+    },
+    {
+      "path": "config/attack_mapping.yaml",
+      "sha256": "7d1cb011c3a2e589bb331034e101f51934ef0a65b7b2ca2c17ce5dd6ad86e640"
+    },
+    {
+      "path": "config/models.example.yaml",
+      "sha256": "bf6b54582ddde6aa1736b82f028c29b016a73d88f48262dc07998fa3caf2597a"
+    },
+    {
+      "path": "config/models.freeze.yaml",
+      "sha256": "74a3bedab34b824a59c10040fcf7f7bb074a821cef6169bc04fe650b7f2f6a1c"
+    },
+    {
+      "path": "local_redaction/README.md",
+      "sha256": "a93b08aca150fa1a2d6bf495ee9b581ce7eb5561a333883fe726f22043621bd3"
+    },
+    {
+      "path": "local_redaction/action_mapping_bank.yaml",
+      "sha256": "5284f56cbb397b662b02a6f190e8615956282fe7eb847b54a756b20c893f65f2"
+    },
+    {
+      "path": "local_redaction/anonymize_export.py",
+      "sha256": "fddec298ec19cda58e33cd2b0cac6a8969485a55b5007f3c1d380f29e42099bc"
+    },
+    {
+      "path": "local_redaction/process_incoming.sh",
+      "sha256": "20ac6de64dd07fa3325b43bde51591b3cfc0132bda5df14e39c60b33330405fc"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "09da85ba7f068d06c3125e100bf9796c95d5e8664d70fceb5b58de2ada4df76e"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "30250ea995de4b3c734bd84de821f275a1f00be0ae6fc13eb11931afbc65a187"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "d224b3a1d0babca7fc846374a65b19aca906cf94574f5a9508c12970e719d080"
+    },
+    {
+      "path": "run.sh",
+      "sha256": "a2662631d06d2358da1ba5159d65d00092528515a96137dde00b6069178c0dd9"
+    },
+    {
+      "path": "scripts/build_paper_workspace.sh",
+      "sha256": "689e461303ed61af96ed59ad71c25ebb514bced285a0f1a8ef2edb5305f8a396"
+    },
+    {
+      "path": "scripts/check_acm_template.sh",
+      "sha256": "56e66022f2b8ec3a36d668926b092c17e4b79be2fb486c2f1dd079f355585d48"
+    },
+    {
+      "path": "scripts/check_verifier_idempotence.py",
+      "sha256": "0d75561126e3144b31d3e13935f47da38bb9323762eaf5845a45d40d43e2c569"
+    },
+    {
+      "path": "scripts/render_corpus_readiness_tex.py",
+      "sha256": "957af23384a57eb09134b18a978fff39369601194194aead2d90b12586b9f8d3"
+    },
+    {
+      "path": "scripts/render_evaluation_assets.py",
+      "sha256": "41c0b514bc97998d8a7b6551febd9bfe351f5d762ef48a3b575f8190fd3667b3"
+    },
+    {
+      "path": "scripts/render_values_tex.py",
+      "sha256": "525ef417ba5aab8ef66227fcf0d0eb21102e7979a17a65d4c9816150f687a554"
+    },
+    {
+      "path": "scripts/suggest_global_policy_updates.py",
+      "sha256": "4492fa49719415708837d8b79c51203e16973e2d13067e37d6db4d9d42030407"
+    },
+    {
+      "path": "src/soc_llm_policy/__init__.py",
+      "sha256": "41a322add8fb752e8d90c037b9dd4fabbdd779e4b43baf3645c97a638ba73ae4"
+    },
+    {
+      "path": "src/soc_llm_policy/analyze.py",
+      "sha256": "36a17bac120513828e3370e8bef3274d72bd05ce1c8938ed71167fca75cca51e"
+    },
+    {
+      "path": "src/soc_llm_policy/artifact_verify.py",
+      "sha256": "6bcccac3995ead61929ae3173667ba29a6c223463e2c011d74c8b4333a72c9fa"
+    },
+    {
+      "path": "src/soc_llm_policy/attack.py",
+      "sha256": "312f3e05c1c40590c9293b1fae38322ff58da299d10f40866b9316229ac2f344"
+    },
+    {
+      "path": "src/soc_llm_policy/attack_sync.py",
+      "sha256": "4037c667d01070ce9e99180dd9bd963762a7e5df2f6a00c36568fe1fe61cd6cc"
+    },
+    {
+      "path": "src/soc_llm_policy/dataset_audit.py",
+      "sha256": "78fcdb2b70be7fb7ea8e92c9d3bc154b6097629335980e66717abdd865cead19"
+    },
+    {
+      "path": "src/soc_llm_policy/dataset_import.py",
+      "sha256": "d1df8e430629cbf56423d0bf2cadf693b5ac8fe3abd780dded5679ad0ea188f6"
+    },
+    {
+      "path": "src/soc_llm_policy/dotenv_utils.py",
+      "sha256": "646a441ee70bcd163907f1b3aba9217d20bc4902695900b719c5a86455238812"
+    },
+    {
+      "path": "src/soc_llm_policy/engine.py",
+      "sha256": "f4658d9675dc042d0cbe82b69bc69807d13a335011b67e5f0bed9c8a9727c75b"
+    },
+    {
+      "path": "src/soc_llm_policy/experiment_runner.py",
+      "sha256": "8acfb2cf084a13d9f79b9f65bc440204a574141d8a5013118b8cbb398bbb3a29"
+    },
+    {
+      "path": "src/soc_llm_policy/global_provenance.py",
+      "sha256": "dd747fcfcdd9a17da963de93949d22956a024f7c76098fbe7ee88e13a1389e0a"
+    },
+    {
+      "path": "src/soc_llm_policy/ingest.py",
+      "sha256": "b09a6d9115a0ba400db2eb2dd09429b459a5f463a117d6c82a0a48c0175c88fd"
+    },
+    {
+      "path": "src/soc_llm_policy/interfaces.py",
+      "sha256": "e360de5da6063189e6070a437842a0ecfbff0388d56d61d041eff997c712fb4b"
+    },
+    {
+      "path": "src/soc_llm_policy/io.py",
+      "sha256": "9bb0368032e54be7318d0efe7f6e38e054e35a7c97010a2e5924b60031e7ca33"
+    },
+    {
+      "path": "src/soc_llm_policy/json_stability.py",
+      "sha256": "db1a77eb5c5706ac6c87ab64ad2b826ffaf1ca82084abfcee76ed6a9d0ac75b6"
+    },
+    {
+      "path": "src/soc_llm_policy/llm_adapter.py",
+      "sha256": "d5a27da5ac65ce102315c04a13fadc0423b81a264829a08ec54c7ce957f6bc67"
+    },
+    {
+      "path": "src/soc_llm_policy/metrics.py",
+      "sha256": "6f466c6feb959d597f3270e7c15cf2cb191240d1f3525d62cb15a6d79966f371"
+    },
+    {
+      "path": "src/soc_llm_policy/mitre.py",
+      "sha256": "2bac8ec26139e89f0e48a93a86434dfc900d5e159c12cd704e54347665fce98b"
+    },
+    {
+      "path": "src/soc_llm_policy/models_registry.py",
+      "sha256": "c5bbe04a0615da2e76555ca7d54ac78443df9b8d898b6ed05f14874a0f688048"
+    },
+    {
+      "path": "src/soc_llm_policy/paths.py",
+      "sha256": "0e8b645593dfadd21a7e55864dbef57dc02b141ceab70ac380420bede65491b8"
+    },
+    {
+      "path": "src/soc_llm_policy/pipeline.py",
+      "sha256": "1906dda56a355bb1a219b341a857d7df392bdde297085b6469d92ce519e79f85"
+    },
+    {
+      "path": "src/soc_llm_policy/privacy_audit.py",
+      "sha256": "5bbdf3d9199217fe5b2805a52cd6166edcbbbc1c49140951fb11bc97f7b2bfdc"
+    },
+    {
+      "path": "src/soc_llm_policy/protocol_freeze.py",
+      "sha256": "a018e547ad6aa27894a8b1f4da00316c6616143bc0f8444f40c780d1f049fe42"
+    },
+    {
+      "path": "src/soc_llm_policy/pygraph_report.py",
+      "sha256": "df185d6b48e455bd916a70420d7988060e36a64bb8d5b61e561000475d8f0ec7"
+    },
+    {
+      "path": "src/soc_llm_policy/raw_json.py",
+      "sha256": "c9e426cc5f511812c14a0d5dd5f33cdca41cb7231a0c658e4ef54289ae518590"
+    },
+    {
+      "path": "src/soc_llm_policy/release_audit.py",
+      "sha256": "e8f369ac395fae2aa84a7eeec469f47b44a9d5fd16561e1d713b9ff17f0bb136"
+    },
+    {
+      "path": "src/soc_llm_policy/repo_surface.py",
+      "sha256": "390f6980f5dba54107068987fd5a2671084f4e209bb03669b5d958aef12201ff"
+    },
+    {
+      "path": "src/soc_llm_policy/result_models.py",
+      "sha256": "1ca4022f4db1a85f654be692bf1b92948856a597f76078fe18852fb558ca79d5"
+    },
+    {
+      "path": "src/soc_llm_policy/verify.py",
+      "sha256": "2e7cfa250da3070b55e419fab7b4df18d53d335fdb81ef545eb3564b5d99dbb9"
+    }
+  ]
+}

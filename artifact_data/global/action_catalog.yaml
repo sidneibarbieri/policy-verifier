@@ -1,0 +1,35 @@
+# SOC action catalog.
+# Frozen before any LLM execution. Changes require a new protocol version.
+#
+# This catalog defines the complete action space available to the SOC for
+# incident response. Each action has:
+#   action_id          - canonical identifier (strict-ID contract)
+#   requires_approval  - true if the action needs supervisor sign-off
+#   reversible         - true if the action can be undone without data loss
+#
+# Coverage note (51-incident corpus):
+#   3/5 actions observed in human baselines (collect_forensics, isolate_host,
+#   reset_admin_credentials). The remaining 2 (block_egress_ip, restore_host)
+#   are valid SOC actions not exercised in this sample. LLM arms may
+#   recommend any catalog action; out-of-catalog recommendations are
+#   logged as hallucinated actions.
+
+- action_id: collect_forensics
+  requires_approval: false
+  reversible: true
+
+- action_id: isolate_host
+  requires_approval: true
+  reversible: true
+
+- action_id: reset_admin_credentials
+  requires_approval: false
+  reversible: true
+
+- action_id: block_egress_ip
+  requires_approval: false
+  reversible: true
+
+- action_id: restore_host
+  requires_approval: true
+  reversible: false

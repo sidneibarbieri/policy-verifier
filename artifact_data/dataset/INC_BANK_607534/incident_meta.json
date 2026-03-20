@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_607534",
+  "incident_type": "exploit",
+  "severity": "medium",
+  "asset_criticality": "medium",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-02-15T00:56:14.978000Z",
+  "time_window_end": "2026-02-17T08:33:58.562000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

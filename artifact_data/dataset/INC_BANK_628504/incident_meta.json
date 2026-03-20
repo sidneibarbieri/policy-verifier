@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_628504",
+  "incident_type": "suspicious_activity",
+  "severity": "high",
+  "asset_criticality": "high",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-02-25T16:41:26.687000Z",
+  "time_window_end": "2026-03-17T12:52:31.204000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

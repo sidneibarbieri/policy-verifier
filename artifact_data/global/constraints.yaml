@@ -1,0 +1,45 @@
+# SOC policy rule set.
+# Frozen before any LLM execution. Changes require a new protocol version.
+#
+# Rule types:
+#   mandatory        - action MUST be present when telemetry scope matches
+#   prohibit_before  - condition_action MUST precede action in the plan
+#   require_approval - action is removed (or deferred) without explicit approval
+#
+# Design rationale:
+#   R1     - containment on confirmed command execution evidence
+#   R2     - evidence preservation: forensics before restoration
+#   R3,R4  - approval gates on high-impact reversible/irreversible actions
+
+# Mandatory containment
+- rule_id: R1
+  scope:
+    event_type_contains: ["command_execution"]
+    command_contains: ["bash -i", "/dev/tcp/"]
+  type: mandatory
+  action: isolate_host
+  severity: hard
+
+# Ordering: forensics-first principle
+- rule_id: R2
+  scope:
+    global: true
+  type: prohibit_before
+  action: restore_host
+  condition_action: collect_forensics
+  severity: hard
+
+# Approval gates
+- rule_id: R3
+  scope:
+    global: true
+  type: require_approval
+  action: restore_host
+  severity: hard
+
+- rule_id: R4
+  scope:
+    global: true
+  type: require_approval
+  action: isolate_host
+  severity: hard

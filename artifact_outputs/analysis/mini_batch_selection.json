@@ -1,0 +1,145 @@
+{
+  "generated_at_utc": "2026-03-19T23:29:01.363830+00:00",
+  "selection_method": "deterministic_bruteforce_stratified_support_aware",
+  "requested_incident_count": 3,
+  "selected_incident_ids": [
+    "INC_BANK_598207",
+    "INC_BANK_608340",
+    "INC_BANK_610619"
+  ],
+  "selected_total_event_count": 23,
+  "selection_score": {
+    "action_pattern_coverage": 2,
+    "incident_type_coverage": 3,
+    "severity_coverage": 3,
+    "incident_type_support_total": 84,
+    "severity_support_total": 95,
+    "approval_gated_case_count": 2,
+    "attack_technique_coverage": 4,
+    "attack_tactic_coverage": 4,
+    "telemetry_event_count": 23
+  },
+  "selection_objectives": [
+    "maximize action-pattern coverage",
+    "maximize incident-type diversity",
+    "maximize severity diversity",
+    "prefer incident types that are representative in the current corpus",
+    "prefer severities that are representative in the current corpus",
+    "prefer incidents that exercise approval-gated actions",
+    "maximize ATT&CK technique diversity",
+    "maximize ATT&CK tactic diversity",
+    "minimize total telemetry events as a token-cost proxy"
+  ],
+  "selected_coverage": {
+    "incident_types": [
+      "exploit",
+      "malware",
+      "suspicious_activity"
+    ],
+    "severities": [
+      "high",
+      "low",
+      "medium"
+    ],
+    "action_patterns": [
+      [
+        "collect_forensics"
+      ],
+      [
+        "collect_forensics",
+        "isolate_host",
+        "reset_admin_credentials"
+      ]
+    ],
+    "attack_techniques": [
+      "T1087",
+      "T1190",
+      "T1204",
+      "T1595"
+    ],
+    "attack_tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0007",
+      "TA0043"
+    ]
+  },
+  "selected_incidents": [
+    {
+      "incident_id": "INC_BANK_598207",
+      "incident_type": "malware",
+      "severity": "high",
+      "event_count": 11,
+      "action_pattern": [
+        "collect_forensics"
+      ],
+      "approval_gated_action_count": 0,
+      "attack_techniques": [
+        "T1087",
+        "T1204"
+      ],
+      "attack_tactics": [
+        "TA0002",
+        "TA0007"
+      ]
+    },
+    {
+      "incident_id": "INC_BANK_608340",
+      "incident_type": "exploit",
+      "severity": "medium",
+      "event_count": 6,
+      "action_pattern": [
+        "collect_forensics",
+        "isolate_host",
+        "reset_admin_credentials"
+      ],
+      "approval_gated_action_count": 1,
+      "attack_techniques": [
+        "T1190",
+        "T1595"
+      ],
+      "attack_tactics": [
+        "TA0001",
+        "TA0043"
+      ]
+    },
+    {
+      "incident_id": "INC_BANK_610619",
+      "incident_type": "suspicious_activity",
+      "severity": "low",
+      "event_count": 6,
+      "action_pattern": [
+        "collect_forensics",
+        "isolate_host",
+        "reset_admin_credentials"
+      ],
+      "approval_gated_action_count": 1,
+      "attack_techniques": [],
+      "attack_tactics": []
+    }
+  ],
+  "corpus_distribution": {
+    "incident_type_counts": {
+      "access": 3,
+      "authentication": 2,
+      "exploit": 19,
+      "falcon_detection_method": 2,
+      "malware": 24,
+      "policy": 1,
+      "potential_exploit": 4,
+      "recon": 1,
+      "suspicious_activity": 41,
+      "system": 3
+    },
+    "severity_counts": {
+      "critical": 5,
+      "high": 35,
+      "low": 7,
+      "medium": 53
+    },
+    "action_pattern_counts": {
+      "collect_forensics": 7,
+      "collect_forensics | isolate_host | reset_admin_credentials": 93
+    }
+  }
+}

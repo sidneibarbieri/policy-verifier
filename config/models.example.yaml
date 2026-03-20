@@ -1,0 +1,46 @@
+# Example model registry for experiment_runner.
+# Copy to config/models.local.yaml for local execution overrides.
+# The frozen study registry is kept separately in config/models.freeze.yaml.
+#
+# For azure_openai: deployment is your Azure deployment name.
+# For openai/anthropic: deployment is the model ID used in API calls.
+
+- name: chat
+  deployment: chat
+  provider: azure_openai
+  model: gpt-4.1-mini
+  api_version: 2024-02-15-preview
+  enabled: false
+  prompt_price_per_1k_usd: 0.0
+  completion_price_per_1k_usd: 0.0
+
+- name: openai_gpt52
+  deployment: gpt-5.2
+  provider: openai
+  model: gpt-5.2
+  api_version: ""
+  enabled: false
+  prompt_price_per_1k_usd: 0.0
+  completion_price_per_1k_usd: 0.0
+
+- name: anthropic_sonnet46
+  deployment: claude-sonnet-4-6
+  provider: anthropic
+  model: claude-sonnet-4-6
+  api_version: 2023-06-01
+  enabled: false
+  prompt_price_per_1k_usd: 0.0
+  completion_price_per_1k_usd: 0.0
+
+- name: openai_gpt5mini
+  deployment: gpt-5-mini
+  provider: openai
+  model: gpt-5-mini
+  api_version: ""
+  enabled: false
+  prompt_price_per_1k_usd: 0.0
+  completion_price_per_1k_usd: 0.0
+
+# Anthropic small-tier model intentionally omitted here until the exact API
+# model identifier is pinned in our experiment protocol. Do not guess names in
+# the registry for paid runs.
