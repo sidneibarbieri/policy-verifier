@@ -29,6 +29,48 @@ def _iter_verifier_outputs(incidents_root: Path) -> list[Path]:
     return unique
 
 
+def _violation_signature(violations: list[Any]) -> list[dict[str, str | None]]:
+    signature: list[dict[str, str | None]] = []
+    for violation in violations:
+        if hasattr(violation, "to_dict"):
+            record = violation.to_dict()
+        elif isinstance(violation, dict):
+            record = violation
+        else:
+            raise TypeError(f"unsupported violation record type: {type(violation)!r}")
+        signature.append(
+            {
+                "rule_id": record.get("rule_id"),
+                "severity": record.get("severity"),
+                "type": record.get("type"),
+                "action": record.get("action"),
+                "repair": record.get("repair"),
+                "missing_before": record.get("missing_before"),
+            }
+        )
+    return sorted(
+        signature,
+        key=lambda item: (
+            str(item["rule_id"]),
+            str(item["type"]),
+            str(item["action"]),
+            str(item["repair"]),
+            str(item["missing_before"]),
+        ),
+    )
+
+
+def _expected_second_pass_violations(
+    payload: dict[str, Any],
+) -> list[dict[str, str | None]]:
+    original_violations = list(payload.get("violations", []))
+    deferred_only = []
+    for violation in original_violations:
+        if isinstance(violation, dict) and violation.get("type") == "approval_deferred":
+            deferred_only.append(violation)
+    return _violation_signature(deferred_only)
+
+
 def run_check(repo_root: Path) -> dict[str, Any]:
     outputs_root = repo_root / "results"
     incidents_root = outputs_root / "incidents"
@@ -42,6 +84,7 @@ def run_check(repo_root: Path) -> dict[str, Any]:
     checked = 0
     changed = 0
     second_pass_violations = 0
+    changed_violations = 0
     errors: list[dict[str, str]] = []
 
     for path in files:
@@ -52,6 +95,11 @@ def run_check(repo_root: Path) -> dict[str, Any]:
                 raise ValueError("missing incident_dir_id in verifier output")
             enforced = list(payload.get("enforced_actions", []))
             approval_mode = str(payload.get("approval_policy_mode", "remove")).strip()
+            approved_actions = {
+                str(action_id).strip()
+                for action_id in payload.get("incident_approved_actions", [])
+                if str(action_id).strip()
+            }
             telemetry_path = incidents_root / incident_id / "incident_telemetry.jsonl"
             telemetry = read_jsonl(telemetry_path, strict=False)
             violations2, enforced2 = enforce_policy(
@@ -59,6 +107,7 @@ def run_check(repo_root: Path) -> dict[str, Any]:
                 telemetry=telemetry,
                 rules=rules,
                 catalog=catalog,
+                incident_approved_actions=approved_actions,
                 approval_policy_mode=approval_mode,  # type: ignore[arg-type]
             )
             checked += 1
@@ -66,17 +115,22 @@ def run_check(repo_root: Path) -> dict[str, Any]:
                 changed += 1
             if violations2:
                 second_pass_violations += 1
-        except Exception as exc:  # noqa: BLE001
+            if _violation_signature(violations2) != _expected_second_pass_violations(
+                payload
+            ):
+                changed_violations += 1
+        except Exception as exc:
             errors.append({"file": str(path), "error": str(exc)})
 
     return {
         "files_checked": checked,
         "changed_after_second_pass": changed,
         "nonempty_violations_on_second_pass": second_pass_violations,
+        "changed_violations_after_second_pass": changed_violations,
         "errors": errors,
         "idempotence_pass": checked > 0
         and changed == 0
-        and second_pass_violations == 0
+        and changed_violations == 0
         and len(errors) == 0,
     }
 
