@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "2026-03-30T17:28:40.060579+00:00",
+  "incident_id": "INC_BANK_537542",
+  "mapping_rules_path": "local_redaction/action_mapping_bank.yaml",
+  "mapping_rules_sha256": "5284f56cbb397b662b02a6f190e8615956282fe7eb847b54a756b20c893f65f2",
+  "task_count": 3,
+  "zero_match_count": 0,
+  "ambiguous_match_count": 0,
+  "single_keyword_unique_match_count": 2,
+  "multi_keyword_unique_match_count": 1,
+  "approval_proxy_unique_match_count": 1,
+  "support_by_action": [
+    {
+      "action_id": "collect_forensics",
+      "approval_proxy": false,
+      "unique_match_count": 1,
+      "single_keyword_unique_match_count": 1,
+      "multi_keyword_unique_match_count": 0
+    },
+    {
+      "action_id": "isolate_host",
+      "approval_proxy": true,
+      "unique_match_count": 1,
+      "single_keyword_unique_match_count": 0,
+      "multi_keyword_unique_match_count": 1
+    },
+    {
+      "action_id": "reset_admin_credentials",
+      "approval_proxy": false,
+      "unique_match_count": 1,
+      "single_keyword_unique_match_count": 1,
+      "multi_keyword_unique_match_count": 0
+    }
+  ]
+}

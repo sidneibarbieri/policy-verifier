@@ -34,6 +34,16 @@ run_public_artifact_validation() {
     --readiness-json artifact_outputs/analysis/corpus_readiness_recheck.json
   echo "Dataset audit recheck OK: artifact_outputs/analysis/dataset_audit_recheck.json"
 
+  echo "Running global artifact assessment recheck..."
+  "${PY}" -m soc_llm_policy.global_artifact_assessment \
+    --repo-root . \
+    --all \
+    --official-summary-json artifact_outputs/analysis/official_evaluation_summary.json \
+    --official-summary-output-json artifact_outputs/analysis/official_evaluation_summary_recheck.json \
+    --output-json artifact_outputs/analysis/global_artifact_assessment_recheck.json \
+    --output-md artifact_outputs/analysis/global_artifact_assessment_recheck.md
+  echo "Global artifact assessment recheck OK: artifact_outputs/analysis/global_artifact_assessment_recheck.json"
+
   echo "Running release hygiene recheck..."
   "${PY}" -m soc_llm_policy.release_audit \
     --repo-root . \

@@ -6,6 +6,7 @@ This package is the canonical public artifact for the official frozen evaluation
 - `artifact_data/`: anonymized dataset and active global artifacts used by the study.
 - `artifact_outputs/analysis/protocol_freeze.json`: single source of truth for the official protocol freeze.
 - `artifact_outputs/analysis/`: canonical non-private analysis outputs included at packaging time.
+- `artifact_outputs/analysis/official_evaluation_summary.json`: aggregate totals from the completed paid evaluation, retained for auditability without shipping paid execution traces.
 - `src/`, `scripts/`, `config/`, `local_redaction/`: code and frozen global mapping contract needed to audit and reproduce the artifact.
 - `config/models.freeze.yaml`: the frozen model registry used for the reported study, retained for auditability and cost reconstruction.
 - `config/models.example.yaml`: template for optional local reruns; local overrides are not part of the frozen artifact.

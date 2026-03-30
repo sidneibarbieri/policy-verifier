@@ -1,0 +1,310 @@
+{
+  "generated_at_utc": "2026-03-30T17:30:06.300146+00:00",
+  "dataset_release_id": "submission_freeze",
+  "eval_protocol_version": "official",
+  "incident_count": 100,
+  "official_summary_source": "results/analysis/official_evaluation_summary.json",
+  "dataset_strengths": {
+    "privacy_issue_count": 0,
+    "invalid_incident_count": 0,
+    "mapping_weighted_coverage": 1.0,
+    "zero_hallucinated_actions_in_official_summary": true
+  },
+  "global_surface": {
+    "action_catalog_count": 5,
+    "action_catalog_ids": [
+      "block_egress_ip",
+      "collect_forensics",
+      "isolate_host",
+      "reset_admin_credentials",
+      "restore_host"
+    ],
+    "human_baseline_action_count": 3,
+    "human_baseline_action_ids": [
+      "collect_forensics",
+      "isolate_host",
+      "reset_admin_credentials"
+    ],
+    "mapping_action_count": 3,
+    "mapping_action_ids": [
+      "collect_forensics",
+      "isolate_host",
+      "reset_admin_credentials"
+    ],
+    "catalog_actions_missing_mapping_rules": [
+      "block_egress_ip",
+      "restore_host"
+    ],
+    "policy_rule_count": 4,
+    "policy_rule_ids": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "constrained_action_count": 2
+  },
+  "mapping_support": {
+    "incident_count_with_support_manifests": 100,
+    "task_count_total": 555,
+    "unique_match_count_total": 555,
+    "zero_match_count": 0,
+    "ambiguous_match_count": 0,
+    "single_keyword_unique_match_count": 283,
+    "single_keyword_unique_match_rate": 0.5099,
+    "multi_keyword_unique_match_count": 272,
+    "multi_keyword_unique_match_rate": 0.4901,
+    "approval_proxy_unique_match_count": 93,
+    "support_by_action": [
+      {
+        "action_id": "collect_forensics",
+        "approval_proxy": false,
+        "incident_count": 100,
+        "unique_match_count": 369,
+        "single_keyword_unique_match_count": 276,
+        "multi_keyword_unique_match_count": 93,
+        "single_keyword_share_within_action": 0.748,
+        "multi_keyword_share_within_action": 0.252
+      },
+      {
+        "action_id": "isolate_host",
+        "approval_proxy": true,
+        "incident_count": 93,
+        "unique_match_count": 93,
+        "single_keyword_unique_match_count": 0,
+        "multi_keyword_unique_match_count": 93,
+        "single_keyword_share_within_action": 0.0,
+        "multi_keyword_share_within_action": 1.0
+      },
+      {
+        "action_id": "reset_admin_credentials",
+        "approval_proxy": false,
+        "incident_count": 93,
+        "unique_match_count": 93,
+        "single_keyword_unique_match_count": 7,
+        "multi_keyword_unique_match_count": 86,
+        "single_keyword_share_within_action": 0.0753,
+        "multi_keyword_share_within_action": 0.9247
+      }
+    ],
+    "support_by_incident_type": [
+      {
+        "incident_type": "access",
+        "incident_count": 3,
+        "task_count": 11,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 6,
+        "multi_keyword_unique_match_count": 5
+      },
+      {
+        "incident_type": "authentication",
+        "incident_count": 2,
+        "task_count": 12,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 6,
+        "multi_keyword_unique_match_count": 6
+      },
+      {
+        "incident_type": "exploit",
+        "incident_count": 19,
+        "task_count": 111,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 56,
+        "multi_keyword_unique_match_count": 55
+      },
+      {
+        "incident_type": "falcon_detection_method",
+        "incident_count": 2,
+        "task_count": 12,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 6,
+        "multi_keyword_unique_match_count": 6
+      },
+      {
+        "incident_type": "malware",
+        "incident_count": 24,
+        "task_count": 131,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 67,
+        "multi_keyword_unique_match_count": 64
+      },
+      {
+        "incident_type": "policy",
+        "incident_count": 1,
+        "task_count": 6,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 3,
+        "multi_keyword_unique_match_count": 3
+      },
+      {
+        "incident_type": "potential_exploit",
+        "incident_count": 4,
+        "task_count": 21,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 11,
+        "multi_keyword_unique_match_count": 10
+      },
+      {
+        "incident_type": "recon",
+        "incident_count": 1,
+        "task_count": 6,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 3,
+        "multi_keyword_unique_match_count": 3
+      },
+      {
+        "incident_type": "suspicious_activity",
+        "incident_count": 41,
+        "task_count": 227,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 116,
+        "multi_keyword_unique_match_count": 111
+      },
+      {
+        "incident_type": "system",
+        "incident_count": 3,
+        "task_count": 18,
+        "zero_match_count": 0,
+        "ambiguous_match_count": 0,
+        "single_keyword_unique_match_count": 9,
+        "multi_keyword_unique_match_count": 9
+      }
+    ]
+  },
+  "approval_proxy_scope": {
+    "approval_required_catalog_action_ids": [
+      "isolate_host",
+      "restore_host"
+    ],
+    "mapped_approval_proxy_action_ids": [
+      "isolate_host"
+    ],
+    "approval_required_actions_without_proxy_mapping": [
+      "restore_host"
+    ]
+  },
+  "official_evaluation_scope": {
+    "available": true,
+    "run_count": 400,
+    "incident_count": 100,
+    "violations_by_rule": {
+      "R3": 165,
+      "R4": 28
+    },
+    "observed_rule_ids": [
+      "R3",
+      "R4"
+    ],
+    "rule_ids_without_observed_violation_counts": [
+      "R1",
+      "R2"
+    ],
+    "approval_only_violation_types_observed": true,
+    "approval_rule_violation_share": 1.0,
+    "enforcement_actions_removed_count_total": 193,
+    "enforcement_actions_deferred_count_total": 0,
+    "enforcement_actions_inserted_count_total": 0,
+    "enforcement_actions_reordered_count_total": 0,
+    "task_coverage_delta_avg": 0.0,
+    "task_coverage_drop_rate": 0.0,
+    "llm_total_tokens_total": 341235,
+    "llm_cost_estimated_usd_total": 1.441203,
+    "llm_cost_estimated_usd_avg_per_run": 0.003603,
+    "run_success_rate": 1.0
+  },
+  "criticism_response_map": [
+    {
+      "criticism": "The mapped human baseline is opaque and relies heavily on keyword rules.",
+      "response_strength": "partial_but_material",
+      "response": "The artifact now exposes aggregate mapping-support evidence: zero unmatched tasks, zero ambiguous ties, complete conversion coverage, and an explicit split between single-keyword and multi-keyword unique matches.",
+      "evidence": {
+        "task_count_total": 555,
+        "single_keyword_unique_match_rate": 0.5099,
+        "ambiguous_match_count": 0,
+        "zero_match_count": 0
+      }
+    },
+    {
+      "criticism": "The global action/policy surface is narrow and may overstate generality.",
+      "response_strength": "addressed_transparently",
+      "response": "The assessment makes the narrowness explicit instead of burying it: the human baseline covers only part of the catalog, the mapping contract covers only part of the catalog, and the constrained action surface is smaller still.",
+      "evidence": {
+        "action_catalog_count": 5,
+        "human_baseline_action_count": 3,
+        "mapping_action_count": 3,
+        "constrained_action_count": 2
+      }
+    },
+    {
+      "criticism": "Observed evidence is concentrated in approval governance rather than the full rule family.",
+      "response_strength": "addressed_transparently",
+      "response": "The report states that the completed official evaluation shows violation evidence only on approval rules under this freeze, with no inserted or reordered actions.",
+      "evidence": {
+        "available": true,
+        "run_count": 400,
+        "incident_count": 100,
+        "violations_by_rule": {
+          "R3": 165,
+          "R4": 28
+        },
+        "observed_rule_ids": [
+          "R3",
+          "R4"
+        ],
+        "rule_ids_without_observed_violation_counts": [
+          "R1",
+          "R2"
+        ],
+        "approval_only_violation_types_observed": true,
+        "approval_rule_violation_share": 1.0,
+        "enforcement_actions_removed_count_total": 193,
+        "enforcement_actions_deferred_count_total": 0,
+        "enforcement_actions_inserted_count_total": 0,
+        "enforcement_actions_reordered_count_total": 0,
+        "task_coverage_delta_avg": 0.0,
+        "task_coverage_drop_rate": 0.0,
+        "llm_total_tokens_total": 341235,
+        "llm_cost_estimated_usd_total": 1.441203,
+        "llm_cost_estimated_usd_avg_per_run": 0.003603,
+        "run_success_rate": 1.0
+      }
+    },
+    {
+      "criticism": "Approval context is only partially grounded in the mapping contract.",
+      "response_strength": "addressed_transparently",
+      "response": "The report makes proxy scope explicit by showing which approval-required catalog actions have a mapping proxy and which do not.",
+      "evidence": {
+        "approval_required_catalog_action_ids": [
+          "isolate_host",
+          "restore_host"
+        ],
+        "mapped_approval_proxy_action_ids": [
+          "isolate_host"
+        ],
+        "approval_required_actions_without_proxy_mapping": [
+          "restore_host"
+        ]
+      }
+    },
+    {
+      "criticism": "Cost accounting is unclear.",
+      "response_strength": "addressed",
+      "response": "The official aggregate summary is now copied into canonical analysis outputs so reviewers can inspect token totals, total cost, average cost per run, and run-success rate directly.",
+      "evidence": {
+        "llm_total_tokens_total": 341235,
+        "llm_cost_estimated_usd_total": 1.441203,
+        "llm_cost_estimated_usd_avg_per_run": 0.003603,
+        "run_success_rate": 1.0
+      }
+    }
+  ]
+}

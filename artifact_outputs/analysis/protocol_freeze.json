@@ -150,7 +150,7 @@
     },
     "release_readiness": {
       "path": "artifact_outputs/analysis/release_readiness.json",
-      "sha256": "c5d0411eab40af0649b078d858b13f54268c8915b6996323899649027d6584f2"
+      "sha256": "0de9c90aca34d32992a9f910668837b4e2b69decbb666e3c174c1eaf0636af22"
     }
   },
   "notes": [

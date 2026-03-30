@@ -13,11 +13,14 @@ Evaluate whether LLM-generated incident-response plans violate formal SOC constr
 - `artifact_outputs/analysis/protocol_freeze.json`
 - `artifact_outputs/analysis/summary.json`
 - `artifact_outputs/analysis/analysis_bundle.json`
+- `artifact_outputs/analysis/official_evaluation_summary.json`
+- `artifact_outputs/analysis/global_artifact_assessment.json`
 - `artifact_outputs/analysis/global_artifact_provenance.json`
 
 ## Public-bundle scope
 - The packaged zero-cost bundle includes the frozen protocol manifest, canonical non-private analysis outputs, and the code needed to rerun integrity checks and dataset audits.
 - `artifact_outputs/analysis/analysis_bundle.json` in this public package covers the human-baseline analysis included at packaging time.
+- `artifact_outputs/analysis/official_evaluation_summary.json` preserves the aggregate paid-evaluation totals used by the paper, without shipping the paid execution lineage itself.
 - The completed official LLM evaluation bundle, including the paid full-corpus execution lineage, is not included in this package because reproducing it requires paid API access.
 
 ## Inspectable frozen arm surfaces

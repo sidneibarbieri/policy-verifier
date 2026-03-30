@@ -18,8 +18,9 @@ source .venv/bin/activate
 ./run.sh validate-public-artifact
 ```
 
-This zero-cost command runs artifact integrity checks, dataset audit, and
-release-hygiene rechecks and writes fresh verification reports under
+This zero-cost command runs artifact integrity checks, dataset audit,
+global-artifact assessment, and release-hygiene rechecks and writes fresh
+verification reports under
 `artifact_outputs/analysis/`.
 Local reviewer transients such as `.venv/` and `__pycache__/` are ignored by
 the integrity check.

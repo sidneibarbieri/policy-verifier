@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-30T08:11:28.669182+00:00",
+  "generated_at_utc": "2026-03-30T17:54:37.858005+00:00",
   "dataset_release_id": "submission_freeze",
   "incident_count": 100,
   "incidents": [
@@ -106,7 +106,7 @@
   ],
   "include_analysis": true,
   "run_id": null,
-  "file_count": 568,
+  "file_count": 674,
   "files": [
     {
       "path": "ARTIFACT_BOUNDARY.md",
@@ -114,19 +114,23 @@
     },
     {
       "path": "ARTIFACT_README.md",
-      "sha256": "15fa116cae8fc11e7f05f78bbf7ae1f9389d7dcd9e371ac01b987b8cccb2c4d0"
+      "sha256": "2f81ed5b3a5a8de97cc42f015742070e304ab5693479dae969fa7aa070a37980"
     },
     {
       "path": "EVAL_PROTOCOL.md",
-      "sha256": "b4801f0f9414380517821dc8733cec0d2eb0406d949422137cb08eac7bb7a2c1"
+      "sha256": "6f92a962434e7d1efce106a44d2fe097d1d899777d4e034fa861479ce0ce194b"
     },
     {
       "path": "README.md",
-      "sha256": "bf219935a8124551520d550d144c49d69b56bc3430315f9607faacb82d31cb19"
+      "sha256": "fbbcce7dca1437c8f3675dc914040713fd2c15e1b923ae41226c9870a70e1851"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_311075/evidence/conversion_quality.json",
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_311075/evidence/mapping_support_manifest.json",
+      "sha256": "648d904e688b40b163926090822b18a76b3291c2c41569b063dcdf49870e2ef5"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_311075/evidence/source_manifest.json",
@@ -149,6 +153,10 @@
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_464030/evidence/mapping_support_manifest.json",
+      "sha256": "3a03f353ffd7fd1b431d5100690057c497e712c871b70f6c5ca3d4eb2c615a91"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_464030/evidence/source_manifest.json",
       "sha256": "e890ad647c76160d3b22ae72c10c2969c47b8aae7a16f06f7aedd8607ab9161a"
     },
@@ -167,6 +175,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_496109/evidence/conversion_quality.json",
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_496109/evidence/mapping_support_manifest.json",
+      "sha256": "fd01756c522acbb6d64f91974c7891677832f91c03b1b6645c449856ff907b11"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_496109/evidence/source_manifest.json",
@@ -189,6 +201,10 @@
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_516957/evidence/mapping_support_manifest.json",
+      "sha256": "393a29f47555a3b2607c895ec9e09eac8827f724fc500bfafb33b53e78de988c"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_516957/evidence/source_manifest.json",
       "sha256": "5aa592091892ac5a5eeea1c6605a9bbee0b2e2dfb4fc7881f51f54a978680135"
     },
@@ -207,6 +223,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_537542/evidence/conversion_quality.json",
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_537542/evidence/mapping_support_manifest.json",
+      "sha256": "4022a38aeb43e2c3f156bb28c789b8d7629fb9604dbffa355b294ea936c62461"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_537542/evidence/source_manifest.json",
@@ -229,6 +249,10 @@
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_541678/evidence/mapping_support_manifest.json",
+      "sha256": "e4846380744c96233dc456da3c2717a84b4f705a71ab9f7f823b9da73db14b84"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_541678/evidence/source_manifest.json",
       "sha256": "89592f48529c4e2a7dbff9c1455b46b91114b91aad81ff165850ed73bfee43e7"
     },
@@ -247,6 +271,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_555534/evidence/conversion_quality.json",
       "sha256": "21f1163c5561db9040d46ece35b8d77f9c3ff6c02e0999d95e82f4c64950d540"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_555534/evidence/mapping_support_manifest.json",
+      "sha256": "da427830e3a8eb18c7ec78687f9b3b748532b351675d79a6bcfb49bd053fa24b"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_555534/evidence/source_manifest.json",
@@ -269,6 +297,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_586647/evidence/mapping_support_manifest.json",
+      "sha256": "1ae93a23796a95471dae1eefa1361adccfd58d46c5df599f74b5ddc239d86121"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_586647/evidence/source_manifest.json",
       "sha256": "4e6c79849ceac831d5c28e9004c71a6824997d3370a4dca228bbca17b12c7db3"
     },
@@ -287,6 +319,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_591046/evidence/conversion_quality.json",
       "sha256": "e822d467a8b96d3bca3a3fcd06e23f279d72eb415b5a1766a98bb7abfd100a8d"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_591046/evidence/mapping_support_manifest.json",
+      "sha256": "c80f1d7f2f7df3f92110df2be3b5306027fd3ddf50599719319aff6fa6913d6f"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_591046/evidence/source_manifest.json",
@@ -309,6 +345,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_593037/evidence/mapping_support_manifest.json",
+      "sha256": "2a5bec77c556616fbead51b1d1baa5317832dcd7c9ff33b556554918c1c394c3"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_593037/evidence/source_manifest.json",
       "sha256": "f371942025d7139c05acdb476ffbdd3a0d2ba8d62c9a199031752bdf1996207a"
     },
@@ -327,6 +367,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_593125/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_593125/evidence/mapping_support_manifest.json",
+      "sha256": "14fc554e08de4b5c9ca54aaa31464f2138de8fdd2e37bdd7ddcce1aa2ed853e0"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_593125/evidence/source_manifest.json",
@@ -349,6 +393,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_593686/evidence/mapping_support_manifest.json",
+      "sha256": "3f18341cf582e5f5704e78b5b46675598964573d9424039f7cb797575d2e317b"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_593686/evidence/source_manifest.json",
       "sha256": "94ab4a5f8dd3b286e7fa655a0b96990939bd9ed0442a7f25647cc05fc46167c8"
     },
@@ -367,6 +415,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_598207/evidence/conversion_quality.json",
       "sha256": "902aa2d687c2f8b32ebad990cd3ac49732a1cf76f67bc2d2fe67351f619a6615"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_598207/evidence/mapping_support_manifest.json",
+      "sha256": "bd35d7427c9f9f58fd29a5f42ca6dfbda5ed61c4da50d5772629d0b6bae9f4f0"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_598207/evidence/source_manifest.json",
@@ -389,6 +441,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_598381/evidence/mapping_support_manifest.json",
+      "sha256": "f7057d876deae66bf31a4b83a694e59a2c1de571709eaea5118b0a438fa1b114"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_598381/evidence/source_manifest.json",
       "sha256": "1d1530599a715aeb920859f2d183da08d3cfb6c46f776b567eb15ac7b36bda3d"
     },
@@ -407,6 +463,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_599218/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599218/evidence/mapping_support_manifest.json",
+      "sha256": "e0f83a8e4bf6afb23ac3b2aabfe9fa576f27f325a999367171503cb35fa34bd4"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_599218/evidence/source_manifest.json",
@@ -429,6 +489,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_599638/evidence/mapping_support_manifest.json",
+      "sha256": "edc1bbcf2ebef729f0574fc16f3ea173945515fea79a9f9a040782ba727d6326"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_599638/evidence/source_manifest.json",
       "sha256": "32365d8f60c3be4de97bd3f21fc71e15b38bc959090d3706888837171548ce2e"
     },
@@ -447,6 +511,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_599856/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_599856/evidence/mapping_support_manifest.json",
+      "sha256": "23845d46b86d0e271c95d27b2a40d1bba167c3280062216630da92e07442b5cd"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_599856/evidence/source_manifest.json",
@@ -469,6 +537,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_599902/evidence/mapping_support_manifest.json",
+      "sha256": "3a807f3857da1ae0d5c5aff66cb080c65467385fe1e8d3aef1bb3f6234314bff"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_599902/evidence/source_manifest.json",
       "sha256": "e69cefab21a3c26189c6295ad55750df9c4a879450d3575f2ea471f10834a715"
     },
@@ -487,6 +559,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_600166/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600166/evidence/mapping_support_manifest.json",
+      "sha256": "078e024ffe319d1f9597d27134d8d578c88a596ae108e8d691f08b324bec66f0"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_600166/evidence/source_manifest.json",
@@ -509,6 +585,10 @@
       "sha256": "287c5b84a8b61cfbf68b2aa4ac7f20cdb184e63b72d315daf4561af3c765e62f"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_600272/evidence/mapping_support_manifest.json",
+      "sha256": "683228ee3a09c89f9e300b4522a28bf9417a8605871be2993d6e4e5f1be31cbb"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_600272/evidence/source_manifest.json",
       "sha256": "8e8bd1df479e6efea2ae806e131d11262c21e22b051b9a999ca22debb2d1e455"
     },
@@ -527,6 +607,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_600326/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_600326/evidence/mapping_support_manifest.json",
+      "sha256": "b1aba27790836ce3b2eafe5dd5e0f19ca19c374db6f0a527a567b04cb05d6333"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_600326/evidence/source_manifest.json",
@@ -549,6 +633,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_601209/evidence/mapping_support_manifest.json",
+      "sha256": "d035812182b373c32f42a5544a6c713f88350faf270cee1463cdad660c01eff1"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_601209/evidence/source_manifest.json",
       "sha256": "692cb98afaec724ffa56a6b64dfd14c9b15afd01ad60f17c506d36a33db2d0b9"
     },
@@ -567,6 +655,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_601249/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601249/evidence/mapping_support_manifest.json",
+      "sha256": "6f4da4c64bb134dff86e0928cee11cdb2cbdbda8f140da83865c86a1771e234c"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_601249/evidence/source_manifest.json",
@@ -589,6 +681,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_601274/evidence/mapping_support_manifest.json",
+      "sha256": "3b5663ec84df2b7b4168ee4c23f1cc30ab8e57858476545050c75b001944baf8"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_601274/evidence/source_manifest.json",
       "sha256": "4c662d0d64bbbf9504c588946e13865c6eb1061b1b5c9d9ccce95bd7a17fc465"
     },
@@ -607,6 +703,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_601904/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601904/evidence/mapping_support_manifest.json",
+      "sha256": "02daf13d94d3557ff36980c5339d1b690292168b0d0fce8e33022b69ceeabdc8"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_601904/evidence/source_manifest.json",
@@ -629,6 +729,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_601925/evidence/mapping_support_manifest.json",
+      "sha256": "1ed6296543c18ff2df002f309a58d8fa1740467b42a713868139aa3cd2f07639"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_601925/evidence/source_manifest.json",
       "sha256": "0bd50193f311f4e78bdd73cb9ba1838854e425d2a16ef87c4c70301c93000c94"
     },
@@ -647,6 +751,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_601944/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_601944/evidence/mapping_support_manifest.json",
+      "sha256": "8543a793ed082776ba6745f59bf9422529c1ce0caa7a17c852ce336e41b29895"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_601944/evidence/source_manifest.json",
@@ -669,6 +777,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_603383/evidence/mapping_support_manifest.json",
+      "sha256": "c0d82ccb8757c688e814638d1de5611232b5aaba9432d629c79ace168cd4a129"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_603383/evidence/source_manifest.json",
       "sha256": "7a23ebd04ca6d629fbd7019de1aa0a8fc21447acfc6b9566fff745e103c1d942"
     },
@@ -687,6 +799,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_603595/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603595/evidence/mapping_support_manifest.json",
+      "sha256": "660fe0874d127eaed29b89622d5eec0d4ba8b938a7f603b2e8c10c8abf7a3cf7"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_603595/evidence/source_manifest.json",
@@ -709,6 +825,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_603615/evidence/mapping_support_manifest.json",
+      "sha256": "a68f3fe360ddc7ecac1d3e91655e62c21ba8ddd4e3c4d6d46c599a1b24cf28fa"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_603615/evidence/source_manifest.json",
       "sha256": "48f837b77b937fa65b40c334997bd398816493faee9bc31d188169022d42c367"
     },
@@ -727,6 +847,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_603618/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603618/evidence/mapping_support_manifest.json",
+      "sha256": "63f07cba8998a5e4de729ac8f6234cddec03237ce4698a824b9af1b45b1ced0d"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_603618/evidence/source_manifest.json",
@@ -749,6 +873,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_603700/evidence/mapping_support_manifest.json",
+      "sha256": "b2843d437e114d374814c2071d73ac0e22c8295243eb42b1a255d4e0407d21d7"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_603700/evidence/source_manifest.json",
       "sha256": "532aa8139fd2fcdbac611245830736932483dece35601b0c3b6708f03cca2e9f"
     },
@@ -767,6 +895,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_603705/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_603705/evidence/mapping_support_manifest.json",
+      "sha256": "6c772ff29ebf88996a67b62d093bcf994ed2995361f2accce61883c76d8acd62"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_603705/evidence/source_manifest.json",
@@ -789,6 +921,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_603915/evidence/mapping_support_manifest.json",
+      "sha256": "ceeb5bc0f409d1335164c819438145397a8fccd476eb3938b76da3987dff780d"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_603915/evidence/source_manifest.json",
       "sha256": "85804159d838e7cc6c9ff89ccc89c45fba516b20ae949f27f52e2649000e170f"
     },
@@ -807,6 +943,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_604276/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604276/evidence/mapping_support_manifest.json",
+      "sha256": "22518a4d7773a1bde1b6aae7cb740b5bc569abc1241c8cd6bc308a1d669e4a46"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_604276/evidence/source_manifest.json",
@@ -829,6 +969,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_604576/evidence/mapping_support_manifest.json",
+      "sha256": "52d5d9ce7431ad498ace4387e1cf5cb733d567a70b1def6e9435241fbecc1a6e"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_604576/evidence/source_manifest.json",
       "sha256": "66ae76668a3692139591ffd51cc8ec79fb30ccd302c3b055aed3f29d30d80716"
     },
@@ -847,6 +991,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_604618/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604618/evidence/mapping_support_manifest.json",
+      "sha256": "e4c20e4d59301e890df2d1e7675357c92927d3cf0fa6e273001bba6c6da079ad"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_604618/evidence/source_manifest.json",
@@ -869,6 +1017,10 @@
       "sha256": "d363ccd0cc33b80381577f38e8e1a936892aa09fe403e0c199b0c4a1be97ea3b"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_604857/evidence/mapping_support_manifest.json",
+      "sha256": "a0983c71b18b33833bea3fdba69bdbd38068dd30e4e6895e34b21123cec3b491"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_604857/evidence/source_manifest.json",
       "sha256": "6082953c71d21d0a81e231101ee43145265b67756dfcf73e3fad34774f5a6de1"
     },
@@ -887,6 +1039,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_604913/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_604913/evidence/mapping_support_manifest.json",
+      "sha256": "c3368fd35f37771c5d78c402e8a3fa8fa086f81eee6ea70658579b1d5e5ff373"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_604913/evidence/source_manifest.json",
@@ -909,6 +1065,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_604931/evidence/mapping_support_manifest.json",
+      "sha256": "33a457d1b78d39bdf10c60a4e2a5298be571d02223f3daefc6c98cab61549185"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_604931/evidence/source_manifest.json",
       "sha256": "dd677d8b14f8b75378f2b4ba0a9f15ca027072584259f8d751aa8f0b100071a3"
     },
@@ -927,6 +1087,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_605040/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605040/evidence/mapping_support_manifest.json",
+      "sha256": "92cd41567196019a3b70c01771165a340109862506070ca111e19cdd87c981e7"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_605040/evidence/source_manifest.json",
@@ -949,6 +1113,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_605540/evidence/mapping_support_manifest.json",
+      "sha256": "31aeedfa6b96e0d81c25849ec15decc07d6cc537503bbbb1b172a495c86871ad"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_605540/evidence/source_manifest.json",
       "sha256": "f4bc031b2e2c23c7b68b3f80b1283b42afd3b83ca7cdf8ff34447ee35dd9d1fd"
     },
@@ -967,6 +1135,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_605544/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605544/evidence/mapping_support_manifest.json",
+      "sha256": "8056d52dc90a99cfa3bf5257d3d765877f3f5b7ccbdd04fe58b13cd55aef8a67"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_605544/evidence/source_manifest.json",
@@ -989,6 +1161,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_605755/evidence/mapping_support_manifest.json",
+      "sha256": "7be986111026096cdd0651a10e38fd8c1775de46e772965a77a2a3f27e858ae2"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_605755/evidence/source_manifest.json",
       "sha256": "d348ec08682774a56a3040159ac2a1ec71637e026104a6ebed154ca82424609b"
     },
@@ -1007,6 +1183,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_605779/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_605779/evidence/mapping_support_manifest.json",
+      "sha256": "0fd90eca007a27e58832f3773ed3f4adb74c5341c7ceb0723e7e1d8017f8bcd8"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_605779/evidence/source_manifest.json",
@@ -1029,6 +1209,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_605783/evidence/mapping_support_manifest.json",
+      "sha256": "8518fc2fee5945b14470a27e7025103775a43e821f5a7cfdfc74444bc16c80b9"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_605783/evidence/source_manifest.json",
       "sha256": "5ae973e6eed51c8a621301994dd9405c3b39d2c1d059f8bd1747c25fbe072cae"
     },
@@ -1047,6 +1231,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_606407/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606407/evidence/mapping_support_manifest.json",
+      "sha256": "5bca82eb6e3ddf7df4051a3c9973bab7a801b52cd6d3f855bb83d45b0bf49da9"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_606407/evidence/source_manifest.json",
@@ -1069,6 +1257,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_606638/evidence/mapping_support_manifest.json",
+      "sha256": "523b5bbec6e6d9833c128548f799ba61f99a54d365a9b9febbd75bdd05389b5e"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_606638/evidence/source_manifest.json",
       "sha256": "1ba7182c6804c3860004430d425ecb8c1e9d921437cdcda432f556e41a93c94c"
     },
@@ -1087,6 +1279,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_606639/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606639/evidence/mapping_support_manifest.json",
+      "sha256": "eb0b5d52bf21dfa087b5f220c51073b2f69f10e8d82c0c046c8ec96ec496e73b"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_606639/evidence/source_manifest.json",
@@ -1109,6 +1305,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_606641/evidence/mapping_support_manifest.json",
+      "sha256": "8bfff07ffaff38b77bb7e78bc760b01165b40b1a398ddc9c1f3c8e3e54a23259"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_606641/evidence/source_manifest.json",
       "sha256": "30b9138e58958ad7b8a2a70d657287406d6e2124130ea3d27bda16471af4d32f"
     },
@@ -1127,6 +1327,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_606992/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_606992/evidence/mapping_support_manifest.json",
+      "sha256": "6810c76a4dbc7bd2c39a1e7ac6149dc8cd433ddd6d235367b1d5c4b865d8ca4c"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_606992/evidence/source_manifest.json",
@@ -1149,6 +1353,10 @@
       "sha256": "902aa2d687c2f8b32ebad990cd3ac49732a1cf76f67bc2d2fe67351f619a6615"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_607056/evidence/mapping_support_manifest.json",
+      "sha256": "a2aaa7fa80c7a2767da3b0e14037679f7dc4e0bd84c87383fe68b6600aea7319"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_607056/evidence/source_manifest.json",
       "sha256": "3bb8139c8bc7bed34037cab3f9ffb8824483647f2e77795b702bce60888cd085"
     },
@@ -1167,6 +1375,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_607153/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607153/evidence/mapping_support_manifest.json",
+      "sha256": "521f1b468fd9313ff9ca2af664ec00d876da2f61987f7043cdac51f5a2a98893"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_607153/evidence/source_manifest.json",
@@ -1189,6 +1401,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_607193/evidence/mapping_support_manifest.json",
+      "sha256": "552f1c2b130d06880162ea193c6dddae8c6c3d6c5967bdf8572a69bf1f1d4a32"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_607193/evidence/source_manifest.json",
       "sha256": "5a4b3fa9f1edeb9fcf3498e759dc3022dac009fcef0e11ce69633f50dc14bfa6"
     },
@@ -1207,6 +1423,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_607468/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607468/evidence/mapping_support_manifest.json",
+      "sha256": "fcf852c140461700c0b4f3f38cf023419aa8c2ef81a8d5167ae7ee62446d4625"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_607468/evidence/source_manifest.json",
@@ -1229,6 +1449,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_607473/evidence/mapping_support_manifest.json",
+      "sha256": "3ddd526e9492805c655cc3c6176f734a650d499fa9428114bb05a20f2a65a9e3"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_607473/evidence/source_manifest.json",
       "sha256": "b56b38bf53fd95939627688c77d5cefbb7d79d531eff8d5f8a0f00524b38be29"
     },
@@ -1247,6 +1471,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_607474/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607474/evidence/mapping_support_manifest.json",
+      "sha256": "5846e00f32e7ac7581dab654d6f5ac08c3aa27c37e418595d485558f3abffdd1"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_607474/evidence/source_manifest.json",
@@ -1269,6 +1497,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_607531/evidence/mapping_support_manifest.json",
+      "sha256": "dfbdcd059b2a1fd95ad28842a3ec56db0a87a87ec83407d9428e53998a2aa112"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_607531/evidence/source_manifest.json",
       "sha256": "478808a16b1ff3319eb068003fa2fe06d033b73f8534c0c831d9cf4f57877a99"
     },
@@ -1287,6 +1519,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_607534/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_607534/evidence/mapping_support_manifest.json",
+      "sha256": "53f2735ef254600754a64aeb8a949d643d3cfca0d751a1d3416d4c72204576a6"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_607534/evidence/source_manifest.json",
@@ -1309,6 +1545,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_608187/evidence/mapping_support_manifest.json",
+      "sha256": "4baadbcf59d2b292cdd53fac6a3cf55acc3d102c6f3c24b4c3afc3fc534f956f"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_608187/evidence/source_manifest.json",
       "sha256": "072ec630c226bd02447aa2ca95b0d359e77fe003ca76b19c9dac2296e1b126c1"
     },
@@ -1327,6 +1567,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_608340/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_608340/evidence/mapping_support_manifest.json",
+      "sha256": "aa08452600fae9169c79dac4e6d600e9fa6f1d6be023403eed7a7b512afc9a3b"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_608340/evidence/source_manifest.json",
@@ -1349,6 +1593,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_608543/evidence/mapping_support_manifest.json",
+      "sha256": "eb925bc4899eb111c592159bd76a1e928408ef85f20e8e784cb1c8a3256f9470"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_608543/evidence/source_manifest.json",
       "sha256": "a27e6a05312649c0845819997febee8fcbc965d6fcec642a851de64be07ba415"
     },
@@ -1367,6 +1615,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_609108/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_609108/evidence/mapping_support_manifest.json",
+      "sha256": "2e9b812daaaf27736ea173ca858f724e960ad87856eaf02365ded3b587517532"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_609108/evidence/source_manifest.json",
@@ -1389,6 +1641,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_610619/evidence/mapping_support_manifest.json",
+      "sha256": "d079509c2bd973bd7f12adde2aa43d32ddd3ba7a67aaff7a4fb0de40e4658ab6"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_610619/evidence/source_manifest.json",
       "sha256": "98a4dafd814b6f31b2dbc0c65339350cfaadf097b424befc2e9bc287b566a38d"
     },
@@ -1407,6 +1663,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_627737/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_627737/evidence/mapping_support_manifest.json",
+      "sha256": "bd01a549584e5d6b1d30d7cf892fe30ae048d2d3cc35e15205e2a9b9527bf2ed"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_627737/evidence/source_manifest.json",
@@ -1429,6 +1689,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_628041/evidence/mapping_support_manifest.json",
+      "sha256": "cc5fd3969928781e31fe1d0b8cfdcf73e7f7328d59a28d8a3956275862457b93"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_628041/evidence/source_manifest.json",
       "sha256": "de4cdce5b8ca3fd8c4c80d8e2208cecd4e46f42c2e66340d22bbb933fb5b98f7"
     },
@@ -1447,6 +1711,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_628093/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628093/evidence/mapping_support_manifest.json",
+      "sha256": "bca59e04ba79729c64ef1035ee0356a640840aa69c663f7feed56da3753bc099"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_628093/evidence/source_manifest.json",
@@ -1469,6 +1737,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_628504/evidence/mapping_support_manifest.json",
+      "sha256": "9ed403e390d5e9ed4a7beb38aaf05d5b1bc33ddf6fba078759730a446a51ce5b"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_628504/evidence/source_manifest.json",
       "sha256": "d4d6af49e575d73f3270aa1368f57aa63d84dc57aca124dccf6af578f174cc6a"
     },
@@ -1487,6 +1759,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_628662/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628662/evidence/mapping_support_manifest.json",
+      "sha256": "acfb3ab2e29229635a1caa5371460cbfbdb1959183ae8fcec1abc9f3b9870f60"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_628662/evidence/source_manifest.json",
@@ -1509,6 +1785,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_628960/evidence/mapping_support_manifest.json",
+      "sha256": "adf8912d3ab3481e3fd369a2f1f79aa09130d8ed65c782607f18e326ee54e837"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_628960/evidence/source_manifest.json",
       "sha256": "1db7e75702ae234d4f8f498fb465d7acaad67a903b45e007bfc9a8bfab94ea99"
     },
@@ -1527,6 +1807,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_628964/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_628964/evidence/mapping_support_manifest.json",
+      "sha256": "67bb0c60a7604a7f912c1337ec6145a36a88b52dc3f4c061876ea78436672275"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_628964/evidence/source_manifest.json",
@@ -1549,6 +1833,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_629041/evidence/mapping_support_manifest.json",
+      "sha256": "8381d4557c7eec0b20336d1158971050093005d57dec1aebb4c56e58f987b19e"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_629041/evidence/source_manifest.json",
       "sha256": "7930ff2f046cc159bc9e2f05e32213dbdc66ab3a75f8bd1e4aeeb610fc43b3cd"
     },
@@ -1567,6 +1855,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_629157/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629157/evidence/mapping_support_manifest.json",
+      "sha256": "2d6b256ea541ed773bc2f73b10f8a954d67822bae0221d7da2f1b72315c8caeb"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_629157/evidence/source_manifest.json",
@@ -1589,6 +1881,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_629570/evidence/mapping_support_manifest.json",
+      "sha256": "d194924db9102071aef9d295501f9578fbc36f2855d523b085bfa053b3560bee"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_629570/evidence/source_manifest.json",
       "sha256": "d80e5771ff0508a580125e5b2a9f95898b79ea3d2dc028e87498b75d4d665a3a"
     },
@@ -1607,6 +1903,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_629780/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629780/evidence/mapping_support_manifest.json",
+      "sha256": "7691d84133c696c45c48cfd81cd71cf89eaf9f3c2965b5c35a1344c7b719111f"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_629780/evidence/source_manifest.json",
@@ -1629,6 +1929,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_629799/evidence/mapping_support_manifest.json",
+      "sha256": "60e15e90e1af118d6b8d782101140ff734dd57905330d08a24292a5650dddae8"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_629799/evidence/source_manifest.json",
       "sha256": "d5eb7ff38ba39e0799b05f56b5dd06f15065a00253e214d155c41537ce81b83b"
     },
@@ -1647,6 +1951,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_629812/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_629812/evidence/mapping_support_manifest.json",
+      "sha256": "18f8caad047c33e366ad871b0ee5bd3e782c3baf97c81ef1771bdbd9692342b5"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_629812/evidence/source_manifest.json",
@@ -1669,6 +1977,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_629906/evidence/mapping_support_manifest.json",
+      "sha256": "90dc5ab657878b288abf4c954c086579a12a1ca0fa19e26c592d837df15a5246"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_629906/evidence/source_manifest.json",
       "sha256": "fc49e1aa4a61461a0565de44de3094de3a7b09304dd95f0d4fe973ddf9d5a018"
     },
@@ -1687,6 +1999,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_630138/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630138/evidence/mapping_support_manifest.json",
+      "sha256": "b9c9ee02029f1726f42561b0ca11d53edcb13983ee409fdaca69109f54d4c664"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_630138/evidence/source_manifest.json",
@@ -1709,6 +2025,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_630594/evidence/mapping_support_manifest.json",
+      "sha256": "f0912a7d6223a2eeab5d6531900e4600bfb026e78a879d428c330a52f7976302"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_630594/evidence/source_manifest.json",
       "sha256": "48a83052022021f7c675fe984fc4feef7f81a6e5822897da1a416dce89509533"
     },
@@ -1727,6 +2047,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_630872/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_630872/evidence/mapping_support_manifest.json",
+      "sha256": "70c0229563474c2c76e7dfd919522b463d46e6017f3f38f6ab692bd7bc551662"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_630872/evidence/source_manifest.json",
@@ -1749,6 +2073,10 @@
       "sha256": "287c5b84a8b61cfbf68b2aa4ac7f20cdb184e63b72d315daf4561af3c765e62f"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_631238/evidence/mapping_support_manifest.json",
+      "sha256": "6b1182d277d2b08799e65702a07698493937fd498863399783e5a8a79050dc47"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_631238/evidence/source_manifest.json",
       "sha256": "897741671bc174dcfec78e86d7bf43953be1f960f5b1dba9d3d1d1a5e5bf3d75"
     },
@@ -1767,6 +2095,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_632018/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_632018/evidence/mapping_support_manifest.json",
+      "sha256": "70eac767ff254fac2e0c129cf1f8bf06d3cc2a86ac93c0ed77439603fe649497"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_632018/evidence/source_manifest.json",
@@ -1789,6 +2121,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_632208/evidence/mapping_support_manifest.json",
+      "sha256": "691e18a4f87b052c5d135b8ebe9a8cbf409fe3fc3917bc7e4ece44861168be75"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_632208/evidence/source_manifest.json",
       "sha256": "e4e82d704706107f8f801e1bb92864c472ed82aba36c9235bf9d6d9daaa92afe"
     },
@@ -1807,6 +2143,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_633049/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633049/evidence/mapping_support_manifest.json",
+      "sha256": "2b0f0a51196b86f8acf75b799f4c7b0ba98f5c8cdc57d0b483b65421c0514b63"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_633049/evidence/source_manifest.json",
@@ -1829,6 +2169,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_633053/evidence/mapping_support_manifest.json",
+      "sha256": "32c0e256ee51d31a5616730953688502e5189959b67df64ae6fc244aba9ffd0c"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_633053/evidence/source_manifest.json",
       "sha256": "fd6f8c73ec9a1a93155b6684d6e281218804f80c9e8f6205233e9bc22be84dd9"
     },
@@ -1847,6 +2191,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_633145/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633145/evidence/mapping_support_manifest.json",
+      "sha256": "45e14d3707d06cd9668a7076344e3e4c72963d8d4380c267b08129089458ad96"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_633145/evidence/source_manifest.json",
@@ -1869,6 +2217,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_633181/evidence/mapping_support_manifest.json",
+      "sha256": "3a98ccc76572df1da2979619ffc7e78124179fecc4de698621ed21baae336d46"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_633181/evidence/source_manifest.json",
       "sha256": "7bf979f7437084c1e18be5ed0a05964f2cdba5855119a632200e0fa2f255ed8c"
     },
@@ -1887,6 +2239,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_633456/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633456/evidence/mapping_support_manifest.json",
+      "sha256": "18b79c3f0ec745d6abbbfe4fd58f87245cbbbc035c454c556395b8ad5a920136"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_633456/evidence/source_manifest.json",
@@ -1909,6 +2265,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_633910/evidence/mapping_support_manifest.json",
+      "sha256": "c43e6bc47d225b76b6ee41ce342ce43eb0e2b6ebcf684ff26c6ceca4af5c17f9"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_633910/evidence/source_manifest.json",
       "sha256": "c3a41f1eda54f3e13dc95c8e6f67f4fd4f9e633a861b6ca8f38767eba7f4f8ca"
     },
@@ -1927,6 +2287,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_633954/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_633954/evidence/mapping_support_manifest.json",
+      "sha256": "ee24353ceaf1a88f3b27267a76365222f496ee534fb7f2e7a6b409f0703cd012"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_633954/evidence/source_manifest.json",
@@ -1949,6 +2313,10 @@
       "sha256": "e822d467a8b96d3bca3a3fcd06e23f279d72eb415b5a1766a98bb7abfd100a8d"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_634564/evidence/mapping_support_manifest.json",
+      "sha256": "c10023a9483e401b888a3b3cd07b80edbeb3c93f6d344d5e4689848b2a721fa6"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_634564/evidence/source_manifest.json",
       "sha256": "2e05fb2d2ea53e035fad83e190e966345155fb5e3506aefc059b3d73c951ce09"
     },
@@ -1967,6 +2335,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_634573/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_634573/evidence/mapping_support_manifest.json",
+      "sha256": "b390156dc0ed971d7f865d32d608492c07d024ee6c9df91c78e42934280615c0"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_634573/evidence/source_manifest.json",
@@ -1989,6 +2361,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_634614/evidence/mapping_support_manifest.json",
+      "sha256": "356d2a9db051cac2b12ed94c572646a9ed02dd3a9b05cadd7005de1e11616ac8"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_634614/evidence/source_manifest.json",
       "sha256": "1ec1e39e5a37ee56d1c95fe84f996202b2b31ded048335ea6662da23a393cc2a"
     },
@@ -2007,6 +2383,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_635235/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_635235/evidence/mapping_support_manifest.json",
+      "sha256": "cd709e626cf414821f549c6ac54f1f09a997da7874a62c1041f5de37e498c5a8"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_635235/evidence/source_manifest.json",
@@ -2029,6 +2409,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_645004/evidence/mapping_support_manifest.json",
+      "sha256": "64520f190efa9c98aebd844ff5aed2c2417c5d2297b62fa0494ffe0be2596e13"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_645004/evidence/source_manifest.json",
       "sha256": "24d45080bc256512888ecc47e35b9dbf4b11167c40ac85d8d1365ed2ee4c3c90"
     },
@@ -2047,6 +2431,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_645038/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_645038/evidence/mapping_support_manifest.json",
+      "sha256": "b3ba60b3ec55724c93eda9aebd26af541a9131ff5eb4804ebbc47f19da1e3b00"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_645038/evidence/source_manifest.json",
@@ -2069,6 +2457,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_663624/evidence/mapping_support_manifest.json",
+      "sha256": "1be6d335efde9e1ce6cd41564c0f8208c6372120a77c0155cce067de146c4d8c"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_663624/evidence/source_manifest.json",
       "sha256": "db5c16af755d9ff5807b87469b0756c471235d1498eca0b414c2a66c60946bf2"
     },
@@ -2089,6 +2481,10 @@
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
     },
     {
+      "path": "artifact_data/dataset/INC_BANK_669244/evidence/mapping_support_manifest.json",
+      "sha256": "fc1b6950f7f14fa4a6cf0c6c5b56c1d11c8a28826cae2e7eb634f40bfdbaa277"
+    },
+    {
       "path": "artifact_data/dataset/INC_BANK_669244/evidence/source_manifest.json",
       "sha256": "286c2f2b00565e2936521be639d2cb4e7f1297413753d2478dba160cb83fbcfe"
     },
@@ -2107,6 +2503,10 @@
     {
       "path": "artifact_data/dataset/INC_BANK_669315/evidence/conversion_quality.json",
       "sha256": "35fba23aa427e81124888e06c76fe60bf9db7c8ab79d4fefea015bc02c27c06a"
+    },
+    {
+      "path": "artifact_data/dataset/INC_BANK_669315/evidence/mapping_support_manifest.json",
+      "sha256": "d4f99d2e7816a2b548caa70386e17a69dac6f8bbf1ca6eb47d63adf7e6983f3e"
     },
     {
       "path": "artifact_data/dataset/INC_BANK_669315/evidence/source_manifest.json",
@@ -2134,55 +2534,67 @@
     },
     {
       "path": "artifact_outputs/analysis/analysis_bundle.json",
-      "sha256": "208154b817614f8eaac0f3845225f2ee719904da097fbfe954ebf110c8b96e50"
+      "sha256": "8800d74a5247adc81c5756d9ad9dc08782b7b19a65a9daf1a6aeafff8481ecee"
     },
     {
       "path": "artifact_outputs/analysis/corpus_readiness.json",
-      "sha256": "5f3ab0e11323f9d2c2108b455e25f87b9be157b8d4be37f19fdad4bec269e787"
+      "sha256": "163754ae17f99d8a0486404c91661f1119080c3f0eb872611001cf71648d3945"
     },
     {
       "path": "artifact_outputs/analysis/data_preflight.json",
-      "sha256": "6810f250bf766788d8126641a5d79062f28b5bcab70da8ee58f3f472e0c7241b"
+      "sha256": "190093f053ebc0cfb8a8bcd63a03ba249399f0604637879bbb9147bb7cc86c4f"
     },
     {
       "path": "artifact_outputs/analysis/data_quality_report.json",
-      "sha256": "368fd7ee5cb6a265cebcf880887b27392675d49a6c9004dc7b413ad25cd94909"
+      "sha256": "da87155a532604e423a574d6a3948ba1cea00e9a5f05253ef278fe0980c70074"
     },
     {
       "path": "artifact_outputs/analysis/dataset_audit.json",
-      "sha256": "a9373c37eae84b8f0700ac82c033b110ce90956221028c18df548bdaa9f7c8d0"
+      "sha256": "c36d601ce49c702f1064d7fb02c4e53d772105c82ae072d08703376365588796"
     },
     {
       "path": "artifact_outputs/analysis/figures/attack_tactic_frequency.png",
-      "sha256": "5a85d4a0f3de176ce5b23de4331a7c168ed740fb58a7aef071aa6fc32eb308b7"
+      "sha256": "d9f6fe1267300d22ea899f1b86e43582bae5e0edad8c029b75a90a90309bb7b6"
     },
     {
       "path": "artifact_outputs/analysis/figures/usage_budget.png",
-      "sha256": "33e597f7e89bf92b7b8ffcd017b7927440fecb79ab386c400e09844e2fba95b5"
+      "sha256": "80a4351218564d0698638281059d6eb12bb5de7642c17f0110dcafd2bc44e974"
     },
     {
       "path": "artifact_outputs/analysis/figures/violation_rate_by_model.png",
-      "sha256": "c878a274d22171d772c246f65d2f74c5ab5f67a2b77eb42f80f0751c48bc6da5"
+      "sha256": "62664a30575bc46d7bfee3b0a0f9a0a3c92ca9ca97b4f3cbb23a4f5283cc96c8"
     },
     {
       "path": "artifact_outputs/analysis/figures/violations_by_rule_model.png",
-      "sha256": "b69eb0215549803a5863e141773a0b08ee27fe01575489d2ab48a99018c8b331"
+      "sha256": "da95f6aff5c061865cccb0ebe80cfb1c763d2dae736245799f5a97c8f072d564"
+    },
+    {
+      "path": "artifact_outputs/analysis/global_artifact_assessment.json",
+      "sha256": "4321895fbb9cd9219a7748f412adeb43490686c1770f3b1ee322a6d76c8f6595"
+    },
+    {
+      "path": "artifact_outputs/analysis/global_artifact_assessment.md",
+      "sha256": "17c45b8faf4cadf5fdb0680b5fb02a8bc68a0c417164610217e4dc2676f64ba7"
     },
     {
       "path": "artifact_outputs/analysis/global_artifact_provenance.json",
-      "sha256": "c39e09181940bb66183a533bd1a1726c1e083895933c0e7cb5d0d8fbe67a6d02"
+      "sha256": "352466c4abec688466ccaa63cb8d35cd65e39ec7c59d04792e8afc950ffde497"
     },
     {
       "path": "artifact_outputs/analysis/mini_batch_selection.json",
-      "sha256": "c65436710f3eb55eba9af00ffdb4d4188695e71de7a2a8dc0d92be63ba36d28a"
+      "sha256": "258cb65d3fc8336eaebe55bab7ac45fe6433f5faa66de6acecbf04f850be9b04"
+    },
+    {
+      "path": "artifact_outputs/analysis/official_evaluation_summary.json",
+      "sha256": "217189d245842060f140b2fa29df34502393848b3e41cbae9ec08998ba473f82"
     },
     {
       "path": "artifact_outputs/analysis/protocol_freeze.json",
-      "sha256": "e073b3ac935aa937fc19879d8d2ac73ae6562f0d04e9e3125794bfa1e1bcd015"
+      "sha256": "ee129d2a1529c6b213d83dceee7ccf9d0d90d1f321a93759cafb01f794c5c006"
     },
     {
       "path": "artifact_outputs/analysis/release_readiness.json",
-      "sha256": "c5d0411eab40af0649b078d858b13f54268c8915b6996323899649027d6584f2"
+      "sha256": "0de9c90aca34d32992a9f910668837b4e2b69decbb666e3c174c1eaf0636af22"
     },
     {
       "path": "artifact_outputs/analysis/summary.json",
@@ -2234,7 +2646,7 @@
     },
     {
       "path": "run.sh",
-      "sha256": "a2662631d06d2358da1ba5159d65d00092528515a96137dde00b6069178c0dd9"
+      "sha256": "fd7a97c2786d8d5df39a387ff527b54639caba92773e72f973b0eaf81bd05e35"
     },
     {
       "path": "scripts/build_paper_workspace.sh",
@@ -2286,7 +2698,7 @@
     },
     {
       "path": "src/soc_llm_policy/dataset_audit.py",
-      "sha256": "78fcdb2b70be7fb7ea8e92c9d3bc154b6097629335980e66717abdd865cead19"
+      "sha256": "81d88b4d9099794a460c693c5b3f33d51da9dc586ab8f1fbe7ed9f36c0dca77f"
     },
     {
       "path": "src/soc_llm_policy/dataset_import.py",
@@ -2294,7 +2706,7 @@
     },
     {
       "path": "src/soc_llm_policy/dotenv_utils.py",
-      "sha256": "646a441ee70bcd163907f1b3aba9217d20bc4902695900b719c5a86455238812"
+      "sha256": "adb690c40963a3b5f76018b90ffe29e5756e84e03766c594e6f43e8b1f98ad63"
     },
     {
       "path": "src/soc_llm_policy/engine.py",
@@ -2303,6 +2715,10 @@
     {
       "path": "src/soc_llm_policy/experiment_runner.py",
       "sha256": "8acfb2cf084a13d9f79b9f65bc440204a574141d8a5013118b8cbb398bbb3a29"
+    },
+    {
+      "path": "src/soc_llm_policy/global_artifact_assessment.py",
+      "sha256": "3546493579041a172533c1f550739accbbeb685438af99ad1b5430ee43c8fb78"
     },
     {
       "path": "src/soc_llm_policy/global_provenance.py",
@@ -2329,6 +2745,10 @@
       "sha256": "d5a27da5ac65ce102315c04a13fadc0423b81a264829a08ec54c7ce957f6bc67"
     },
     {
+      "path": "src/soc_llm_policy/mapping_support.py",
+      "sha256": "9ba5395542f84e43dba213d4c46bd9c7bb66e266fbc11ebeb40abb930c59bfb9"
+    },
+    {
       "path": "src/soc_llm_policy/metrics.py",
       "sha256": "6f466c6feb959d597f3270e7c15cf2cb191240d1f3525d62cb15a6d79966f371"
     },
@@ -2346,7 +2766,7 @@
     },
     {
       "path": "src/soc_llm_policy/pipeline.py",
-      "sha256": "1906dda56a355bb1a219b341a857d7df392bdde297085b6469d92ce519e79f85"
+      "sha256": "7111880b22ba8672e7740ff3a8357b2b7ce24b0de4524f968499136036b5ef18"
     },
     {
       "path": "src/soc_llm_policy/privacy_audit.py",
@@ -2367,6 +2787,10 @@
     {
       "path": "src/soc_llm_policy/release_audit.py",
       "sha256": "e8f369ac395fae2aa84a7eeec469f47b44a9d5fd16561e1d713b9ff17f0bb136"
+    },
+    {
+      "path": "src/soc_llm_policy/replay_saved_llm_outputs.py",
+      "sha256": "dc423c856cfd6870c5ebbcdf809cdf26ed0f1df5865d9dd58daac31318e24d68"
     },
     {
       "path": "src/soc_llm_policy/repo_surface.py",

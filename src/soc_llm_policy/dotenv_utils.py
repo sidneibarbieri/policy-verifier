@@ -5,12 +5,11 @@ from pathlib import Path
 
 from soc_llm_policy.paths import resolve_repo_root
 
-
 _DOTENV_OVERRIDE = "SOC_LLM_POLICY_DOTENV_PATH"
 
 
 def iter_dotenv_candidates(repo_root: Path | None = None) -> list[Path]:
-    root = repo_root.resolve() if repo_root is not None else resolve_repo_root()
+    root = repo_root.resolve() if repo_root is not None else resolve_repo_root(None)
     override = os.environ.get(_DOTENV_OVERRIDE, "").strip()
     candidates: list[Path] = []
     if override:

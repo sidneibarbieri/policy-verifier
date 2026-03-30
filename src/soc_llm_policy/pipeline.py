@@ -131,6 +131,7 @@ class VerifierRunOptions:
     run_tag: str
     strict_data: bool
     approval_policy_mode: Literal["remove", "defer_to_human_approval"]
+    write_canonical_output: bool = True
     llm_actions: list[str] | None = None
     llm_deployment: str | None = None
     llm_arm: str | None = None
@@ -622,6 +623,8 @@ def _save_verifier_result(
     incident_dir_id: str,
     run_tag: str,
     result: VerifierResult,
+    *,
+    write_canonical_output: bool = True,
 ) -> dict[str, Any]:
     """Serialize and persist verifier result; return the resulting dict."""
     output_path = paths.outputs_verifier_output_path(incident_dir_id)
@@ -630,9 +633,16 @@ def _save_verifier_result(
         run_tag,
     )
     data = VerifierOutputModel.model_validate(result.to_dict()).model_dump(mode="json")
-    _write_json(output_path, data)
+    if write_canonical_output:
+        _write_json(output_path, data)
     _write_json(output_path_versioned, data)
-    _step("", f"Result saved at: {output_path.relative_to(paths.repo_root)}")
+    if write_canonical_output:
+        _step("", f"Result saved at: {output_path.relative_to(paths.repo_root)}")
+    else:
+        _step(
+            "",
+            "Replay result saved without overwriting canonical output:",
+        )
     _item(f"History saved at:    {output_path_versioned.relative_to(paths.repo_root)}")
     return data
 
@@ -760,7 +770,13 @@ def run_verifier(
         llm_latency_ms=options.llm_latency_ms,
         llm_cost_estimated_usd=options.llm_cost_estimated_usd,
     )
-    return _save_verifier_result(paths, incident_id, options.run_tag, result)
+    return _save_verifier_result(
+        paths,
+        incident_id,
+        options.run_tag,
+        result,
+        write_canonical_output=options.write_canonical_output,
+    )
 
 
 # CLI

@@ -1,17 +1,18 @@
 from __future__ import annotations
 
 import argparse
-import html
 import json
 import re
-import unicodedata
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 from soc_llm_policy.json_stability import write_stable_json
+from soc_llm_policy.mapping_support import (
+    build_mapping_support_manifest,
+    load_mapping_rules,
+    load_mapping_support_manifest,
+)
 from soc_llm_policy.io import (
     parse_action_catalog,
     parse_human_actions,
@@ -26,7 +27,6 @@ from soc_llm_policy.io import (
 from soc_llm_policy.paths import (
     RepoPaths,
     repo_relative_path,
-    resolve_repo_relative_path,
     resolve_repo_root,
 )
 from soc_llm_policy.pipeline import list_inbox_incidents
@@ -204,82 +204,16 @@ def _load_conversion_quality(
     return raw
 
 
-def _load_source_manifest(
-    paths: RepoPaths,
-    incident_id: str,
-) -> dict[str, Any] | None:
-    manifest_path = paths.inbox_incident_dir(incident_id) / "evidence" / "source_manifest.json"
-    if not manifest_path.exists():
-        return None
-    try:
-        raw = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except Exception:
-        return None
-    if not isinstance(raw, dict):
-        return None
-    return raw
-
-
-def _normalize_for_match(text: str) -> str:
-    out = html.unescape(text)
-    out = re.sub(r"<[^>]+>", " ", out)
-    out = " ".join(out.lower().split())
-    out = unicodedata.normalize("NFKD", out)
-    return "".join(ch for ch in out if not unicodedata.combining(ch))
-
-
-def _load_mapping_rules(paths: RepoPaths) -> list[dict[str, Any]]:
-    mapping_path = paths.action_mapping_bank_path
-    if not mapping_path.exists():
-        return []
-    try:
-        raw = yaml.safe_load(mapping_path.read_text(encoding="utf-8"))
-    except Exception:
-        return []
-    rules_raw = raw.get("rules") if isinstance(raw, dict) else None
-    if not isinstance(rules_raw, list):
-        return []
-    rules: list[dict[str, Any]] = []
-    for item in rules_raw:
-        if not isinstance(item, dict):
-            continue
-        action_id = str(item.get("action_id") or "").strip()
-        keywords_raw = item.get("keywords")
-        if not action_id or not isinstance(keywords_raw, list):
-            continue
-        keywords: list[str] = []
-        seen_keywords: set[str] = set()
-        for raw_keyword in keywords_raw:
-            candidate = _normalize_for_match(str(raw_keyword))
-            if not candidate or candidate in seen_keywords:
-                continue
-            keywords.append(candidate)
-            seen_keywords.add(candidate)
-        if not keywords:
-            continue
-        rules.append(
-            {
-                "action_id": action_id,
-                "keywords": keywords,
-                "match_policy": str(item.get("match_policy", "any_keyword")).strip()
-                or "any_keyword",
-                "priority": int(item.get("priority", 0)),
-            }
-        )
-    return rules
-
-
 def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
     catalog = parse_action_catalog(read_yaml_list(paths.inbox_action_catalog_path))
     rules = parse_rules(read_yaml_list(paths.inbox_constraints_path))
-    mapping_rules = _load_mapping_rules(paths)
+    mapping_rules = load_mapping_rules(paths.action_mapping_bank_path)
 
     catalog_actions = sorted({item.action_id for item in catalog})
     mapping_actions = sorted(
         {
-            str(rule.get("action_id", "")).strip()
+            rule.action_id
             for rule in mapping_rules
-            if str(rule.get("action_id", "")).strip()
         }
     )
     constrained_actions = sorted({rule.action for rule in rules})
@@ -311,7 +245,7 @@ def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
             1 for item in catalog if item.requires_approval
         ),
         "reversible_action_count": sum(1 for item in catalog if item.reversible),
-        "mapping_rule_count": len(mapping_rules),
+            "mapping_rule_count": len(mapping_rules),
         "mapping_action_count": len(mapping_actions),
         "mapping_action_coverage_over_catalog": mapping_action_coverage,
         "catalog_actions_missing_mapping_rules": sorted(
@@ -323,88 +257,6 @@ def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
         "constrained_action_count": len(constrained_actions),
         "policy_action_coverage_over_catalog": constrained_action_coverage,
     }
-
-
-def _load_redacted_tasks(
-    paths: RepoPaths,
-    incident_id: str,
-) -> list[dict[str, Any]] | None:
-    manifest = _load_source_manifest(paths, incident_id)
-    if manifest is None:
-        return None
-    redacted_export = manifest.get("redacted_export")
-    if not isinstance(redacted_export, str) or not redacted_export.strip():
-        return None
-    export_path = resolve_repo_relative_path(redacted_export, paths.repo_root)
-    if not export_path.exists():
-        return None
-    try:
-        raw = json.loads(export_path.read_text(encoding="utf-8"))
-    except Exception:
-        return None
-    tasks = raw.get("extracted_tasks")
-    if not isinstance(tasks, list):
-        return None
-    return [task for task in tasks if isinstance(task, dict)]
-
-
-def _task_text(task: dict[str, Any]) -> str:
-    return _normalize_for_match(
-        " ".join(
-            [
-                str(task.get("name") or ""),
-                str(task.get("description") or ""),
-                str(task.get("instructions") or ""),
-                str(task.get("instr_text") or ""),
-            ]
-        )
-    )
-
-
-def _audit_mapping_sensitivity(
-    *,
-    tasks: list[dict[str, Any]],
-    mapping_rules: list[dict[str, Any]],
-) -> dict[str, int]:
-    metrics = {
-        "task_count": 0,
-        "zero_match_count": 0,
-        "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 0,
-        "multi_keyword_unique_match_count": 0,
-    }
-    for task in tasks:
-        text = _task_text(task)
-        if not text:
-            continue
-        metrics["task_count"] += 1
-        ranked: list[tuple[int, int, int]] = []
-        for rule in mapping_rules:
-            keywords = [keyword for keyword in rule["keywords"] if keyword in text]
-            if not keywords:
-                continue
-            score = len(keywords)
-            if str(rule.get("match_policy", "any_keyword")) == "all_keywords":
-                score = len(rule["keywords"]) if score == len(rule["keywords"]) else 0
-            if score <= 0:
-                continue
-            ranked.append((score, int(rule.get("priority", 0)), len(keywords)))
-        if not ranked:
-            metrics["zero_match_count"] += 1
-            continue
-
-        ranked.sort(key=lambda row: (-row[0], -row[1], -row[2]))
-        top = ranked[0]
-        if len(ranked) > 1 and ranked[1][0] == top[0] and ranked[1][1] == top[1]:
-            metrics["ambiguous_match_count"] += 1
-            continue
-
-        matched_keyword_count = top[2]
-        if matched_keyword_count == 1:
-            metrics["single_keyword_unique_match_count"] += 1
-        else:
-            metrics["multi_keyword_unique_match_count"] += 1
-    return metrics
 
 
 def _walk_strings(value: Any) -> list[str]:
@@ -497,29 +349,35 @@ def _build_corpus_readiness(
     multi_keyword_unique_match_count_total = 0
     mitre_technique_ids: set[str] = set()
     mitre_technique_labels: set[str] = set()
-    mapping_rules = _load_mapping_rules(paths)
+    mapping_rules = load_mapping_rules(paths.action_mapping_bank_path)
     for incident_id in incidents:
         for event in _load_incident_telemetry_events(paths, incident_id):
             ids, labels = _extract_mitre_features(event)
             mitre_technique_ids.update(ids)
             mitre_technique_labels.update(labels)
         if mapping_rules:
-            redacted_tasks = _load_redacted_tasks(paths, incident_id)
-            if redacted_tasks is not None:
-                sensitivity = _audit_mapping_sensitivity(
-                    tasks=redacted_tasks,
+            support_manifest = load_mapping_support_manifest(paths, incident_id)
+            if support_manifest is None:
+                support_manifest = build_mapping_support_manifest(
+                    paths=paths,
+                    incident_id=incident_id,
                     mapping_rules=mapping_rules,
                 )
+            if support_manifest is not None:
                 sensitivity_incident_count += 1
-                sensitivity_task_count_total += sensitivity["task_count"]
-                ambiguous_match_count_total += sensitivity["ambiguous_match_count"]
-                zero_match_count_total += sensitivity["zero_match_count"]
-                single_keyword_unique_match_count_total += sensitivity[
-                    "single_keyword_unique_match_count"
-                ]
-                multi_keyword_unique_match_count_total += sensitivity[
-                    "multi_keyword_unique_match_count"
-                ]
+                sensitivity_task_count_total += _safe_int(support_manifest.get("task_count"))
+                ambiguous_match_count_total += _safe_int(
+                    support_manifest.get("ambiguous_match_count")
+                )
+                zero_match_count_total += _safe_int(
+                    support_manifest.get("zero_match_count")
+                )
+                single_keyword_unique_match_count_total += _safe_int(
+                    support_manifest.get("single_keyword_unique_match_count")
+                )
+                multi_keyword_unique_match_count_total += _safe_int(
+                    support_manifest.get("multi_keyword_unique_match_count")
+                )
         quality = _load_conversion_quality(paths, incident_id)
         if quality is None:
             missing_conversion_count += 1
