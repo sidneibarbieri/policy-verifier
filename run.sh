@@ -16,6 +16,30 @@ else
   PY="${PYTHON:-python3}"
 fi
 
+ensure_runtime_deps() {
+  if "${PY}" - <<'PY' >/dev/null 2>&1
+import dotenv
+import pydantic
+import yaml
+PY
+  then
+    return 0
+  fi
+
+  cat >&2 <<'EOF'
+Error: required Python dependencies are unavailable for the artifact runner.
+
+Recommended setup:
+  python3 -m venv .venv
+  source .venv/bin/activate
+  .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+
+Then rerun:
+  ./run.sh validate-public-artifact
+EOF
+  exit 1
+}
+
 run_public_artifact_validation() {
   if [[ ! -f "${SCRIPT_DIR}/artifact_manifest.json" ]]; then
     echo "Error: validate-public-artifact requires an artifact package root." >&2
@@ -53,6 +77,7 @@ run_public_artifact_validation() {
 }
 
 COMMAND="${1:-}"
+ensure_runtime_deps
 
 case "${COMMAND}" in
   validate-public-artifact)

@@ -89,6 +89,14 @@ def build_protocol_freeze_manifest(
         ("dataset_audit", dataset_audit_path),
         ("corpus_readiness", corpus_readiness_path),
         ("release_readiness", release_readiness_path),
+        (
+            "official_evaluation_summary",
+            paths.outputs_analysis_dir / "official_evaluation_summary.json",
+        ),
+        (
+            "official_runs_manifest",
+            paths.outputs_analysis_dir / "official_runs_manifest.json",
+        ),
     ]
     input_hashes: dict[str, dict[str, str]] = {}
     for name, path in hashed_inputs:

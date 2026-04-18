@@ -169,7 +169,7 @@ def sanitize_repo_surface(paths: RepoPaths) -> RepoSurfaceReport:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="soc_llm_policy.repo_surface",
-        description="Normalize tracked repository metadata to reviewer-safe relative paths.",
+        description="Normalize tracked repository metadata to release-safe relative paths.",
     )
     parser.add_argument("--repo-root", default=".")
     return parser

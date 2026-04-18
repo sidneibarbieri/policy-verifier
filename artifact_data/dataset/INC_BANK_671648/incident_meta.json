@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_671648",
+  "incident_type": "access",
+  "severity": "medium",
+  "asset_criticality": "medium",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-03-23T18:21:17.061000Z",
+  "time_window_end": "2026-04-09T12:13:26.739000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

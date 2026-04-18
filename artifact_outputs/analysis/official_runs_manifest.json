@@ -1,0 +1,134 @@
+{
+  "generated_at_utc": "2026-04-10T13:05:07.849573+00:00",
+  "manifest_version": "1.0",
+  "reported_evaluation_run_id": "exp_final_20260409T222111Z_r1_completed_after_repair",
+  "reported_bundle_state": "completed_after_repair",
+  "dataset_release_id": "submission_freeze_200",
+  "eval_protocol_version": "official",
+  "approval_policy_mode": "remove",
+  "incident_count": 200,
+  "official_models": [
+    "gpt-5.2",
+    "claude-sonnet-4-6"
+  ],
+  "official_model_registry_names": [
+    "openai_gpt52",
+    "anthropic_sonnet46"
+  ],
+  "arms": [
+    "zero",
+    "policy"
+  ],
+  "arms_internal": [
+    "llm_zero",
+    "llm_policy_prompt"
+  ],
+  "execution_accounting": {
+    "llm_trajectories_planned": 800,
+    "llm_trajectories_attempted": 800,
+    "llm_trajectories_completed": 800,
+    "llm_trajectories_failed_total": 0,
+    "preflight_failures": 0,
+    "execution_failures": 0,
+    "run_success_rate": 1.0,
+    "llm_total_tokens_total": 734740,
+    "llm_cost_estimated_usd_total": 3.034621
+  },
+  "by_model_and_arm": [
+    {
+      "model_registry_name": "anthropic_sonnet46",
+      "model": "claude-sonnet-4-6",
+      "arm_internal": "llm_policy_prompt",
+      "arm": "policy",
+      "planned_runs": 200,
+      "attempted_runs": 200,
+      "completed_runs": 200,
+      "preflight_failures": 0,
+      "execution_failures": 0,
+      "run_violation_rate": 0.87,
+      "enforcement_modification_rate": 0.87,
+      "task_coverage_enforced_avg": 0.7634,
+      "delta_jaccard_avg": 0.1544,
+      "llm_total_tokens_total": 208163,
+      "llm_cost_estimated_usd_total": 1.002765
+    },
+    {
+      "model_registry_name": "anthropic_sonnet46",
+      "model": "claude-sonnet-4-6",
+      "arm_internal": "llm_zero",
+      "arm": "zero",
+      "planned_runs": 200,
+      "attempted_runs": 200,
+      "completed_runs": 200,
+      "preflight_failures": 0,
+      "execution_failures": 0,
+      "run_violation_rate": 0.36,
+      "enforcement_modification_rate": 0.36,
+      "task_coverage_enforced_avg": 0.7567,
+      "delta_jaccard_avg": 0.0678,
+      "llm_total_tokens_total": 190709,
+      "llm_cost_estimated_usd_total": 0.892155
+    },
+    {
+      "model_registry_name": "openai_gpt52",
+      "model": "gpt-5.2",
+      "arm_internal": "llm_policy_prompt",
+      "arm": "policy",
+      "planned_runs": 200,
+      "attempted_runs": 200,
+      "completed_runs": 200,
+      "preflight_failures": 0,
+      "execution_failures": 0,
+      "run_violation_rate": 0.47,
+      "enforcement_modification_rate": 0.47,
+      "task_coverage_enforced_avg": 0.74,
+      "delta_jaccard_avg": 0.0917,
+      "llm_total_tokens_total": 172442,
+      "llm_cost_estimated_usd_total": 0.568034
+    },
+    {
+      "model_registry_name": "openai_gpt52",
+      "model": "gpt-5.2",
+      "arm_internal": "llm_zero",
+      "arm": "zero",
+      "planned_runs": 200,
+      "attempted_runs": 200,
+      "completed_runs": 200,
+      "preflight_failures": 0,
+      "execution_failures": 0,
+      "run_violation_rate": 0.54,
+      "enforcement_modification_rate": 0.54,
+      "task_coverage_enforced_avg": 0.81,
+      "delta_jaccard_avg": 0.1092,
+      "llm_total_tokens_total": 163426,
+      "llm_cost_estimated_usd_total": 0.571667
+    }
+  ],
+  "repair_follow_up": {
+    "present": true,
+    "initial_batch_failure_count": 1,
+    "initial_batch_failure_count_by_exception_type": {
+      "LLMAdapterError": 1
+    },
+    "initial_batch_failure_count_by_model": {
+      "anthropic_sonnet46": 1
+    },
+    "completed_successful_run_count": 800,
+    "note": "The reported public accounting corresponds to the completed official evaluation after targeted repair of a transient pre-final failure."
+  },
+  "public_bundle_scope": {
+    "includes_raw_prompts": false,
+    "includes_raw_model_outputs": false,
+    "includes_provider_request_payloads": false,
+    "includes_private_incident_lineage": false,
+    "includes_public_run_accounting": true,
+    "includes_public_aggregate_official_summary": true
+  },
+  "public_evidence_files": {
+    "official_evaluation_summary": "artifact_outputs/analysis/official_evaluation_summary.json",
+    "official_pairwise_tests": "artifact_outputs/analysis/official_pairwise_tests.json",
+    "analysis_bundle": "artifact_outputs/analysis/analysis_bundle.json",
+    "protocol_freeze": "artifact_outputs/analysis/protocol_freeze.json",
+    "repeat_stability_summary": "artifact_outputs/analysis/repeat_stability/repeat_stability_summary.json"
+  }
+}

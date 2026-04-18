@@ -352,26 +352,27 @@ def _render_table_rule_treatment(by_rule_treatment: list[dict[str, Any]]) -> str
         "\\label{tab:evaluation_rule_treatment}",
         "\\centering",
         "\\scriptsize",
-        "\\setlength{\\tabcolsep}{3.5pt}",
-        "\\begin{tabular}{lrrrr}",
+        "\\setlength{\\tabcolsep}{3pt}",
+        "\\begin{tabular}{p{0.31\\columnwidth}rrrr}",
         "\\toprule",
         "Model/rule & Zero rate & Policy rate & $\\Delta$ (policy$-$zero) & Runs per arm \\\\",
         "\\midrule",
     ]
     for row in rows:
-        model = _tex_escape(str(row.get("model", "")))
-        rule = _tex_escape(str(row.get("rule_id", "")))
+        model_raw = str(row.get("model", "")).strip()
+        rule_raw = str(row.get("rule_id", "")).strip()
+        label = _tex_escape(f"{_compact_model(model_raw)} / {rule_raw}")
         zr = _safe_float(row.get("llm_zero_violation_rate"))
         pr = _safe_float(row.get("llm_policy_prompt_violation_rate"))
         diff = pr - zr
         runs = _safe_int(row.get("llm_zero_run_count"))
         prefix = ""
         suffix = ""
-        if str(row.get("model", "")).strip() == "claude-sonnet-4-6" and str(row.get("rule_id", "")).strip() == "R3":
+        if model_raw == "claude-sonnet-4-6" and rule_raw == "R3":
             prefix = "\\textbf{"
             suffix = "}"
         lines.append(
-            f"{prefix}{model} / {rule}{suffix} & "
+            f"{prefix}{label}{suffix} & "
             f"{prefix}{_format_rate(zr)}{suffix} & "
             f"{prefix}{_format_rate(pr)}{suffix} & "
             f"{prefix}{_format_signed_rate(diff)}{suffix} & "
@@ -396,14 +397,14 @@ def _render_table_cost(by_model: list[dict[str, Any]]) -> str:
         "\\label{tab:evaluation_cost_breakdown}",
         "\\centering",
         "\\scriptsize",
-        "\\setlength{\\tabcolsep}{3.5pt}",
-        "\\begin{tabular}{lrrrr}",
+        "\\setlength{\\tabcolsep}{3pt}",
+        "\\begin{tabular}{p{0.31\\columnwidth}rrrr}",
         "\\toprule",
-        "Model/arm & Prompt toks & Completion toks & Total toks & Cost (USD) \\\\",
+        "Model/arm & \\shortstack[c]{Prompt\\\\toks} & \\shortstack[c]{Completion\\\\toks} & \\shortstack[c]{Total\\\\toks} & USD \\\\",
         "\\midrule",
     ]
     for row in rows:
-        label = _tex_escape(_row_pretty_label(str(row.get("model_label", ""))))
+        label = _tex_escape(_row_compact_label(str(row.get("model_label", ""))))
         prompt = _safe_int(row.get("llm_prompt_tokens_total"))
         comp = _safe_int(row.get("llm_completion_tokens_total"))
         total = _safe_int(row.get("llm_total_tokens_total"))
@@ -429,7 +430,7 @@ def _render_figure_violation_rates(by_model: list[dict[str, Any]]) -> str:
     axis_y = -0.52
     y_top_grid = top_y + 0.47
     lines = [
-        "\\begin{tikzpicture}[x=5.6cm,y=1.0cm,font=\\footnotesize]",
+        "\\begin{tikzpicture}[x=5.6cm,y=1.0cm,font=\\sffamily\\small]",
         "  \\definecolor{axisGray}{HTML}{667085}",
         "  \\definecolor{llmZero}{HTML}{1A5276}",
         "  \\definecolor{llmZeroBg}{HTML}{E8F0FB}",
@@ -456,7 +457,10 @@ def _render_figure_violation_rates(by_model: list[dict[str, Any]]) -> str:
         if model_i == model_j and arm_i.startswith("llm_") and arm_j.startswith("llm_"):
             y_i = top_y - i * spacing
             y_j = top_y - (i + 1) * spacing
-            shade = "6" if pair_idx % 2 == 0 else "4"
+            # stronger tints than original (6/4) so model groupings are
+            # actually visible at ACM-CCS print density, while still
+            # alternating to separate adjacent pairs
+            shade = "10" if pair_idx % 2 == 0 else "7"
             lines.append(
                 f"  \\fill[axisGray!{shade}, rounded corners=2pt] (-0.015,{(y_j - 0.25):.2f}) rectangle (1.03,{(y_i + 0.25):.2f});",
             )
@@ -514,7 +518,7 @@ def _render_figure_enforcement_utility(by_model: list[dict[str, Any]]) -> str:
     if not rows:
         return "\n".join(
             [
-                "\\begin{tikzpicture}[font=\\footnotesize]",
+                "\\begin{tikzpicture}[font=\\sffamily\\footnotesize]",
                 "  \\node[align=center] {No LLM rows available for enforcement-utility plot.};",
                 "\\end{tikzpicture}",
                 "",
@@ -534,14 +538,14 @@ def _render_figure_enforcement_utility(by_model: list[dict[str, Any]]) -> str:
     y_top_grid = top_y + 0.55
 
     lines = [
-        "\\begin{tikzpicture}[x=4.6cm,y=1.0cm,font=\\footnotesize]",
+        "\\begin{tikzpicture}[x=4.6cm,y=1.0cm,font=\\sffamily\\small]",
         "  \\definecolor{axisGray}{HTML}{667085}",
         "  \\definecolor{llmZero}{HTML}{1A5276}",
         "  \\definecolor{llmPolicy}{HTML}{117864}",
         "  \\definecolor{linkGray}{HTML}{8A94A6}",
         f"  \\draw[->, line width=0.8pt, draw=axisGray] (0,{axis_y:.2f}) -- (1.04,{axis_y:.2f}) node[below right, text=axisGray, align=left] {{\\scriptsize enforcement-modification\\\\rate}};",
         "  \\foreach \\x in {0,0.2,0.4,0.6,0.8,1.0}{",
-        f"    \\draw[draw=axisGray!20] (\\x,{axis_y:.2f}) -- (\\x,{y_top_grid:.2f});",
+        f"    \\draw[draw=axisGray!25] (\\x,{axis_y:.2f}) -- (\\x,{y_top_grid:.2f});",
         f"    \\draw[draw=axisGray, line width=0.6pt] (\\x,{(axis_y - 0.03):.2f}) -- (\\x,{(axis_y + 0.03):.2f});",
         f"    \\node[below, text=axisGray] at (\\x,{(axis_y - 0.03):.2f}) {{\\scriptsize \\x}};",
         "  }",
@@ -653,7 +657,7 @@ def _render_figure_rule_treatment(by_rule_treatment: list[dict[str, Any]]) -> st
     if n == 0:
         return "\n".join(
             [
-                "\\begin{tikzpicture}[font=\\footnotesize]",
+                "\\begin{tikzpicture}[font=\\sffamily\\footnotesize]",
                 "  \\node[align=center] {No rule-treatment rows available.};",
                 "\\end{tikzpicture}",
                 "",
@@ -667,14 +671,14 @@ def _render_figure_rule_treatment(by_rule_treatment: list[dict[str, Any]]) -> st
     axis_y = -0.55
     y_top_grid = top_y + 0.55
     lines = [
-        "\\begin{tikzpicture}[x=4.8cm,y=1.0cm,font=\\footnotesize]",
+        "\\begin{tikzpicture}[x=4.8cm,y=1.0cm,font=\\sffamily\\small]",
         "  \\definecolor{axisGray}{HTML}{667085}",
         "  \\definecolor{zeroBlue}{HTML}{1A5276}",
         "  \\definecolor{policyGreen}{HTML}{117864}",
         "  \\definecolor{linkGray}{HTML}{8A94A6}",
         f"  \\draw[->, line width=0.8pt, draw=axisGray] (0,{axis_y:.2f}) -- (1.05,{axis_y:.2f}) node[below right, text=axisGray, align=left] {{\\scriptsize rule-level\\\\violation rate}};",
         "  \\foreach \\x in {0,0.2,0.4,0.6,0.8,1.0}{",
-        f"    \\draw[draw=axisGray!20] (\\x,{axis_y:.2f}) -- (\\x,{y_top_grid:.2f});",
+        f"    \\draw[draw=axisGray!25] (\\x,{axis_y:.2f}) -- (\\x,{y_top_grid:.2f});",
         f"    \\draw[draw=axisGray, line width=0.6pt] (\\x,{(axis_y - 0.03):.2f}) -- (\\x,{(axis_y + 0.03):.2f});",
         f"    \\node[below, text=axisGray] at (\\x,{(axis_y - 0.03):.2f}) {{\\scriptsize \\x}};",
         "  }",

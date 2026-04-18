@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-03-30T08:12:00.910443+00:00",
+  "generated_at_utc": "2026-04-09T22:08:56.528052+00:00",
   "dataset_release_id": "submission_freeze",
   "eval_protocol_version": "official",
-  "incident_count": 100,
+  "incident_count": 200,
   "input_hashes": {
     "action_catalog": "7aa3438044a26122e05454cb2f7ffba64ff5757c85e4e070a6be5a6ca3eeaa27",
     "constraints": "5e6b4be7f4ddf3bbb67ec98c1b005320aaf2181154a2fbc7af22abed635a375b",
@@ -27,8 +27,8 @@
         "requires_approval": false,
         "reversible": true,
         "observed_in_human_baseline": true,
-        "observed_incident_count": 100,
-        "observed_action_count": 100,
+        "observed_incident_count": 200,
+        "observed_action_count": 200,
         "approved_incident_count": 0,
         "approved_action_count": 0,
         "constrained_by_rule_ids": [],
@@ -36,7 +36,7 @@
         "mapping_rule_count": 1,
         "provenance_basis": [
           "institution_authored_global_artifact",
-          "corpus_audit_51_incidents",
+          "corpus_audit_human_baseline_support",
           "manual_versioned_freeze"
         ]
       },
@@ -45,10 +45,10 @@
         "requires_approval": true,
         "reversible": true,
         "observed_in_human_baseline": true,
-        "observed_incident_count": 93,
-        "observed_action_count": 93,
-        "approved_incident_count": 93,
-        "approved_action_count": 93,
+        "observed_incident_count": 191,
+        "observed_action_count": 191,
+        "approved_incident_count": 191,
+        "approved_action_count": 191,
         "constrained_by_rule_ids": [
           "R1",
           "R4"
@@ -57,7 +57,7 @@
         "mapping_rule_count": 1,
         "provenance_basis": [
           "institution_authored_global_artifact",
-          "corpus_audit_51_incidents",
+          "corpus_audit_human_baseline_support",
           "manual_versioned_freeze"
         ]
       },
@@ -66,8 +66,8 @@
         "requires_approval": false,
         "reversible": true,
         "observed_in_human_baseline": true,
-        "observed_incident_count": 93,
-        "observed_action_count": 93,
+        "observed_incident_count": 191,
+        "observed_action_count": 191,
         "approved_incident_count": 0,
         "approved_action_count": 0,
         "constrained_by_rule_ids": [],
@@ -75,7 +75,7 @@
         "mapping_rule_count": 1,
         "provenance_basis": [
           "institution_authored_global_artifact",
-          "corpus_audit_51_incidents",
+          "corpus_audit_human_baseline_support",
           "manual_versioned_freeze"
         ]
       },
@@ -93,7 +93,7 @@
         "mapping_rule_count": 0,
         "provenance_basis": [
           "institution_authored_global_artifact",
-          "corpus_audit_51_incidents",
+          "corpus_audit_human_baseline_support",
           "manual_versioned_freeze"
         ]
       },
@@ -114,7 +114,7 @@
         "mapping_rule_count": 0,
         "provenance_basis": [
           "institution_authored_global_artifact",
-          "corpus_audit_51_incidents",
+          "corpus_audit_human_baseline_support",
           "manual_versioned_freeze"
         ]
       }
@@ -139,7 +139,7 @@
           ]
         },
         "applicable_incident_count": 0,
-        "human_action_incident_count": 93,
+        "human_action_incident_count": 191,
         "human_violation_incident_count": 0,
         "approval_context_incident_count": 0,
         "decision_record": null,
@@ -198,10 +198,10 @@
         "scope": {
           "global": true
         },
-        "applicable_incident_count": 93,
-        "human_action_incident_count": 93,
+        "applicable_incident_count": 191,
+        "human_action_incident_count": 191,
         "human_violation_incident_count": 0,
-        "approval_context_incident_count": 93,
+        "approval_context_incident_count": 191,
         "decision_record": "docs/EVAL_PROTOCOL.md",
         "provenance_basis": [
           "institution_authored_global_artifact",
@@ -227,8 +227,8 @@
           "contain",
           "erradica"
         ],
-        "mapped_incident_count": 93,
-        "mapped_action_count": 93,
+        "mapped_incident_count": 191,
+        "mapped_action_count": 191,
         "provenance_basis": [
           "institution_authored_mapping_contract",
           "manual_keyword_curation",
@@ -250,8 +250,8 @@
           "forens",
           "investig"
         ],
-        "mapped_incident_count": 100,
-        "mapped_action_count": 100,
+        "mapped_incident_count": 200,
+        "mapped_action_count": 200,
         "provenance_basis": [
           "institution_authored_mapping_contract",
           "manual_keyword_curation",
@@ -273,8 +273,8 @@
           "credencial",
           "identidade"
         ],
-        "mapped_incident_count": 93,
-        "mapped_action_count": 93,
+        "mapped_incident_count": 191,
+        "mapped_action_count": 191,
         "provenance_basis": [
           "institution_authored_mapping_contract",
           "manual_keyword_curation",

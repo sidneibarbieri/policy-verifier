@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-30T07:53:58.788381+00:00",
+  "generated_at_utc": "2026-04-09T22:10:27.463067+00:00",
   "selection_method": "deterministic_bruteforce_stratified_support_aware",
   "requested_incident_count": 3,
   "selected_incident_ids": [
@@ -12,8 +12,8 @@
     "action_pattern_coverage": 2,
     "incident_type_coverage": 3,
     "severity_coverage": 3,
-    "incident_type_support_total": 84,
-    "severity_support_total": 95,
+    "incident_type_support_total": 168,
+    "severity_support_total": 191,
     "approval_gated_case_count": 2,
     "attack_technique_coverage": 4,
     "attack_tactic_coverage": 4,
@@ -120,26 +120,26 @@
   ],
   "corpus_distribution": {
     "incident_type_counts": {
-      "access": 3,
-      "authentication": 2,
+      "access": 7,
+      "authentication": 4,
       "exploit": 19,
-      "falcon_detection_method": 2,
-      "malware": 24,
-      "policy": 1,
+      "falcon_detection_method": 4,
+      "malware": 76,
+      "policy": 3,
       "potential_exploit": 4,
-      "recon": 1,
-      "suspicious_activity": 41,
-      "system": 3
+      "recon": 2,
+      "suspicious_activity": 73,
+      "system": 8
     },
     "severity_counts": {
-      "critical": 5,
-      "high": 35,
-      "low": 7,
-      "medium": 53
+      "critical": 9,
+      "high": 83,
+      "low": 11,
+      "medium": 97
     },
     "action_pattern_counts": {
-      "collect_forensics": 7,
-      "collect_forensics | isolate_host | reset_admin_credentials": 93
+      "collect_forensics": 9,
+      "collect_forensics | isolate_host | reset_admin_credentials": 191
     }
   }
 }

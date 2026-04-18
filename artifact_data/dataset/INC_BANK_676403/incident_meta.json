@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_676403",
+  "incident_type": "recon",
+  "severity": "high",
+  "asset_criticality": "high",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-04-09T22:07:05.123298Z",
+  "time_window_end": "2026-03-31T20:37:39.329000Z",
+  "final_status": "resolved",
+  "asset_host": "host_0001"
+}

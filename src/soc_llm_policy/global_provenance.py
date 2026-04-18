@@ -153,7 +153,7 @@ def build_global_provenance(
                 "mapping_rule_count": len(mapped_actions.get(item.action_id, [])),
                 "provenance_basis": [
                     "institution_authored_global_artifact",
-                    "corpus_audit_51_incidents",
+                    "corpus_audit_human_baseline_support",
                     "manual_versioned_freeze",
                 ],
             }

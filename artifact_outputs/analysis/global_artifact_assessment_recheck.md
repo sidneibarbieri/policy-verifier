@@ -6,9 +6,9 @@ This report separates what the current frozen globals support strongly from what
 
 ## Stable Evidence
 
-- Incident count audited: 100
-- Mapping support coverage: 555 tasks, 0 zero-match, 0 ambiguous.
-- Unique-match split: 283 single-keyword (0.5099) and 272 multi-keyword (0.4901).
+- Incident count audited: 200
+- Mapping support coverage: 1147 tasks, 0 zero-match, 0 ambiguous.
+- Unique-match split: 579 single-keyword (0.5048) and 568 multi-keyword (0.4952).
 - Human-baseline action coverage: 3/5 catalog actions.
 
 ## Narrowness That Still Matters
@@ -19,11 +19,11 @@ This report separates what the current frozen globals support strongly from what
 
 ## Official Evaluation Scope
 
-- Official runs: 400
+- Official runs: 800
 - Observed violation rules: R3, R4
 - Rules without observed violation counts in the official summary: R1, R2
-- Enforcement counts: remove=193, defer=0, insert=0, reorder=0.
-- Cost accounting: 341235 tokens, USD 1.441203 total, USD 0.003603 per run.
+- Enforcement counts: remove=466, defer=0, insert=0, reorder=0.
+- Cost accounting: 734740 tokens, USD 3.034621 total, USD 0.003793 per run.
 
 ## Criticism Response Map
 
@@ -36,7 +36,7 @@ This report separates what the current frozen globals support strongly from what
 - Approval context is only partially grounded in the mapping contract.
   Response strength: addressed_transparently. The report makes proxy scope explicit by showing which approval-required catalog actions have a mapping proxy and which do not.
 - Cost accounting is unclear.
-  Response strength: addressed. The official aggregate summary is now copied into canonical analysis outputs so reviewers can inspect token totals, total cost, average cost per run, and run-success rate directly.
+  Response strength: addressed. The official aggregate summary is now copied into canonical analysis outputs so public auditors can inspect token totals, total cost, average cost per run, and run-success rate directly.
 
 ## Interpretation Boundary
 

@@ -43,11 +43,72 @@ def _tex_escape(value: str) -> str:
     return value.replace("\\", "\\textbackslash{}").replace("_", "\\_")
 
 
-def build_tex(payload: dict[str, Any]) -> str:
+def _join_tex_list(values: list[str]) -> str:
+    if not values:
+        return "none"
+    return ", ".join(_tex_escape(value) for value in values)
+
+
+def _find_action_support(
+    support_rows: list[dict[str, Any]],
+    action_id: str,
+) -> dict[str, Any]:
+    for row in support_rows:
+        if str(row.get("action_id", "")).strip() == action_id:
+            return row
+    return {}
+
+
+def build_tex(
+    payload: dict[str, Any],
+    global_assessment: dict[str, Any] | None = None,
+) -> str:
     global_scope = payload.get("global_artifact_scope", {})
     mapping = payload.get("mapping_quality", {})
     mitre = payload.get("mitre_technique_diversity", {})
     incident_type_counts = payload.get("incident_type_counts", {})
+    global_assessment = global_assessment or {}
+    mapping_support = global_assessment.get("mapping_support", {})
+    if not isinstance(mapping_support, dict):
+        mapping_support = {}
+    support_by_action = mapping_support.get("support_by_action", [])
+    if not isinstance(support_by_action, list):
+        support_by_action = []
+    global_surface = global_assessment.get("global_surface", {})
+    if not isinstance(global_surface, dict):
+        global_surface = {}
+    approval_proxy_scope = global_assessment.get("approval_proxy_scope", {})
+    if not isinstance(approval_proxy_scope, dict):
+        approval_proxy_scope = {}
+
+    collect_forensics_support = _find_action_support(
+        support_by_action,
+        "collect_forensics",
+    )
+    isolate_host_support = _find_action_support(support_by_action, "isolate_host")
+    reset_admin_support = _find_action_support(
+        support_by_action,
+        "reset_admin_credentials",
+    )
+    catalog_actions_missing_mapping_rules = global_surface.get(
+        "catalog_actions_missing_mapping_rules",
+        [],
+    )
+    if not isinstance(catalog_actions_missing_mapping_rules, list):
+        catalog_actions_missing_mapping_rules = []
+    mapped_approval_proxy_action_ids = approval_proxy_scope.get(
+        "mapped_approval_proxy_action_ids",
+        [],
+    )
+    if not isinstance(mapped_approval_proxy_action_ids, list):
+        mapped_approval_proxy_action_ids = []
+    approval_required_actions_without_proxy_mapping = approval_proxy_scope.get(
+        "approval_required_actions_without_proxy_mapping",
+        [],
+    )
+    if not isinstance(approval_required_actions_without_proxy_mapping, list):
+        approval_required_actions_without_proxy_mapping = []
+
     incident_type_summary = "none"
     if isinstance(incident_type_counts, dict) and incident_type_counts:
         parts: list[str] = []
@@ -165,6 +226,69 @@ def build_tex(payload: dict[str, Any]) -> str:
             f"{_safe_float(mapping.get('single_keyword_unique_match_rate')):.4f}",
         ),
         _macro(
+            "ValBaselineSupportedActionCount",
+            str(_safe_int(global_surface.get("human_baseline_action_count"))),
+        ),
+        _macro(
+            "ValBaselineUnsupportedActionCount",
+            str(len(catalog_actions_missing_mapping_rules)),
+        ),
+        _macro(
+            "ValBaselineUnsupportedActionIds",
+            _join_tex_list(
+                [str(value) for value in catalog_actions_missing_mapping_rules],
+            ),
+        ),
+        _macro(
+            "ValApprovalProxyCoveredActionIds",
+            _join_tex_list([str(value) for value in mapped_approval_proxy_action_ids]),
+        ),
+        _macro(
+            "ValApprovalProxyMissingActionIds",
+            _join_tex_list(
+                [
+                    str(value)
+                    for value in approval_required_actions_without_proxy_mapping
+                ],
+            ),
+        ),
+        _macro(
+            "ValSupportCollectForensicsIncidentCount",
+            str(_safe_int(collect_forensics_support.get("incident_count"))),
+        ),
+        _macro(
+            "ValSupportCollectForensicsMatchCount",
+            str(_safe_int(collect_forensics_support.get("unique_match_count"))),
+        ),
+        _macro(
+            "ValSupportCollectForensicsSingleKeywordShare",
+            f"{_safe_float(collect_forensics_support.get('single_keyword_share_within_action')):.4f}",
+        ),
+        _macro(
+            "ValSupportIsolateHostIncidentCount",
+            str(_safe_int(isolate_host_support.get("incident_count"))),
+        ),
+        _macro(
+            "ValSupportIsolateHostMatchCount",
+            str(_safe_int(isolate_host_support.get("unique_match_count"))),
+        ),
+        _macro(
+            "ValSupportIsolateHostSingleKeywordShare",
+            f"{_safe_float(isolate_host_support.get('single_keyword_share_within_action')):.4f}",
+        ),
+        _macro(
+            "ValSupportResetAdminIncidentCount",
+            str(_safe_int(reset_admin_support.get("incident_count"))),
+        ),
+        _macro(
+            "ValSupportResetAdminMatchCount",
+            str(_safe_int(reset_admin_support.get("unique_match_count"))),
+        ),
+        _macro(
+            "ValSupportResetAdminSingleKeywordShare",
+            f"{_safe_float(reset_admin_support.get('single_keyword_share_within_action')):.4f}",
+        ),
+        _macro(
             "ValCorpusMitreTechniqueIdCount",
             str(_safe_int(mitre.get("technique_id_count"))),
         ),
@@ -179,6 +303,7 @@ def build_tex(payload: dict[str, Any]) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-json", required=True)
+    parser.add_argument("--global-assessment-json", default=None)
     parser.add_argument("--output-tex", required=True)
     args = parser.parse_args()
 
@@ -189,7 +314,14 @@ def main() -> None:
     if not isinstance(payload, dict):
         raise ValueError("corpus_readiness.json must be a JSON object")
 
-    tex = build_tex(payload)
+    global_assessment = None
+    if args.global_assessment_json:
+        global_assessment_path = Path(args.global_assessment_json).expanduser().resolve()
+        global_assessment = json.loads(global_assessment_path.read_text(encoding="utf-8"))
+        if not isinstance(global_assessment, dict):
+            raise ValueError("global_artifact_assessment.json must be a JSON object")
+
+    tex = build_tex(payload, global_assessment=global_assessment)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(tex, encoding="utf-8")
     print(f"Saved TeX macros at: {output_path}")

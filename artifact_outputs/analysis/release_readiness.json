@@ -1,48 +1,11 @@
 {
-  "generated_at_utc": "2026-03-30T17:50:17.822976+00:00",
-  "status": "warning",
-  "issue_count": 6,
+  "generated_at_utc": "2026-04-17T02:58:13.020543+00:00",
+  "status": "ok",
+  "issue_count": 0,
   "issues_by_severity": {
     "high": 0,
-    "medium": 6,
+    "medium": 0,
     "low": 0
   },
-  "issues": [
-    {
-      "severity": "medium",
-      "code": "private_component_in_repo",
-      "path": "local_redaction",
-      "message": "Private preprocessing component is inside repository. Keep it outside the public artifact boundary."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "incoming/redacted",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "private",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "dataset",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "incoming/raw",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    },
-    {
-      "severity": "medium",
-      "code": "non_public_data_present",
-      "path": "results",
-      "message": "Directory contains data generated or managed outside the public artifact. Ensure release package excludes it."
-    }
-  ]
+  "issues": []
 }

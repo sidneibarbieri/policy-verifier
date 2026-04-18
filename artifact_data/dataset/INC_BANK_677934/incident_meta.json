@@ -1,0 +1,11 @@
+{
+  "incident_id": "INC_BANK_677934",
+  "incident_type": "system",
+  "severity": "high",
+  "asset_criticality": "high",
+  "asset_role": "bank_endpoint",
+  "time_window_start": "2026-04-05T18:30:15.724000Z",
+  "time_window_end": "2026-04-05T18:51:23.221000Z",
+  "final_status": "not_an_issue",
+  "asset_host": "host_0001"
+}

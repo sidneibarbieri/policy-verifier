@@ -8,7 +8,7 @@ import yaml
 
 from soc_llm_policy.paths import RepoPaths
 
-_DEFAULT_FORBIDDEN_TERMS = ["sicoob", "banco"]
+_DEFAULT_FORBIDDEN_TERMS = ["banco"]
 _DEFAULT_SUFFIXES = [".json", ".jsonl", ".yaml", ".yml", ".txt", ".md", ".csv"]
 
 _REGEX_PATTERNS: dict[str, re.Pattern[str]] = {

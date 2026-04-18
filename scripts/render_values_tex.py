@@ -57,6 +57,12 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def _series_value(series: dict[str, Any], field: str) -> float:
+    if not isinstance(series, dict):
+        return 0.0
+    return _safe_float(series.get(field))
+
+
 def _has_llm_arm_rows(by_model_rows: list[dict[str, Any]]) -> bool:
     for row in by_model_rows:
         model_label = str(row.get("model_label", "")).strip()
@@ -81,15 +87,23 @@ def _load_llm_fallback_bundle(
     return summary, by_model, by_rule_treatment
 
 
-def _load_gate_bundle(path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+def _load_gate_bundle(
+    path: Path,
+) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     payload = _read_json(path)
     summary = payload.get("summary")
     experiment = payload.get("experiment")
+    by_model = payload.get("by_model")
+    by_rule_treatment = payload.get("by_rule_treatment")
     if not isinstance(summary, dict):
         raise ValueError(f"{path} missing object field 'summary'")
     if not isinstance(experiment, dict):
         raise ValueError(f"{path} missing object field 'experiment'")
-    return summary, experiment
+    if not isinstance(by_model, list):
+        by_model = []
+    if not isinstance(by_rule_treatment, list):
+        by_rule_treatment = []
+    return summary, experiment, by_model, by_rule_treatment
 
 
 def _count_incident_privacy_issues(
@@ -275,6 +289,7 @@ def build_values_tex(
     incident_dir: Path,
     llm_fallback_bundle: Path | None = None,
     gate_bundle: Path | None = None,
+    repeat_stability: dict[str, Any] | None = None,
 ) -> str:
     conversion_quality = _read_json(incident_dir / "evidence" / "conversion_quality.json")
     source_manifest = _read_json(incident_dir / "evidence" / "source_manifest.json")
@@ -287,7 +302,23 @@ def build_values_tex(
     llm_summary = summary
     llm_by_model_rows: list[dict[str, Any]] = by_model_rows
     llm_by_rule_treatment_rows: list[dict[str, Any]] = by_rule_treatment_rows
-    if llm_fallback_bundle is not None and llm_fallback_bundle.exists():
+
+    human_metrics = _aggregate_human_metrics(by_model_rows)
+
+    gate_summary: dict[str, Any] = {}
+    gate_experiment: dict[str, Any] = {}
+    if gate_bundle is not None and gate_bundle.exists():
+        (
+            gate_summary,
+            gate_experiment,
+            gate_by_model_rows,
+            gate_by_rule_treatment_rows,
+        ) = _load_gate_bundle(gate_bundle)
+        if _has_llm_arm_rows(gate_by_model_rows):
+            llm_summary = gate_summary
+            llm_by_model_rows = gate_by_model_rows
+            llm_by_rule_treatment_rows = gate_by_rule_treatment_rows
+    elif llm_fallback_bundle is not None and llm_fallback_bundle.exists():
         fallback_summary, fallback_by_model, fallback_by_rule_treatment = (
             _load_llm_fallback_bundle(llm_fallback_bundle)
         )
@@ -319,14 +350,8 @@ def build_values_tex(
     observed_rules_tex = ", ".join(_tex_escape(r) for r in observed_rules) or "none"
     zero_metrics = _aggregate_arm_metrics(llm_by_model_rows, "|llm_zero")
     policy_metrics = _aggregate_arm_metrics(llm_by_model_rows, "|llm_policy_prompt")
-    human_metrics = _aggregate_human_metrics(by_model_rows)
     pilot_total_cost = _safe_float(llm_summary.get("llm_cost_estimated_usd_total"))
     pilot_total_tokens = _safe_int(llm_summary.get("llm_total_tokens_total"))
-
-    gate_summary: dict[str, Any] = {}
-    gate_experiment: dict[str, Any] = {}
-    if gate_bundle is not None and gate_bundle.exists():
-        gate_summary, gate_experiment = _load_gate_bundle(gate_bundle)
 
     gate_coverage = gate_experiment.get("coverage", {})
     if not isinstance(gate_coverage, dict):
@@ -353,6 +378,16 @@ def build_values_tex(
 
     gate_llm_total_tokens = _safe_int(gate_summary.get("llm_total_tokens_total"))
     gate_llm_cost_usd_total = _safe_float(gate_summary.get("llm_cost_estimated_usd_total"))
+    repeat_stability = repeat_stability if isinstance(repeat_stability, dict) else {}
+    stability_repeat_count = _safe_int(repeat_stability.get("repeat_count"))
+    stability_incident_violation = repeat_stability.get("incident_violation_rate", {})
+    stability_enforcement = repeat_stability.get("enforcement_modification_rate", {})
+    stability_task_drop = repeat_stability.get("task_coverage_drop_rate", {})
+    stability_by_rule = repeat_stability.get("violations_by_rule", {})
+    if not isinstance(stability_by_rule, dict):
+        stability_by_rule = {}
+    stability_r3 = stability_by_rule.get("R3", {})
+    stability_r4 = stability_by_rule.get("R4", {})
 
     planned_campaign_incidents = gate_incident_count if gate_incident_count > 0 else 50
     planned_campaign_model_count = 2
@@ -585,16 +620,48 @@ def build_values_tex(
             f"{_safe_float(claude_zero_row.get('delta_jaccard_avg')):.4f}",
         ),
         _macro(
+            "ValOfficialClaudeZeroPrecisionRaw",
+            f"{_safe_float(claude_zero_row.get('precision_raw_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialClaudeZeroPrecisionEnforced",
+            f"{_safe_float(claude_zero_row.get('precision_enforced_avg')):.4f}",
+        ),
+        _macro(
             "ValOfficialClaudePolicyDeltaJaccard",
             f"{_safe_float(claude_policy_row.get('delta_jaccard_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialClaudePolicyPrecisionRaw",
+            f"{_safe_float(claude_policy_row.get('precision_raw_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialClaudePolicyPrecisionEnforced",
+            f"{_safe_float(claude_policy_row.get('precision_enforced_avg')):.4f}",
         ),
         _macro(
             "ValOfficialGptZeroDeltaJaccard",
             f"{_safe_float(gpt_zero_row.get('delta_jaccard_avg')):.4f}",
         ),
         _macro(
+            "ValOfficialGptZeroPrecisionRaw",
+            f"{_safe_float(gpt_zero_row.get('precision_raw_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialGptZeroPrecisionEnforced",
+            f"{_safe_float(gpt_zero_row.get('precision_enforced_avg')):.4f}",
+        ),
+        _macro(
             "ValOfficialGptPolicyDeltaJaccard",
             f"{_safe_float(gpt_policy_row.get('delta_jaccard_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialGptPolicyPrecisionRaw",
+            f"{_safe_float(gpt_policy_row.get('precision_raw_avg')):.4f}",
+        ),
+        _macro(
+            "ValOfficialGptPolicyPrecisionEnforced",
+            f"{_safe_float(gpt_policy_row.get('precision_enforced_avg')):.4f}",
         ),
         _macro(
             "ValOfficialEnforcementModificationRate",
@@ -625,12 +692,69 @@ def build_values_tex(
             str(_safe_int(llm_only_actions.get("block_egress_ip"))),
         ),
         _macro(
+            "ValOfficialLlmOnlyIsolateHostCount",
+            str(_safe_int(llm_only_actions.get("isolate_host"))),
+        ),
+        _macro(
+            "ValOfficialLlmOnlyResetAdminCount",
+            str(_safe_int(llm_only_actions.get("reset_admin_credentials"))),
+        ),
+        _macro(
             "ValOfficialHumanOnlyResetAdminCount",
             str(_safe_int(human_only_actions.get("reset_admin_credentials"))),
         ),
         _macro(
             "ValOfficialHumanOnlyIsolateHostCount",
             str(_safe_int(human_only_actions.get("isolate_host"))),
+        ),
+        _macro("ValStabilityRepeatCount", str(stability_repeat_count)),
+        _macro(
+            "ValStabilityIncidentViolationRateMean",
+            f"{_series_value(stability_incident_violation, 'mean'):.4f}",
+        ),
+        _macro(
+            "ValStabilityIncidentViolationRateMin",
+            f"{_series_value(stability_incident_violation, 'min'):.4f}",
+        ),
+        _macro(
+            "ValStabilityIncidentViolationRateMax",
+            f"{_series_value(stability_incident_violation, 'max'):.4f}",
+        ),
+        _macro(
+            "ValStabilityEnforcementModificationRateMean",
+            f"{_series_value(stability_enforcement, 'mean'):.4f}",
+        ),
+        _macro(
+            "ValStabilityEnforcementModificationRateMin",
+            f"{_series_value(stability_enforcement, 'min'):.4f}",
+        ),
+        _macro(
+            "ValStabilityEnforcementModificationRateMax",
+            f"{_series_value(stability_enforcement, 'max'):.4f}",
+        ),
+        _macro(
+            "ValStabilityTaskCoverageDropRateMean",
+            f"{_series_value(stability_task_drop, 'mean'):.4f}",
+        ),
+        _macro(
+            "ValStabilityTaskCoverageDropRateMax",
+            f"{_series_value(stability_task_drop, 'max'):.4f}",
+        ),
+        _macro(
+            "ValStabilityViolationCountRThreeMin",
+            str(int(round(_series_value(stability_r3, "min")))),
+        ),
+        _macro(
+            "ValStabilityViolationCountRThreeMax",
+            str(int(round(_series_value(stability_r3, "max")))),
+        ),
+        _macro(
+            "ValStabilityViolationCountRFourMin",
+            str(int(round(_series_value(stability_r4, "min")))),
+        ),
+        _macro(
+            "ValStabilityViolationCountRFourMax",
+            str(int(round(_series_value(stability_r4, "max")))),
         ),
     ]
     return "\n".join(lines) + "\n"
@@ -647,6 +771,7 @@ def main() -> None:
     parser.add_argument("--first-incident-id", default="INC_BANK_606407")
     parser.add_argument("--llm-fallback-bundle", default=None)
     parser.add_argument("--gate-bundle", default=None)
+    parser.add_argument("--repeat-stability-json", default=None)
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).expanduser().resolve()
@@ -669,6 +794,11 @@ def main() -> None:
         if args.gate_bundle
         else None
     )
+    repeat_stability = (
+        _read_json(Path(args.repeat_stability_json).expanduser().resolve())
+        if args.repeat_stability_json
+        else None
+    )
 
     tex = build_values_tex(
         summary=summary,
@@ -679,6 +809,7 @@ def main() -> None:
         incident_dir=incident_dir,
         llm_fallback_bundle=llm_fallback_bundle,
         gate_bundle=gate_bundle,
+        repeat_stability=repeat_stability,
     )
     output_path = Path(args.output_tex).expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)

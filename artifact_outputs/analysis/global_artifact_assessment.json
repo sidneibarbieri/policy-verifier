@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-03-30T17:30:06.300146+00:00",
+  "generated_at_utc": "2026-04-18T10:17:17.259764+00:00",
   "dataset_release_id": "submission_freeze",
   "eval_protocol_version": "official",
-  "incident_count": 100,
-  "official_summary_source": "results/analysis/official_evaluation_summary.json",
+  "incident_count": 200,
+  "official_summary_source": "artifact_outputs/analysis/official_evaluation_summary.json",
   "dataset_strengths": {
     "privacy_issue_count": 0,
     "invalid_incident_count": 0,
@@ -45,66 +45,66 @@
     "constrained_action_count": 2
   },
   "mapping_support": {
-    "incident_count_with_support_manifests": 100,
-    "task_count_total": 555,
-    "unique_match_count_total": 555,
+    "incident_count_with_support_manifests": 200,
+    "task_count_total": 1147,
+    "unique_match_count_total": 1147,
     "zero_match_count": 0,
     "ambiguous_match_count": 0,
-    "single_keyword_unique_match_count": 283,
-    "single_keyword_unique_match_rate": 0.5099,
-    "multi_keyword_unique_match_count": 272,
-    "multi_keyword_unique_match_rate": 0.4901,
-    "approval_proxy_unique_match_count": 93,
+    "single_keyword_unique_match_count": 579,
+    "single_keyword_unique_match_rate": 0.5048,
+    "multi_keyword_unique_match_count": 568,
+    "multi_keyword_unique_match_rate": 0.4952,
+    "approval_proxy_unique_match_count": 191,
     "support_by_action": [
       {
         "action_id": "collect_forensics",
         "approval_proxy": false,
-        "incident_count": 100,
-        "unique_match_count": 369,
-        "single_keyword_unique_match_count": 276,
-        "multi_keyword_unique_match_count": 93,
-        "single_keyword_share_within_action": 0.748,
-        "multi_keyword_share_within_action": 0.252
+        "incident_count": 200,
+        "unique_match_count": 765,
+        "single_keyword_unique_match_count": 572,
+        "multi_keyword_unique_match_count": 193,
+        "single_keyword_share_within_action": 0.7477,
+        "multi_keyword_share_within_action": 0.2523
       },
       {
         "action_id": "isolate_host",
         "approval_proxy": true,
-        "incident_count": 93,
-        "unique_match_count": 93,
+        "incident_count": 191,
+        "unique_match_count": 191,
         "single_keyword_unique_match_count": 0,
-        "multi_keyword_unique_match_count": 93,
+        "multi_keyword_unique_match_count": 191,
         "single_keyword_share_within_action": 0.0,
         "multi_keyword_share_within_action": 1.0
       },
       {
         "action_id": "reset_admin_credentials",
         "approval_proxy": false,
-        "incident_count": 93,
-        "unique_match_count": 93,
+        "incident_count": 191,
+        "unique_match_count": 191,
         "single_keyword_unique_match_count": 7,
-        "multi_keyword_unique_match_count": 86,
-        "single_keyword_share_within_action": 0.0753,
-        "multi_keyword_share_within_action": 0.9247
+        "multi_keyword_unique_match_count": 184,
+        "single_keyword_share_within_action": 0.0366,
+        "multi_keyword_share_within_action": 0.9634
       }
     ],
     "support_by_incident_type": [
       {
         "incident_type": "access",
-        "incident_count": 3,
-        "task_count": 11,
+        "incident_count": 7,
+        "task_count": 35,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 6,
-        "multi_keyword_unique_match_count": 5
+        "single_keyword_unique_match_count": 18,
+        "multi_keyword_unique_match_count": 17
       },
       {
         "incident_type": "authentication",
-        "incident_count": 2,
-        "task_count": 12,
+        "incident_count": 4,
+        "task_count": 24,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 6,
-        "multi_keyword_unique_match_count": 6
+        "single_keyword_unique_match_count": 12,
+        "multi_keyword_unique_match_count": 12
       },
       {
         "incident_type": "exploit",
@@ -117,30 +117,30 @@
       },
       {
         "incident_type": "falcon_detection_method",
-        "incident_count": 2,
-        "task_count": 12,
+        "incident_count": 4,
+        "task_count": 21,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 6,
-        "multi_keyword_unique_match_count": 6
+        "single_keyword_unique_match_count": 11,
+        "multi_keyword_unique_match_count": 10
       },
       {
         "incident_type": "malware",
-        "incident_count": 24,
-        "task_count": 131,
+        "incident_count": 76,
+        "task_count": 443,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 67,
-        "multi_keyword_unique_match_count": 64
+        "single_keyword_unique_match_count": 223,
+        "multi_keyword_unique_match_count": 220
       },
       {
         "incident_type": "policy",
-        "incident_count": 1,
-        "task_count": 6,
+        "incident_count": 3,
+        "task_count": 18,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 3,
-        "multi_keyword_unique_match_count": 3
+        "single_keyword_unique_match_count": 9,
+        "multi_keyword_unique_match_count": 9
       },
       {
         "incident_type": "potential_exploit",
@@ -153,30 +153,30 @@
       },
       {
         "incident_type": "recon",
-        "incident_count": 1,
-        "task_count": 6,
+        "incident_count": 2,
+        "task_count": 12,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 3,
-        "multi_keyword_unique_match_count": 3
+        "single_keyword_unique_match_count": 6,
+        "multi_keyword_unique_match_count": 6
       },
       {
         "incident_type": "suspicious_activity",
-        "incident_count": 41,
-        "task_count": 227,
+        "incident_count": 73,
+        "task_count": 414,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 116,
-        "multi_keyword_unique_match_count": 111
+        "single_keyword_unique_match_count": 209,
+        "multi_keyword_unique_match_count": 205
       },
       {
         "incident_type": "system",
-        "incident_count": 3,
-        "task_count": 18,
+        "incident_count": 8,
+        "task_count": 48,
         "zero_match_count": 0,
         "ambiguous_match_count": 0,
-        "single_keyword_unique_match_count": 9,
-        "multi_keyword_unique_match_count": 9
+        "single_keyword_unique_match_count": 24,
+        "multi_keyword_unique_match_count": 24
       }
     ]
   },
@@ -194,11 +194,11 @@
   },
   "official_evaluation_scope": {
     "available": true,
-    "run_count": 400,
-    "incident_count": 100,
+    "run_count": 800,
+    "incident_count": 200,
     "violations_by_rule": {
-      "R3": 165,
-      "R4": 28
+      "R3": 431,
+      "R4": 35
     },
     "observed_rule_ids": [
       "R3",
@@ -210,15 +210,15 @@
     ],
     "approval_only_violation_types_observed": true,
     "approval_rule_violation_share": 1.0,
-    "enforcement_actions_removed_count_total": 193,
+    "enforcement_actions_removed_count_total": 466,
     "enforcement_actions_deferred_count_total": 0,
     "enforcement_actions_inserted_count_total": 0,
     "enforcement_actions_reordered_count_total": 0,
     "task_coverage_delta_avg": 0.0,
     "task_coverage_drop_rate": 0.0,
-    "llm_total_tokens_total": 341235,
-    "llm_cost_estimated_usd_total": 1.441203,
-    "llm_cost_estimated_usd_avg_per_run": 0.003603,
+    "llm_total_tokens_total": 734740,
+    "llm_cost_estimated_usd_total": 3.034621,
+    "llm_cost_estimated_usd_avg_per_run": 0.003793,
     "run_success_rate": 1.0
   },
   "criticism_response_map": [
@@ -227,8 +227,8 @@
       "response_strength": "partial_but_material",
       "response": "The artifact now exposes aggregate mapping-support evidence: zero unmatched tasks, zero ambiguous ties, complete conversion coverage, and an explicit split between single-keyword and multi-keyword unique matches.",
       "evidence": {
-        "task_count_total": 555,
-        "single_keyword_unique_match_rate": 0.5099,
+        "task_count_total": 1147,
+        "single_keyword_unique_match_rate": 0.5048,
         "ambiguous_match_count": 0,
         "zero_match_count": 0
       }
@@ -250,11 +250,11 @@
       "response": "The report states that the completed official evaluation shows violation evidence only on approval rules under this freeze, with no inserted or reordered actions.",
       "evidence": {
         "available": true,
-        "run_count": 400,
-        "incident_count": 100,
+        "run_count": 800,
+        "incident_count": 200,
         "violations_by_rule": {
-          "R3": 165,
-          "R4": 28
+          "R3": 431,
+          "R4": 35
         },
         "observed_rule_ids": [
           "R3",
@@ -266,15 +266,15 @@
         ],
         "approval_only_violation_types_observed": true,
         "approval_rule_violation_share": 1.0,
-        "enforcement_actions_removed_count_total": 193,
+        "enforcement_actions_removed_count_total": 466,
         "enforcement_actions_deferred_count_total": 0,
         "enforcement_actions_inserted_count_total": 0,
         "enforcement_actions_reordered_count_total": 0,
         "task_coverage_delta_avg": 0.0,
         "task_coverage_drop_rate": 0.0,
-        "llm_total_tokens_total": 341235,
-        "llm_cost_estimated_usd_total": 1.441203,
-        "llm_cost_estimated_usd_avg_per_run": 0.003603,
+        "llm_total_tokens_total": 734740,
+        "llm_cost_estimated_usd_total": 3.034621,
+        "llm_cost_estimated_usd_avg_per_run": 0.003793,
         "run_success_rate": 1.0
       }
     },
@@ -298,11 +298,11 @@
     {
       "criticism": "Cost accounting is unclear.",
       "response_strength": "addressed",
-      "response": "The official aggregate summary is now copied into canonical analysis outputs so reviewers can inspect token totals, total cost, average cost per run, and run-success rate directly.",
+      "response": "The official aggregate summary is now copied into canonical analysis outputs so public auditors can inspect token totals, total cost, average cost per run, and run-success rate directly.",
       "evidence": {
-        "llm_total_tokens_total": 341235,
-        "llm_cost_estimated_usd_total": 1.441203,
-        "llm_cost_estimated_usd_avg_per_run": 0.003603,
+        "llm_total_tokens_total": 734740,
+        "llm_cost_estimated_usd_total": 3.034621,
+        "llm_cost_estimated_usd_avg_per_run": 0.003793,
         "run_success_rate": 1.0
       }
     }

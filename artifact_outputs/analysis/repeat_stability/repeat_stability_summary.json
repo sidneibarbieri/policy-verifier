@@ -1,0 +1,232 @@
+{
+  "generated_at_utc": "2026-04-10T17:47:29.213063+00:00",
+  "repeat_count": 3,
+  "repeat_indices": [
+    1,
+    2,
+    3
+  ],
+  "repaired_failure_count": 19,
+  "original_failure_count": 19,
+  "incident_violation_rate": {
+    "values": [
+      0.87,
+      0.875,
+      0.875
+    ],
+    "mean": 0.873333,
+    "min": 0.87,
+    "max": 0.875,
+    "range": 0.005
+  },
+  "enforcement_modification_rate": {
+    "values": [
+      0.5537,
+      0.5487,
+      0.5613
+    ],
+    "mean": 0.554567,
+    "min": 0.5487,
+    "max": 0.5613,
+    "range": 0.0126
+  },
+  "task_coverage_drop_rate": {
+    "values": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mean": 0.0,
+    "min": 0.0,
+    "max": 0.0,
+    "range": 0.0
+  },
+  "llm_total_tokens_total": {
+    "values": [
+      735221.0,
+      735142.0,
+      735560.0
+    ],
+    "mean": 735307.666667,
+    "min": 735142.0,
+    "max": 735560.0,
+    "range": 418.0
+  },
+  "llm_cost_estimated_usd_total": {
+    "values": [
+      3.041121,
+      3.03975,
+      3.045797
+    ],
+    "mean": 3.042223,
+    "min": 3.03975,
+    "max": 3.045797,
+    "range": 0.006047
+  },
+  "violations_by_rule": {
+    "R3": {
+      "values": [
+        427.0,
+        422.0,
+        435.0
+      ],
+      "mean": 428.0,
+      "min": 422.0,
+      "max": 435.0,
+      "range": 13.0
+    },
+    "R4": {
+      "values": [
+        35.0,
+        35.0,
+        35.0
+      ],
+      "mean": 35.0,
+      "min": 35.0,
+      "max": 35.0,
+      "range": 0.0
+    }
+  },
+  "by_model": {
+    "claude-sonnet-4-6|llm_policy_prompt": {
+      "enforcement_modification_rate": {
+        "values": [
+          0.865,
+          0.87,
+          0.87
+        ],
+        "mean": 0.868333,
+        "min": 0.865,
+        "max": 0.87,
+        "range": 0.005
+      },
+      "run_violation_rate": {
+        "values": [
+          0.865,
+          0.87,
+          0.87
+        ],
+        "mean": 0.868333,
+        "min": 0.865,
+        "max": 0.87,
+        "range": 0.005
+      },
+      "task_coverage_drop_rate": {
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0
+      }
+    },
+    "claude-sonnet-4-6|llm_zero": {
+      "enforcement_modification_rate": {
+        "values": [
+          0.365,
+          0.355,
+          0.36
+        ],
+        "mean": 0.36,
+        "min": 0.355,
+        "max": 0.365,
+        "range": 0.01
+      },
+      "run_violation_rate": {
+        "values": [
+          0.365,
+          0.355,
+          0.36
+        ],
+        "mean": 0.36,
+        "min": 0.355,
+        "max": 0.365,
+        "range": 0.01
+      },
+      "task_coverage_drop_rate": {
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0
+      }
+    },
+    "gpt-5.2|llm_policy_prompt": {
+      "enforcement_modification_rate": {
+        "values": [
+          0.455,
+          0.44,
+          0.47
+        ],
+        "mean": 0.455,
+        "min": 0.44,
+        "max": 0.47,
+        "range": 0.03
+      },
+      "run_violation_rate": {
+        "values": [
+          0.455,
+          0.44,
+          0.47
+        ],
+        "mean": 0.455,
+        "min": 0.44,
+        "max": 0.47,
+        "range": 0.03
+      },
+      "task_coverage_drop_rate": {
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0
+      }
+    },
+    "gpt-5.2|llm_zero": {
+      "enforcement_modification_rate": {
+        "values": [
+          0.53,
+          0.53,
+          0.545
+        ],
+        "mean": 0.535,
+        "min": 0.53,
+        "max": 0.545,
+        "range": 0.015
+      },
+      "run_violation_rate": {
+        "values": [
+          0.53,
+          0.53,
+          0.545
+        ],
+        "mean": 0.535,
+        "min": 0.53,
+        "max": 0.545,
+        "range": 0.015
+      },
+      "task_coverage_drop_rate": {
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "range": 0.0
+      }
+    }
+  }
+}

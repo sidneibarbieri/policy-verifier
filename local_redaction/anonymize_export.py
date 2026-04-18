@@ -25,8 +25,18 @@ PHONE_RE = re.compile(
     r"(?:\b\d{4}\s*\(\d{2}\)\s*\d{8,9}\b)|"
     r"(?:\+?\d{1,3}\s*\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{4})"
 )
+WINDOWS_USER_RE = re.compile(r"(?i)([A-Z]:\\Users\\)[^\\\s]+")
+POSIX_USER_RE = re.compile(r"(?i)(/Users/|/home/)[^/\s]+")
+CONTACT_NOTE_HINTS = (
+    "contatos operacionais",
+    "contato 1",
+    "regras operacionais",
+    "fora do expediente",
+    "central - contatos",
+    "agencia - contatos",
+)
 
-FORBIDDEN_TERMS = ["sicoob", "banco"]
+FORBIDDEN_TERMS = ["banco"]
 
 
 class TokenMaps:
@@ -166,11 +176,25 @@ def _mask_phones(text: str, maps: TokenMaps) -> str:
     return PHONE_RE.sub(repl, text)
 
 
+def _mask_user_paths(text: str) -> str:
+    out = WINDOWS_USER_RE.sub(r"\1user_home", text)
+    out = POSIX_USER_RE.sub(r"\1user_home", out)
+    return out
+
+
+def _summarize_case_note(text: str) -> str:
+    normalized = _normalize_for_match(text)
+    if any(hint in normalized for hint in CONTACT_NOTE_HINTS):
+        return "[redacted operational contact note]"
+    return text
+
+
 def _sanitize_text(text: str, maps: TokenMaps) -> str:
     out = _replace_terms(text)
     out = _mask_emails(out, maps)
     out = _mask_ips(out, maps)
     out = _mask_phones(out, maps)
+    out = _mask_user_paths(out)
     return out
 
 
@@ -237,11 +261,14 @@ def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, An
     host = _anon_host(props.get("cs_hostname"), maps)
     user = _anon_user(props.get("cs_username"), maps)
     command = _sanitize_text(str(props.get("cs_command_line") or ""), maps)
+    detection_label = _sanitize_text(
+        str(data.get("description") or data.get("name") or "detection"), maps
+    )
 
     out.append(
         {
             "event_type": "command_execution_attempt",
-            "category": _safe_slug(str(data.get("name") or "detection")),
+            "category": _safe_slug(detection_label),
             "timestamp": event_time,
             "source_type": "SOAR_EXPORT",
             "source_ip": _sanitize_text(str(props.get("cs_source_ip") or ""), maps) or None,
@@ -252,7 +279,7 @@ def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, An
                 "severity": _normalize_severity(props.get("cs_severity")),
                 "log_source": "soar_export",
                 "raw": {
-                    "detection_name": _sanitize_text(str(data.get("name") or ""), maps),
+                    "detection_name": detection_label,
                     "description": _sanitize_text(str(data.get("description") or ""), maps),
                     "host": host,
                 },
@@ -268,6 +295,7 @@ def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, An
             text = _sanitize_text(str(note.get("text") or ""), maps)
             text = re.sub(r"<[^>]+>", " ", text)
             text = " ".join(text.split())
+            text = _summarize_case_note(text)
             if not text:
                 continue
             ts = _epoch_ms_to_iso(note.get("create_date"))
@@ -452,23 +480,41 @@ def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def _incident_dir_id_from_raw(raw_data: dict[str, Any], input_json: Path) -> str:
+    raw_id = str(raw_data.get("id") or input_json.stem)
+    digits = "".join(ch for ch in raw_id if ch.isdigit()) or "000000"
+    return f"INC_BANK_{digits}"
+
+
+def _incident_dir_is_complete(incident_dir: Path) -> bool:
+    required = [
+        incident_dir / "incident_meta.json",
+        incident_dir / "incident_telemetry.jsonl",
+        incident_dir / "incident_human_actions.jsonl",
+        incident_dir / "evidence" / "source_manifest.json",
+        incident_dir / "evidence" / "conversion_quality.json",
+    ]
+    return all(path.exists() for path in required)
+
+
 def convert_one(
     input_json: Path,
     out_incidents_dir: Path,
     staging_dir: Path,
     mapping_rules_path: Path,
     repo_root: Path,
+    *,
+    skip_existing_complete: bool = False,
 ) -> Path:
     rules = _load_mapping_rules(mapping_rules_path)
     maps = TokenMaps()
     raw_data, parse_repair_count = _load_raw_json(input_json)
     sanitized_raw = _sanitize_obj(raw_data, maps)
 
-    raw_id = str(raw_data.get("id") or input_json.stem)
-    digits = "".join(ch for ch in raw_id if ch.isdigit()) or "000000"
-    incident_dir_id = f"INC_BANK_{digits}"
-
+    incident_dir_id = _incident_dir_id_from_raw(raw_data, input_json)
     incident_dir = out_incidents_dir / incident_dir_id
+    if skip_existing_complete and _incident_dir_is_complete(incident_dir):
+        return incident_dir
     incident_dir.mkdir(parents=True, exist_ok=True)
 
     meta = _build_meta(sanitized_raw, maps, incident_dir_id)
@@ -519,6 +565,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="local_redaction/action_mapping_bank.yaml",
     )
     parser.add_argument("--repo-root", default=".")
+    parser.add_argument(
+        "--skip-existing-complete",
+        action="store_true",
+        help="Return without rewriting when the canonical incident directory is already complete.",
+    )
     return parser
 
 
@@ -534,6 +585,7 @@ def main() -> None:
         staging_dir,
         mapping_rules,
         repo_root,
+        skip_existing_complete=bool(args.skip_existing_complete),
     )
     print(f"Anonymized incident ready: {incident_dir}")
 

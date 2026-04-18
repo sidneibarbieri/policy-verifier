@@ -59,6 +59,92 @@ def _load_incident_type(paths: RepoPaths, incident_id: str) -> str:
     return meta.incident_type
 
 
+def _active_eval_protocol(paths: RepoPaths) -> str | None:
+    freeze = _load_json_object(paths.outputs_analysis_dir / "protocol_freeze.json")
+    value = str(freeze.get("eval_protocol_version", "")).strip()
+    return value or None
+
+
+def _score_official_bundle(
+    bundle: dict[str, Any],
+    *,
+    bundle_path: Path,
+    active_protocol: str | None,
+    require_dual_model: bool,
+) -> tuple[int, int, int, int, int, int, float] | None:
+    summary = bundle.get("summary", {})
+    experiment = bundle.get("experiment", {})
+    coverage = experiment.get("coverage", {})
+    mode_counts = summary.get("mode_counts", {})
+    if not isinstance(summary, dict) or not isinstance(experiment, dict):
+        return None
+    if not isinstance(coverage, dict) or not isinstance(mode_counts, dict):
+        return None
+
+    incident_count = int(summary.get("incident_count", 0) or 0)
+    llm_run_count = int(mode_counts.get("LLM", 0) or 0)
+    if incident_count <= 0 or llm_run_count <= 0:
+        return None
+
+    selected_models = experiment.get("selected_models", [])
+    selected_model_names = sorted(
+        str(item.get("name", "")).strip()
+        for item in selected_models
+        if isinstance(item, dict)
+    )
+    selected_model_count = int(
+        coverage.get("selected_model_count", len(selected_model_names)) or 0
+    )
+    planned_arm_count = int(coverage.get("planned_arm_count", 0) or 0)
+    planned_repeat_count = int(coverage.get("planned_repeat_count", 1) or 1)
+    successful_run_count = int(coverage.get("successful_run_count", llm_run_count) or 0)
+    execution_failure_count = int(coverage.get("execution_failure_count", 0) or 0)
+    eval_protocol_version = str(experiment.get("eval_protocol_version", "")).strip()
+    summary_run_consistent = 1 if successful_run_count == llm_run_count else 0
+    single_repeat_summary = 1 if planned_repeat_count == 1 else 0
+
+    if require_dual_model and (selected_model_count < 2 or planned_arm_count < 2):
+        return None
+
+    return (
+        1 if active_protocol and eval_protocol_version == active_protocol else 0,
+        1 if selected_model_names == ["anthropic_sonnet46", "openai_gpt52"] else 0,
+        summary_run_consistent,
+        single_repeat_summary,
+        incident_count,
+        successful_run_count,
+        selected_model_count,
+        -execution_failure_count,
+        bundle_path.stat().st_mtime,
+    )
+
+
+def select_best_official_bundle(
+    bundle_paths: list[Path],
+    *,
+    active_protocol: str | None,
+    require_dual_model: bool = True,
+) -> Path | None:
+    best_path: Path | None = None
+    best_score: tuple[int, int, int, int, int, int, float] | None = None
+    for bundle_path in bundle_paths:
+        bundle = _load_json_object(bundle_path)
+        if not bundle:
+            continue
+        score = _score_official_bundle(
+            bundle,
+            bundle_path=bundle_path,
+            active_protocol=active_protocol,
+            require_dual_model=require_dual_model,
+        )
+        if score is None:
+            continue
+        if best_score is None or score > best_score:
+            best_score = score
+            best_path = bundle_path
+    return best_path.resolve() if best_path is not None else None
+
+
 def _resolve_official_summary_source(
     paths: RepoPaths,
     explicit_path: str | None,
@@ -66,6 +152,17 @@ def _resolve_official_summary_source(
     if explicit_path:
         candidate = Path(explicit_path).expanduser().resolve()
         return candidate if candidate.exists() else None
+
+    active_protocol = _active_eval_protocol(paths)
+    best_bundle_path = select_best_official_bundle(
+        sorted(paths.outputs_experiments_dir.glob("*/analysis_bundle.json")),
+        active_protocol=active_protocol,
+        require_dual_model=True,
+    )
+    if best_bundle_path is not None:
+        summary_path = (best_bundle_path.parent / "summary.json").resolve()
+        if summary_path.exists():
+            return summary_path
 
     copied_summary = paths.outputs_analysis_dir / "official_evaluation_summary.json"
     if copied_summary.exists():
@@ -78,44 +175,6 @@ def _resolve_official_summary_source(
         summary_path = (Path(gate_bundle).expanduser().resolve().parent / "summary.json").resolve()
         if summary_path.exists():
             return summary_path
-
-    best_summary_path: Path | None = None
-    best_score = (-1, -1, -1, -1.0)
-    for bundle_path in paths.outputs_experiments_dir.glob("*/analysis_bundle.json"):
-        bundle = _load_json_object(bundle_path)
-        summary = bundle.get("summary", {})
-        experiment = bundle.get("experiment", {})
-        coverage = experiment.get("coverage", {})
-        mode_counts = summary.get("mode_counts", {})
-        selected_models = experiment.get("selected_models", [])
-        selected_model_names = sorted(
-            str(item.get("name", "")).strip()
-            for item in selected_models
-            if isinstance(item, dict)
-        )
-        llm_run_count = int(mode_counts.get("LLM", 0) or 0) if isinstance(mode_counts, dict) else 0
-        incident_count = int(summary.get("incident_count", 0) or 0)
-        planned_arm_count = int(coverage.get("planned_arm_count", 0) or 0)
-        selected_model_count = int(coverage.get("selected_model_count", 0) or 0)
-        execution_failure_count = int(coverage.get("execution_failure_count", 0) or 0)
-        if incident_count <= 0 or llm_run_count <= 0:
-            continue
-        if planned_arm_count < 2 or selected_model_count < 2:
-            continue
-        if execution_failure_count != 0:
-            continue
-        score = (
-            1 if selected_model_names == ["anthropic_sonnet46", "openai_gpt52"] else 0,
-            incident_count,
-            llm_run_count,
-            bundle_path.stat().st_mtime,
-        )
-        if score > best_score:
-            best_score = score
-            best_summary_path = bundle_path.parent / "summary.json"
-
-    if best_summary_path is not None and best_summary_path.exists():
-        return best_summary_path.resolve()
 
     return None
 
@@ -346,6 +405,7 @@ def _build_approval_proxy_scope(
 
 def _build_official_evaluation_scope(
     *,
+    paths: RepoPaths,
     official_summary: dict[str, Any],
     policy_rule_ids: list[str],
 ) -> dict[str, Any]:
@@ -365,6 +425,12 @@ def _build_official_evaluation_scope(
         str(key)
         for key in (official_summary.get("violations_by_type", {}) or {}).keys()
     ) == ["approval_required"]
+    official_runs_manifest = _load_json_object(
+        paths.outputs_analysis_dir / "official_runs_manifest.json"
+    )
+    execution_accounting = official_runs_manifest.get("execution_accounting", {})
+    if not isinstance(execution_accounting, dict):
+        execution_accounting = {}
     return {
         "available": True,
         "run_count": int(official_summary.get("run_count", 0) or 0),
@@ -406,9 +472,12 @@ def _build_official_evaluation_scope(
             official_summary.get("llm_cost_estimated_usd_avg_per_run", 0.0) or 0.0
         ),
         "run_success_rate": float(
-            (
-                official_summary.get("experiment_coverage", {}) or {}
-            ).get("run_success_rate", 0.0)
+            execution_accounting.get(
+                "run_success_rate",
+                (
+                    official_summary.get("experiment_coverage", {}) or {}
+                ).get("run_success_rate", 0.0),
+            )
             or 0.0
         ),
     }
@@ -476,8 +545,8 @@ def _build_criticism_response_map(report: dict[str, Any]) -> list[dict[str, Any]
             "criticism": "Cost accounting is unclear.",
             "response_strength": "addressed",
             "response": (
-                "The official aggregate summary is now copied into canonical analysis outputs so reviewers "
-                "can inspect token totals, total cost, average cost per run, and run-success rate directly."
+                "The official aggregate summary is now copied into canonical analysis outputs so public "
+                "auditors can inspect token totals, total cost, average cost per run, and run-success rate directly."
             ),
             "evidence": {
                 "llm_total_tokens_total": official_scope.get("llm_total_tokens_total", 0),
@@ -594,6 +663,7 @@ def build_global_artifact_assessment(
             mapping_rules=mapping_rules,
         ),
         "official_evaluation_scope": _build_official_evaluation_scope(
+            paths=paths,
             official_summary=official_summary,
             policy_rule_ids=policy_rule_ids,
         ),

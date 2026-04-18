@@ -1,0 +1,81 @@
+{
+  "generated_at_utc": "2026-04-18T00:00:00+00:00",
+  "artifact_version": "public_non_private_analysis_output",
+  "reported_evaluation_run_id": "exp_final_20260409T222111Z_r1_completed_after_repair",
+  "description": "Public paired contrasts for the official evaluation. These rows are derived from the maintained official analysis bundle for the reported run and expose only non-private aggregate statistics needed to audit the paper's paired-tests table.",
+  "row_count": 6,
+  "rows": [
+    {
+      "comparison_label": "Claude|policy vs Claude|zero",
+      "model_a": "claude-sonnet-4-6",
+      "arm_a": "policy",
+      "model_b": "claude-sonnet-4-6",
+      "arm_b": "zero",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": 0.51,
+      "mcnemar_p_value_two_sided": 0.0,
+      "mcnemar_p_value_holm": 0.0,
+      "cohens_h": 1.116864
+    },
+    {
+      "comparison_label": "Claude|policy vs GPT-5.2|policy",
+      "model_a": "claude-sonnet-4-6",
+      "arm_a": "policy",
+      "model_b": "gpt-5.2",
+      "arm_b": "policy",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": 0.4,
+      "mcnemar_p_value_two_sided": 0.0,
+      "mcnemar_p_value_holm": 0.0,
+      "cohens_h": 0.893106
+    },
+    {
+      "comparison_label": "Claude|policy vs GPT-5.2|zero",
+      "model_a": "claude-sonnet-4-6",
+      "arm_a": "policy",
+      "model_b": "gpt-5.2",
+      "arm_b": "zero",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": 0.33,
+      "mcnemar_p_value_two_sided": 0.0,
+      "mcnemar_p_value_holm": 0.0,
+      "cohens_h": 0.752985
+    },
+    {
+      "comparison_label": "Claude|zero vs GPT-5.2|policy",
+      "model_a": "claude-sonnet-4-6",
+      "arm_a": "zero",
+      "model_b": "gpt-5.2",
+      "arm_b": "policy",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": -0.11,
+      "mcnemar_p_value_two_sided": 0.000316,
+      "mcnemar_p_value_holm": 0.000632,
+      "cohens_h": -0.223758
+    },
+    {
+      "comparison_label": "Claude|zero vs GPT-5.2|zero",
+      "model_a": "claude-sonnet-4-6",
+      "arm_a": "zero",
+      "model_b": "gpt-5.2",
+      "arm_b": "zero",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": -0.18,
+      "mcnemar_p_value_two_sided": 0.0,
+      "mcnemar_p_value_holm": 0.0,
+      "cohens_h": -0.36388
+    },
+    {
+      "comparison_label": "GPT-5.2|policy vs GPT-5.2|zero",
+      "model_a": "gpt-5.2",
+      "arm_a": "policy",
+      "model_b": "gpt-5.2",
+      "arm_b": "zero",
+      "paired_incident_count": 200,
+      "rate_diff_a_minus_b": -0.07,
+      "mcnemar_p_value_two_sided": 0.005578,
+      "mcnemar_p_value_holm": 0.005578,
+      "cohens_h": -0.140122
+    }
+  ]
+}
