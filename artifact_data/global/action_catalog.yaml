@@ -1,5 +1,5 @@
-# SOC action catalog.
-# Frozen before any LLM execution. Changes require a new protocol version.
+# SOCpilot action catalog.
+# Frozen before provider execution. Changes define a separate evaluation state.
 #
 # This catalog defines the complete action space available to the SOC for
 # incident response. Each action has:
@@ -16,21 +16,36 @@
 #   recommendations are logged as hallucinated actions.
 
 - action_id: collect_forensics
+  phase: investigation
+  operational_role: preserve evidence and support root-cause analysis
+  baseline_support: paired_human_reference
   requires_approval: false
   reversible: true
 
 - action_id: isolate_host
+  phase: containment
+  operational_role: interrupt active host-level risk
+  baseline_support: paired_human_reference
   requires_approval: true
   reversible: true
 
 - action_id: reset_admin_credentials
+  phase: containment
+  operational_role: reduce credential-reuse risk after privileged-account exposure
+  baseline_support: paired_human_reference
   requires_approval: false
   reversible: true
 
 - action_id: block_egress_ip
+  phase: containment
+  operational_role: block suspicious outbound communication
+  baseline_support: llm_proposal_only_in_current_public_reference
   requires_approval: false
   reversible: true
 
 - action_id: restore_host
+  phase: recovery
+  operational_role: return host to service after response work
+  baseline_support: llm_proposal_only_in_current_public_reference
   requires_approval: true
   reversible: false

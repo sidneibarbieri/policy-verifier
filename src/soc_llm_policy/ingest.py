@@ -15,7 +15,7 @@ Output format (per line):
         "command": str | null,  # field queried by the engine
         "severity": str | null,
         "log_source": str | null,
-        "raw": dict             # preserved original event
+        "source_event": dict    # source event after local sanitization
     }
 }
 """
@@ -104,7 +104,7 @@ def normalize_event(raw: dict[str, Any], source_type: str) -> dict[str, Any]:
             "command": _extract_command(raw),
             "severity": _extract_severity(raw),
             "log_source": _get(raw, "Log Source", "Fortinet Device Name (custom)"),
-            "raw": raw,
+            "source_event": raw,
         },
     }
 

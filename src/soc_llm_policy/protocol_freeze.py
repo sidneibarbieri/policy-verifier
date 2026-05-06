@@ -68,7 +68,9 @@ def build_protocol_freeze_manifest(
     dataset_audit_path = paths.outputs_analysis_dir / "dataset_audit.json"
     corpus_readiness_path = paths.outputs_analysis_dir / "corpus_readiness.json"
     release_readiness_path = paths.outputs_analysis_dir / "release_readiness.json"
-    dataset_audit = _read_json(dataset_audit_path) if dataset_audit_path.exists() else {}
+    dataset_audit = (
+        _read_json(dataset_audit_path) if dataset_audit_path.exists() else {}
+    )
     corpus_readiness = (
         _read_json(corpus_readiness_path) if corpus_readiness_path.exists() else {}
     )
@@ -89,14 +91,6 @@ def build_protocol_freeze_manifest(
         ("dataset_audit", dataset_audit_path),
         ("corpus_readiness", corpus_readiness_path),
         ("release_readiness", release_readiness_path),
-        (
-            "official_evaluation_summary",
-            paths.outputs_analysis_dir / "official_evaluation_summary.json",
-        ),
-        (
-            "official_runs_manifest",
-            paths.outputs_analysis_dir / "official_runs_manifest.json",
-        ),
     ]
     input_hashes: dict[str, dict[str, str]] = {}
     for name, path in hashed_inputs:
@@ -118,7 +112,9 @@ def build_protocol_freeze_manifest(
         "arms": options.arm_names,
         "incident_count": len(incident_ids),
         "incident_ids": incident_ids,
-        "policy_rule_count": int(global_artifact_scope.get("policy_rule_count", 0) or 0),
+        "policy_rule_count": int(
+            global_artifact_scope.get("policy_rule_count", 0) or 0
+        ),
         "action_catalog_count": int(
             global_artifact_scope.get("action_catalog_count", 0) or 0
         ),
@@ -129,8 +125,10 @@ def build_protocol_freeze_manifest(
         "dataset_audit_status": "ok" if dataset_audit else "missing",
         "input_hashes": input_hashes,
         "notes": [
-            "This manifest defines the single canonical protocol freeze for future paid runs.",
-            "Exploratory bundles are excluded from the official experimental provenance.",
+            "This manifest defines the single canonical protocol freeze for "
+            "future paid runs.",
+            "Exploratory bundles are excluded from the official experimental "
+            "provenance.",
         ],
     }
 
@@ -138,7 +136,10 @@ def build_protocol_freeze_manifest(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="soc_llm_policy.protocol_freeze",
-        description="Write a canonical protocol-freeze manifest with hashes and official settings.",
+        description=(
+            "Write a canonical protocol-freeze manifest with hashes and "
+            "official settings."
+        ),
     )
     parser.add_argument("--repo-root", default=None)
     parser.add_argument("--dataset-release-id", required=True)

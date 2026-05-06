@@ -12,10 +12,14 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from soc_llm_policy.paths import repo_relative_path, resolve_repo_root
 from soc_llm_policy.raw_json import load_json_object_with_invalid_escape_repair
 
-import yaml
+MIN_RANKED_CANDIDATES_FOR_TIE = 2
+MAX_MAPPING_QUALITY_EXAMPLES = 5
+LEGACY_CONVERT_ONE_PATH_COUNT = 4
 
 EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
 IPV4_RE = re.compile(
@@ -55,6 +59,16 @@ class MappingRule:
     approval_proxy: bool
     match_policy: str = "any_keyword"
     priority: int = 0
+
+
+@dataclass(frozen=True)
+class ConversionRequest:
+    input_json: Path
+    out_incidents_dir: Path
+    staging_dir: Path
+    mapping_rules_path: Path
+    repo_root: Path
+    skip_existing_complete: bool = False
 
 
 def _normalize_for_match(text: str) -> str:
@@ -123,7 +137,11 @@ def _epoch_ms_to_iso(value: Any) -> str | None:
     if not isinstance(value, (int, float)):
         return None
     try:
-        return datetime.fromtimestamp(value / 1000, tz=UTC).isoformat().replace("+00:00", "Z")
+        return (
+            datetime.fromtimestamp(value / 1000, tz=UTC)
+            .isoformat()
+            .replace("+00:00", "Z")
+        )
     except Exception:
         return None
 
@@ -150,7 +168,7 @@ def _mask_emails(text: str, maps: TokenMaps) -> str:
     def repl(match: re.Match[str]) -> str:
         raw = match.group(0)
         if raw not in maps.email:
-            maps.email[raw] = f"user_{len(maps.email)+1:04d}@bank.local"
+            maps.email[raw] = f"user_{len(maps.email) + 1:04d}@bank.local"
         return maps.email[raw]
 
     return EMAIL_RE.sub(repl, text)
@@ -160,7 +178,9 @@ def _mask_ips(text: str, maps: TokenMaps) -> str:
     def repl(match: re.Match[str]) -> str:
         raw = match.group(0)
         if raw not in maps.ip:
-            maps.ip[raw] = f"10.255.{(len(maps.ip)//250)+1}.{(len(maps.ip)%250)+1}"
+            maps.ip[raw] = (
+                f"10.255.{(len(maps.ip) // 250) + 1}.{(len(maps.ip) % 250) + 1}"
+            )
         return maps.ip[raw]
 
     return IPV4_RE.sub(repl, text)
@@ -170,7 +190,7 @@ def _mask_phones(text: str, maps: TokenMaps) -> str:
     def repl(match: re.Match[str]) -> str:
         raw = match.group(0)
         if raw not in maps.phone:
-            maps.phone[raw] = f"<phone_{len(maps.phone)+1:04d}>"
+            maps.phone[raw] = f"<phone_{len(maps.phone) + 1:04d}>"
         return maps.phone[raw]
 
     return PHONE_RE.sub(repl, text)
@@ -211,31 +231,47 @@ def _sanitize_obj(value: Any, maps: TokenMaps) -> Any:
 def _anon_host(raw: Any, maps: TokenMaps) -> str:
     key = str(raw or "host_unknown").strip() or "host_unknown"
     if key not in maps.host:
-        maps.host[key] = f"host_{len(maps.host)+1:04d}"
+        maps.host[key] = f"host_{len(maps.host) + 1:04d}"
     return maps.host[key]
 
 
 def _anon_user(raw: Any, maps: TokenMaps) -> str:
     key = str(raw or "user_unknown").strip() or "user_unknown"
     if key not in maps.user:
-        maps.user[key] = f"user_{len(maps.user)+1:04d}"
+        maps.user[key] = f"user_{len(maps.user) + 1:04d}"
     return maps.user[key]
 
 
-def _build_meta(data: dict[str, Any], maps: TokenMaps, incident_dir_id: str) -> dict[str, Any]:
-    props = data.get("properties", {}) if isinstance(data.get("properties"), dict) else {}
+def _build_meta(
+    data: dict[str, Any], maps: TokenMaps, incident_dir_id: str
+) -> dict[str, Any]:
+    props = (
+        data.get("properties", {}) if isinstance(data.get("properties"), dict) else {}
+    )
     incident_types = data.get("incident_type_ids", [])
-    incident_type_raw = incident_types[0] if isinstance(incident_types, list) and incident_types else "suspicious_activity"
+    incident_type_raw = (
+        incident_types[0]
+        if isinstance(incident_types, list) and incident_types
+        else "suspicious_activity"
+    )
 
-    start = _epoch_ms_to_iso(data.get("start_date")) or _epoch_ms_to_iso(data.get("inc_start"))
-    end = _epoch_ms_to_iso(data.get("end_date")) or _epoch_ms_to_iso(data.get("inc_last_modified_date"))
+    start = _epoch_ms_to_iso(data.get("start_date")) or _epoch_ms_to_iso(
+        data.get("inc_start")
+    )
+    end = _epoch_ms_to_iso(data.get("end_date")) or _epoch_ms_to_iso(
+        data.get("inc_last_modified_date")
+    )
     if start is None:
         start = datetime.now(UTC).isoformat().replace("+00:00", "Z")
     if end is None:
         end = start
 
-    severity = _normalize_severity(data.get("severity_code") or props.get("cs_severity"))
-    status_raw = str(data.get("resolution_id") or props.get("status_do_incidente") or "unknown")
+    severity = _normalize_severity(
+        data.get("severity_code") or props.get("cs_severity")
+    )
+    status_raw = str(
+        data.get("resolution_id") or props.get("status_do_incidente") or "unknown"
+    )
     final_status = _safe_slug(_sanitize_text(status_raw, maps))
 
     host = _anon_host(props.get("cs_hostname"), maps)
@@ -254,10 +290,14 @@ def _build_meta(data: dict[str, Any], maps: TokenMaps, incident_dir_id: str) -> 
 
 
 def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, Any]]:
-    props = data.get("properties", {}) if isinstance(data.get("properties"), dict) else {}
+    props = (
+        data.get("properties", {}) if isinstance(data.get("properties"), dict) else {}
+    )
     out: list[dict[str, Any]] = []
 
-    event_time = _epoch_ms_to_iso(data.get("discovered_date")) or _epoch_ms_to_iso(data.get("start_date"))
+    event_time = _epoch_ms_to_iso(data.get("discovered_date")) or _epoch_ms_to_iso(
+        data.get("start_date")
+    )
     host = _anon_host(props.get("cs_hostname"), maps)
     user = _anon_user(props.get("cs_username"), maps)
     command = _sanitize_text(str(props.get("cs_command_line") or ""), maps)
@@ -271,16 +311,19 @@ def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, An
             "category": _safe_slug(detection_label),
             "timestamp": event_time,
             "source_type": "SOAR_EXPORT",
-            "source_ip": _sanitize_text(str(props.get("cs_source_ip") or ""), maps) or None,
+            "source_ip": _sanitize_text(str(props.get("cs_source_ip") or ""), maps)
+            or None,
             "dest_ip": None,
             "username": user,
             "details": {
                 "command": command or None,
                 "severity": _normalize_severity(props.get("cs_severity")),
                 "log_source": "soar_export",
-                "raw": {
+                "source_summary": {
                     "detection_name": detection_label,
-                    "description": _sanitize_text(str(data.get("description") or ""), maps),
+                    "description": _sanitize_text(
+                        str(data.get("description") or ""), maps
+                    ),
                     "host": host,
                 },
             },
@@ -312,7 +355,7 @@ def _build_telemetry(data: dict[str, Any], maps: TokenMaps) -> list[dict[str, An
                         "command": text[:220],
                         "severity": None,
                         "log_source": "soar_note",
-                        "raw": {"note_id": note.get("id")},
+                        "source_summary": {"note_id": note.get("id")},
                     },
                 }
             )
@@ -381,11 +424,10 @@ def _task_has_tied_top_candidates(
         if score <= 0:
             continue
         ranked.append((score, rule.priority))
-    if len(ranked) < 2:
+    if len(ranked) < MIN_RANKED_CANDIDATES_FOR_TIE:
         return False
     ranked.sort(key=lambda row: (-row[0], -row[1]))
     return ranked[0] == ranked[1]
-    return None
 
 
 def _build_human_actions(
@@ -404,19 +446,26 @@ def _build_human_actions(
         for idx, task in enumerate(tasks, start=1):
             if not isinstance(task, dict):
                 continue
-            ts = _epoch_ms_to_iso(task.get("init_date")) or _epoch_ms_to_iso(task.get("closed_date"))
+            ts = _epoch_ms_to_iso(task.get("init_date")) or _epoch_ms_to_iso(
+                task.get("closed_date")
+            )
             mapped = _map_task_to_action(task, maps, rules)
             if mapped is None:
                 unmatched_count += 1
                 name = _normalize_for_match(str(task.get("name") or "")).strip()
-                if name and name not in unmatched_examples and len(unmatched_examples) < 5:
+                if (
+                    name
+                    and name not in unmatched_examples
+                    and len(unmatched_examples) < MAX_MAPPING_QUALITY_EXAMPLES
+                ):
                     unmatched_examples.append(name)
                 if _task_has_tied_top_candidates(task, maps, rules):
                     ambiguous_tie_count += 1
                     if (
                         name
                         and name not in ambiguous_tie_examples
-                        and len(ambiguous_tie_examples) < 5
+                        and len(ambiguous_tie_examples)
+                        < MAX_MAPPING_QUALITY_EXAMPLES
                     ):
                         ambiguous_tie_examples.append(name)
                 continue
@@ -433,12 +482,14 @@ def _build_human_actions(
     fallback_used = False
     if not dedup:
         fallback_used = True
-        dedup = [(
-            "collect_forensics",
-            _epoch_ms_to_iso(data.get("start_date")),
-            False,
-            0,
-        )]
+        dedup = [
+            (
+                "collect_forensics",
+                _epoch_ms_to_iso(data.get("start_date")),
+                False,
+                0,
+            )
+        ]
 
     out: list[dict[str, Any]] = []
     for order, (action, ts, approval, _src_idx) in enumerate(dedup, start=1):
@@ -497,15 +548,45 @@ def _incident_dir_is_complete(incident_dir: Path) -> bool:
     return all(path.exists() for path in required)
 
 
+def _coerce_conversion_request(
+    request: ConversionRequest | Path,
+    *legacy_paths: Path,
+    skip_existing_complete: bool = False,
+) -> ConversionRequest:
+    if isinstance(request, ConversionRequest):
+        return request
+    if len(legacy_paths) != LEGACY_CONVERT_ONE_PATH_COUNT:
+        raise TypeError(
+            "convert_one requires either a ConversionRequest or all legacy path "
+            "arguments."
+        )
+    out_incidents_dir, staging_dir, mapping_rules_path, repo_root = legacy_paths
+    return ConversionRequest(
+        input_json=request,
+        out_incidents_dir=out_incidents_dir,
+        staging_dir=staging_dir,
+        mapping_rules_path=mapping_rules_path,
+        repo_root=repo_root,
+        skip_existing_complete=skip_existing_complete,
+    )
+
+
 def convert_one(
-    input_json: Path,
-    out_incidents_dir: Path,
-    staging_dir: Path,
-    mapping_rules_path: Path,
-    repo_root: Path,
-    *,
+    request: ConversionRequest | Path,
+    *legacy_paths: Path,
     skip_existing_complete: bool = False,
 ) -> Path:
+    conversion_request = _coerce_conversion_request(
+        request,
+        *legacy_paths,
+        skip_existing_complete=skip_existing_complete,
+    )
+    input_json = conversion_request.input_json
+    out_incidents_dir = conversion_request.out_incidents_dir
+    staging_dir = conversion_request.staging_dir
+    mapping_rules_path = conversion_request.mapping_rules_path
+    repo_root = conversion_request.repo_root
+
     rules = _load_mapping_rules(mapping_rules_path)
     maps = TokenMaps()
     raw_data, parse_repair_count = _load_raw_json(input_json)
@@ -513,7 +594,9 @@ def convert_one(
 
     incident_dir_id = _incident_dir_id_from_raw(raw_data, input_json)
     incident_dir = out_incidents_dir / incident_dir_id
-    if skip_existing_complete and _incident_dir_is_complete(incident_dir):
+    if conversion_request.skip_existing_complete and _incident_dir_is_complete(
+        incident_dir
+    ):
         return incident_dir
     incident_dir.mkdir(parents=True, exist_ok=True)
 
@@ -568,7 +651,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--skip-existing-complete",
         action="store_true",
-        help="Return without rewriting when the canonical incident directory is already complete.",
+        help=(
+            "Return without rewriting when the canonical incident directory "
+            "is already complete."
+        ),
     )
     return parser
 
@@ -580,12 +666,14 @@ def main() -> None:
     mapping_rules = Path(args.mapping_rules).expanduser().resolve()
     repo_root = resolve_repo_root(args.repo_root)
     incident_dir = convert_one(
-        Path(args.input_json).expanduser().resolve(),
-        out_dir,
-        staging_dir,
-        mapping_rules,
-        repo_root,
-        skip_existing_complete=bool(args.skip_existing_complete),
+        ConversionRequest(
+            input_json=Path(args.input_json).expanduser().resolve(),
+            out_incidents_dir=out_dir,
+            staging_dir=staging_dir,
+            mapping_rules_path=mapping_rules,
+            repo_root=repo_root,
+            skip_existing_complete=bool(args.skip_existing_complete),
+        )
     )
     print(f"Anonymized incident ready: {incident_dir}")
 

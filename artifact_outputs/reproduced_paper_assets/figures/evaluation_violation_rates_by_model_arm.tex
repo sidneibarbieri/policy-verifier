@@ -1,0 +1,53 @@
+\begin{tikzpicture}[x=5.6cm,y=1.0cm,font=\sffamily\small]
+  \definecolor{axisGray}{HTML}{667085}
+  \definecolor{llmZero}{HTML}{1A5276}
+  \definecolor{llmZeroBg}{HTML}{E8F0FB}
+  \definecolor{llmPolicy}{HTML}{117864}
+  \definecolor{llmPolicyBg}{HTML}{E6F4F1}
+  \definecolor{humanGray}{HTML}{6F7782}
+  \definecolor{humanBg}{HTML}{F2F4F7}
+  \draw[->, line width=0.8pt, draw=axisGray] (0,-0.52) -- (1.05,-0.52) node[below right, text=axisGray, align=left] {\small run-level\\violation rate};
+  \foreach \x in {0,0.2,0.4,0.6,0.8,1.0}{
+    \draw[draw=axisGray!25] (\x,-0.52) -- (\x,4.53);
+    \draw[draw=axisGray, line width=0.6pt] (\x,-0.55) -- (\x,-0.49);
+    \node[below, text=axisGray] at (\x,-0.55) {\small \x};
+  }
+  \fill[axisGray!10, rounded corners=2pt] (-0.015,2.89) rectangle (1.03,4.31);
+  \fill[axisGray!7, rounded corners=2pt] (-0.015,1.05) rectangle (1.03,2.47);
+  \fill[llmZeroBg, draw=llmZero] (0,3.93) rectangle (0.3600,4.19);
+  \fill[llmZero] (0,4.06) circle (2.0pt);
+  \draw[llmZero, line width=1.0pt] (0.2967,4.06) -- (0.4286,4.06);
+  \draw[llmZero, line width=1.0pt] (0.2967,3.99) -- (0.2967,4.13);
+  \draw[llmZero, line width=1.0pt] (0.4286,3.99) -- (0.4286,4.13);
+  \node[left, align=right] at (0,4.06) {claude / zero};
+  \node[anchor=west, text=llmZero, font=\small\bfseries] at (0.4406,4.06) {0.3600};
+  \fill[llmPolicyBg, draw=llmPolicy] (0,3.01) rectangle (0.8700,3.27);
+  \fill[llmPolicy] (0,3.14) circle (2.0pt);
+  \draw[llmPolicy, line width=1.0pt] (0.8163,3.14) -- (0.9097,3.14);
+  \draw[llmPolicy, line width=1.0pt] (0.8163,3.07) -- (0.8163,3.21);
+  \draw[llmPolicy, line width=1.0pt] (0.9097,3.07) -- (0.9097,3.21);
+  \node[left, align=right] at (0,3.14) {claude / policy};
+  \node[anchor=west, text=llmPolicy, font=\small\bfseries] at (0.9217,3.14) {0.8700};
+  \fill[llmZeroBg, draw=llmZero] (0,2.09) rectangle (0.5400,2.35);
+  \fill[llmZero] (0,2.22) circle (2.0pt);
+  \draw[llmZero, line width=1.0pt] (0.4708,2.22) -- (0.6077,2.22);
+  \draw[llmZero, line width=1.0pt] (0.4708,2.15) -- (0.4708,2.29);
+  \draw[llmZero, line width=1.0pt] (0.6077,2.15) -- (0.6077,2.29);
+  \node[left, align=right] at (0,2.22) {gpt-5.2 / zero};
+  \node[anchor=west, text=llmZero, font=\small\bfseries] at (0.6197,2.22) {0.5400};
+  \fill[llmPolicyBg, draw=llmPolicy] (0,1.17) rectangle (0.4700,1.43);
+  \fill[llmPolicy] (0,1.30) circle (2.0pt);
+  \draw[llmPolicy, line width=1.0pt] (0.4020,1.30) -- (0.5391,1.30);
+  \draw[llmPolicy, line width=1.0pt] (0.4020,1.23) -- (0.4020,1.37);
+  \draw[llmPolicy, line width=1.0pt] (0.5391,1.23) -- (0.5391,1.37);
+  \node[left, align=right] at (0,1.30) {gpt-5.2 / policy};
+  \node[anchor=west, text=llmPolicy, font=\small\bfseries] at (0.5511,1.30) {0.4700};
+  \fill[humanBg, draw=humanGray] (0,0.25) rectangle (0.0000,0.51);
+  \fill[humanGray] (0,0.38) circle (2.0pt);
+  \draw[humanGray, line width=1.0pt] (0.0000,0.38) -- (0.0188,0.38);
+  \draw[humanGray, line width=1.0pt] (0.0000,0.31) -- (0.0000,0.45);
+  \draw[humanGray, line width=1.0pt] (0.0188,0.31) -- (0.0188,0.45);
+  \node[left, align=right] at (0,0.38) {human baseline};
+  \node[anchor=west, text=humanGray, font=\small\bfseries] at (0.0308,0.38) {0.0000};
+  \node[anchor=west, text=axisGray, font=\small, align=left] at (0,-0.95) {$n=200$ runs per row $\cdot$ 95\% Wilson CIs};
+\end{tikzpicture}

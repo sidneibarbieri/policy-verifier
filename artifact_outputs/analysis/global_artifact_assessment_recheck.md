@@ -2,7 +2,7 @@
 
 ## Summary
 
-This report separates what the current frozen globals support strongly from what remains narrow under the official freeze.
+This report separates what the current declared globals support strongly from what remains narrow in the official evaluation.
 
 ## Stable Evidence
 

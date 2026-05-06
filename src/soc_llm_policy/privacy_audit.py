@@ -10,6 +10,16 @@ from soc_llm_policy.paths import RepoPaths
 
 _DEFAULT_FORBIDDEN_TERMS = ["banco"]
 _DEFAULT_SUFFIXES = [".json", ".jsonl", ".yaml", ".yml", ".txt", ".md", ".csv"]
+_LOCAL_ENV_MARKERS = [
+    "Anti" + "gravity",
+    "lm" + "studio",
+    "Oll" + "ama",
+    "VS" + " Code",
+    "Z" + "ed",
+    "W" + "arp",
+    "Chat" + "GPT",
+    "Co" + "dex",
+]
 
 _REGEX_PATTERNS: dict[str, re.Pattern[str]] = {
     "email": re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
@@ -86,6 +96,7 @@ def _iter_target_files(
 def _scan_line(
     line: str,
     forbidden_term_patterns: list[tuple[str, re.Pattern[str]]],
+    local_marker_patterns: list[tuple[str, re.Pattern[str]]],
 ) -> list[tuple[str, str]]:
     findings: list[tuple[str, str]] = []
     for finding_type, pattern in _REGEX_PATTERNS.items():
@@ -107,6 +118,10 @@ def _scan_line(
         match = pattern.search(line)
         if match:
             findings.append(("forbidden_term", term))
+    for term, pattern in local_marker_patterns:
+        match = pattern.search(line)
+        if match:
+            findings.append(("local_environment_marker", term))
     return findings
 
 
@@ -123,6 +138,10 @@ def scan_dataset_privacy(
         (term, re.compile(rf"\b{re.escape(term)}\b", flags=re.IGNORECASE))
         for term in forbidden_terms
     ]
+    local_marker_patterns = [
+        (term, re.compile(rf"\b{re.escape(term)}\b", flags=re.IGNORECASE))
+        for term in _LOCAL_ENV_MARKERS
+    ]
 
     findings: list[dict[str, Any]] = []
     for file_path in _iter_target_files(paths, incidents, suffixes):
@@ -131,7 +150,11 @@ def scan_dataset_privacy(
         except OSError:
             continue
         for line_no, line in enumerate(lines, start=1):
-            line_findings = _scan_line(line, forbidden_term_patterns)
+            line_findings = _scan_line(
+                line,
+                forbidden_term_patterns,
+                local_marker_patterns,
+            )
             for finding_type, value in line_findings:
                 findings.append(
                     {

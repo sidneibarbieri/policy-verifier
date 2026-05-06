@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-04-09T22:08:56.528052+00:00",
+  "generated_at_utc": "2026-05-04T14:39:37.394511+00:00",
   "dataset_release_id": "submission_freeze",
   "eval_protocol_version": "official",
   "incident_count": 200,
   "input_hashes": {
-    "action_catalog": "7aa3438044a26122e05454cb2f7ffba64ff5757c85e4e070a6be5a6ca3eeaa27",
-    "constraints": "5e6b4be7f4ddf3bbb67ec98c1b005320aaf2181154a2fbc7af22abed635a375b",
+    "action_catalog": "1226c458ea171c39025b3b3223f05c4df1459064c80416d92e00c3f9e06b4c7b",
+    "constraints": "fcc874bc72aab5dc539d02aade4c444a1e35d4bba8d1d99ec16518dfaace58b9",
     "action_mapping_bank": "5284f56cbb397b662b02a6f190e8615956282fe7eb847b54a756b20c893f65f2",
     "attack_mapping": "13cfe0189b3dce1b7f49cae5fc221d3d7b4622258fc3d36f2700fb5826dc68aa"
   },
@@ -16,8 +16,8 @@
     "attack_mapping_rule_count": 31,
     "attack_mapping_technique_count": 24,
     "attack_mapping_tactic_count": 12,
-    "corpus_matched_attack_technique_count": 24,
-    "corpus_matched_attack_tactic_count": 12
+    "corpus_matched_attack_technique_count": 10,
+    "corpus_matched_attack_tactic_count": 8
   },
   "action_catalog": {
     "path": "artifact_data/global/action_catalog.yaml",
@@ -290,8 +290,8 @@
     "rule_count": 31,
     "technique_count": 24,
     "tactic_count": 12,
-    "corpus_matched_technique_count": 24,
-    "corpus_matched_tactic_count": 12
+    "corpus_matched_technique_count": 10,
+    "corpus_matched_tactic_count": 8
   },
   "notes": [
     "This manifest defines the official frozen protocol for the public artifact."

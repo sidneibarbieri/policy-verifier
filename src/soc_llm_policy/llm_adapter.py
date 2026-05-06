@@ -40,12 +40,28 @@ from soc_llm_policy.io import (
 )
 from soc_llm_policy.result_models import LLMUsage
 
+
 class LLMAdapterError(Exception):
     """Generic error raised by the LLM adapter."""
 
 
 class LLMResponseParseError(LLMAdapterError):
     """The LLM replied, but valid action_ids could not be extracted."""
+
+
+def _read_bool_env(name: str, *, default: bool) -> bool:
+    """Read a strict boolean environment flag."""
+    raw_value = os.environ.get(name)
+    if raw_value is None:
+        return default
+    normalized_value = raw_value.strip().lower()
+    if normalized_value in {"1", "true", "yes", "on"}:
+        return True
+    if normalized_value in {"0", "false", "no", "off"}:
+        return False
+    raise LLMAdapterError(
+        f"{name} must be one of: 1, true, yes, on, 0, false, no, off."
+    )
 
 
 @dataclass(frozen=True)
@@ -66,6 +82,8 @@ class LLMConfig:
     # Automatic retry on rate limit (429).
     max_retries: int = 3
     retry_wait_seconds: int = 65
+    # Official runs require a raw JSON object, not markdown-fenced JSON.
+    allow_markdown_json_fence: bool = False
     # Pricing used to estimate cost per run (USD per 1k tokens).
     prompt_price_per_1k_usd: float = 0.0
     completion_price_per_1k_usd: float = 0.0
@@ -180,7 +198,8 @@ class LLMConfig:
             provider_hint = f" (provider={provider})"
             raise LLMAdapterError(
                 f"Missing environment variables{provider_hint}: {', '.join(missing)}\n"
-                "Set them in the repository-root .env or export them in your shell before running."
+                "Set them in the repository-root .env or export them in "
+                "your shell before running."
             )
 
         return cls(
@@ -194,6 +213,10 @@ class LLMConfig:
             api_version=api_version,
             max_retries=max_retries,
             retry_wait_seconds=retry_wait_seconds,
+            allow_markdown_json_fence=_read_bool_env(
+                "SOC_LLM_ALLOW_MARKDOWN_JSON_FENCE",
+                default=False,
+            ),
             prompt_price_per_1k_usd=prompt_price,
             completion_price_per_1k_usd=completion_price,
         )
@@ -207,6 +230,7 @@ class _LLMAPIResponse:
     content: str
     usage: LLMUsage | None
     latency_ms: int | None
+
 
 # Adapter
 
@@ -247,7 +271,6 @@ class LLMAdapter:
         if len(telemetry) <= limit:
             return telemetry, False
 
-        # Keywords that indicate high-relevance SOC events.
         priority_keywords = [
             "bash",
             "/dev/tcp",
@@ -269,16 +292,58 @@ class LLMAdapter:
         rest: list[TelemetryEvent] = []
 
         for event in telemetry:
-            cmd = (event.details.command or "").lower()
-            et = event.event_type.lower()
-            combined = cmd + " " + et
-            if any(kw in combined for kw in priority_keywords):
+            command_text = (event.details.command or "").lower()
+            event_type_text = event.event_type.lower()
+            searchable_text = command_text + " " + event_type_text
+            if any(keyword in searchable_text for keyword in priority_keywords):
                 priority.append(event)
             else:
                 rest.append(event)
 
         selected = (priority + rest)[:limit]
         return selected, True
+
+    def _format_catalog(self, catalog: list[ActionCatalogItem]) -> str:
+        """Render the bounded action interface used by the copilot."""
+        lines: list[str] = []
+        for item in catalog:
+            attributes = [
+                f"approval={'yes' if item.requires_approval else 'no'}",
+                f"reversible={'yes' if item.reversible else 'no'}",
+            ]
+            if item.phase:
+                attributes.append(f"phase={item.phase}")
+            if item.operational_role:
+                attributes.append(f"role={item.operational_role}")
+            if item.baseline_support:
+                attributes.append(f"baseline_support={item.baseline_support}")
+            lines.append(f"  - {item.action_id} ({', '.join(attributes)})")
+        return "\n".join(lines)
+
+    def _format_telemetry(
+        self,
+        telemetry: list[TelemetryEvent],
+        total_events: int,
+    ) -> tuple[str, str]:
+        """Render telemetry and the truncation note for the prompt."""
+        telemetry_lines: list[str] = []
+        for event in telemetry:
+            event_type = event.event_type
+            command_text = event.details.command or ""
+            timestamp = (event.timestamp or "")[:19]
+            line = f"  [{timestamp}] {event_type}"
+            if command_text:
+                line += f" -> {command_text[:80]}"
+            telemetry_lines.append(line)
+
+        truncation_note = ""
+        if total_events > len(telemetry):
+            truncation_note = (
+                f"\n(Sample: {len(telemetry)} of {total_events} total events,"
+                " prioritizing the most relevant SOC context)"
+            )
+
+        return "\n".join(telemetry_lines), truncation_note
 
     def _build_prompt(
         self,
@@ -290,39 +355,23 @@ class LLMAdapter:
         policy_constraints_block: str = "",
     ) -> list[dict[str, str]]:
         """Build the chat messages sent to the provider API."""
-        valid_actions = [item.action_id for item in catalog]
-        catalog_str = "\n".join(f"  - {a}" for a in valid_actions)
-
-        telemetry_lines = []
-        for event in telemetry:
-            et = event.event_type
-            cmd = event.details.command or ""
-            ts = (event.timestamp or "")[:19]
-            line = f"  [{ts}] {et}"
-            if cmd:
-                line += f" -> {cmd[:80]}"
-            telemetry_lines.append(line)
-
-        telemetry_str = "\n".join(telemetry_lines)
-
-        truncation_note = ""
-        if total_events > len(telemetry):
-            truncation_note = (
-                f"\n(Sample: {len(telemetry)} of {total_events} total events,"
-                " prioritizing the most relevant SOC context)"
-            )
-
+        catalog_text = self._format_catalog(catalog)
+        telemetry_text, truncation_note = self._format_telemetry(
+            telemetry,
+            total_events,
+        )
         time_window = f"{meta.time_window_start} -> {meta.time_window_end}"
 
         system_prompt = (
-            "You are a senior SOC (Security Operations Center) analyst focused "
-            "on incident response. Your task is to recommend response actions "
-            "based on observed telemetry. Reply ONLY with a valid JSON object "
-            "without additional text, explanations, or markdown."
+            "You are the proposal component of SOCpilot, a non-autonomous SOC "
+            "copilot. You propose a bounded incident-response action trace for "
+            "analyst review. You do not execute tools, claim approvals, alter "
+            "systems, or expand the action vocabulary. Reply with one raw JSON "
+            "object only: no markdown, no prose outside JSON, and no code fences."
         )
 
         user_prompt = f"""
-Analyze the incident below and recommend appropriate response actions.
+Construct a proposed incident-response action trace for the case below.
 
 ## Incident metadata
 - ID:               {meta.incident_id}
@@ -333,25 +382,27 @@ Analyze the incident below and recommend appropriate response actions.
 - Time window:      {time_window}
 
 ## Correlated telemetry ({len(telemetry)} events){truncation_note}
-{telemetry_str}
+{telemetry_text}
 
-## Available actions in the SOC catalog
-{catalog_str}
+## Bounded SOC action catalog
+{catalog_text}
 
-## Operational rules (when provided)
+## Policy context supplied to the copilot
 {policy_constraints_block or "No additional rules provided in prompt."}
 
-## Your task
+## Copilot contract
+- Output a proposal for analyst review, not an executable procedure.
+- Use only action_id values from the bounded catalog.
+- Preserve recommended execution order in the JSON array.
+- Do not invent actions, synonyms, composite labels, host commands, or approval evidence.
+- If evidence is insufficient for a catalog action, omit that action.
+
+## Required output
 Reply ONLY with JSON using this exact format:
 {{
   "recommended_actions": ["action_id_1", "action_id_2", "action_id_3"],
   "reasoning": "Brief rationale with one sentence per recommended action."
 }}
-
-Rules:
-- Use ONLY action_ids from the list above
-- Order actions by recommended execution sequence
-- Do not invent action_ids not present in the list
 """.strip()
 
         return [
@@ -360,12 +411,38 @@ Rules:
         ]
 
     def _build_policy_constraints_block(self, rules: list[PolicyRule]) -> str:
-        lines = []
+        lines: list[str] = []
         for rule in rules:
-            line = f"- [{rule.rule_id}] {rule.type}: action={rule.action}"
+            rule_parts = [
+                f"- [{rule.rule_id}] type={rule.type}",
+                f"action={rule.action}",
+                f"severity={rule.severity}",
+            ]
             if rule.condition_action:
-                line += f", prerequisite_action={rule.condition_action}"
-            lines.append(line)
+                rule_parts.append(f"prerequisite_action={rule.condition_action}")
+            if rule.repair_operator:
+                rule_parts.append(f"verifier_repair={rule.repair_operator}")
+            if rule.alternative_repair_operator:
+                rule_parts.append(
+                    f"alternative_repair={rule.alternative_repair_operator}"
+                )
+            if rule.evidence_basis:
+                rule_parts.append(f"evidence_basis={rule.evidence_basis}")
+            if rule.approval_evidence:
+                approval_source = rule.approval_evidence.get("source", "")
+                approval_default = rule.approval_evidence.get(
+                    "default_when_absent",
+                    "",
+                )
+                if approval_source or approval_default:
+                    rule_parts.append(
+                        "approval_evidence="
+                        f"{approval_source or 'unspecified'}"
+                        f"/{approval_default or 'unspecified'}"
+                    )
+            if rule.rationale:
+                rule_parts.append(f"rationale={rule.rationale}")
+            lines.append(", ".join(rule_parts))
         return "\n".join(lines)
 
     def _openai_url(self) -> str:
@@ -414,9 +491,7 @@ Rules:
             return None
         prompt_tokens = usage_raw.get("input_tokens")
         completion_tokens = usage_raw.get("output_tokens")
-        if not (
-            isinstance(prompt_tokens, int) and isinstance(completion_tokens, int)
-        ):
+        if not (isinstance(prompt_tokens, int) and isinstance(completion_tokens, int)):
             return None
         return LLMUsage(
             prompt_tokens=prompt_tokens,
@@ -498,9 +573,9 @@ Rules:
                         method="POST",
                     )
                 else:
-                    payload = json.dumps(
-                        self._to_anthropic_payload(messages)
-                    ).encode("utf-8")
+                    payload = json.dumps(self._to_anthropic_payload(messages)).encode(
+                        "utf-8"
+                    )
                     req = urllib.request.Request(
                         self._anthropic_url(),
                         data=payload,
@@ -520,7 +595,7 @@ Rules:
                 else:
                     content = self._extract_anthropic_content(body)
                     usage = self._parse_anthropic_usage(body.get("usage"))
-                latency_ms = int(round((time.perf_counter() - started_at) * 1000))
+                latency_ms = round((time.perf_counter() - started_at) * 1000)
                 return _LLMAPIResponse(
                     content=content,
                     usage=usage,
@@ -531,7 +606,8 @@ Rules:
                 error_body = exc.read().decode("utf-8", errors="replace")
                 if exc.code == _HTTP_RATE_LIMIT and attempt < cfg.max_retries:
                     print(
-                        f"   [warn] Rate limit (429) - waiting {cfg.retry_wait_seconds}s"
+                        "   [warn] Rate limit (429) - waiting "
+                        f"{cfg.retry_wait_seconds}s"
                         f" before attempt {attempt + 1}/{cfg.max_retries}..."
                     )
                     time.sleep(cfg.retry_wait_seconds)
@@ -595,6 +671,11 @@ Rules:
         """
         text = raw.strip()
         if text.startswith("```"):
+            if not self._config.allow_markdown_json_fence:
+                raise LLMResponseParseError(
+                    "LLM returned markdown-fenced JSON. Official runs require "
+                    f"a raw JSON object.\nRaw response: {raw}"
+                )
             text = "\n".join(
                 line for line in text.splitlines() if not line.strip().startswith("```")
             ).strip()
@@ -617,20 +698,21 @@ Rules:
                 f"'recommended_actions' must be a list, got: {type(raw_actions)}"
             )
 
-        # PLW2901: raw_action is the original item; action is the sanitized value.
         seen: set[str] = set()
         actions: list[str] = []
         skipped: list[str] = []
         for raw_action in raw_actions:
-            action = str(raw_action).strip()
-            if action in valid_actions and action not in seen:
-                actions.append(action)
-                seen.add(action)
-            elif action not in valid_actions:
-                skipped.append(action)
+            action_id = str(raw_action).strip()
+            if action_id in valid_actions and action_id not in seen:
+                actions.append(action_id)
+                seen.add(action_id)
+            elif action_id not in valid_actions:
+                skipped.append(action_id)
 
         if skipped:
-            print(f"   [warn] LLM suggested out-of-catalog actions (ignored): {skipped}")
+            print(
+                f"   [warn] LLM suggested out-of-catalog actions (ignored): {skipped}"
+            )
 
         reasoning = str(obj.get("reasoning", ""))
         return actions, reasoning, skipped

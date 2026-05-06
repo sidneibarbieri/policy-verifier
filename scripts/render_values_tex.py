@@ -5,8 +5,27 @@ import argparse
 import csv
 import json
 import math
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+DEFAULT_CAMPAIGN_INCIDENT_COUNT = 50
+PLANNED_CAMPAIGN_MODEL_COUNT = 2
+PLANNED_CAMPAIGN_ARM_COUNT = 2
+CONSERVATIVE_COST_MULTIPLIER = 1.5
+
+
+@dataclass(frozen=True)
+class ValuesTexInputs:
+    summary: dict[str, Any]
+    by_model_rows: list[dict[str, str]]
+    by_rule_treatment_rows: list[dict[str, str]]
+    dataset_audit: dict[str, Any]
+    incident_id: str
+    incident_dir: Path
+    llm_fallback_bundle: Path | None = None
+    gate_bundle: Path | None = None
+    repeat_stability: dict[str, Any] | None = None
 
 
 def _safe_int(value: Any) -> int:
@@ -171,11 +190,7 @@ def _wilson_interval(successes: int, total: int) -> tuple[float, float]:
     p = successes / total
     denom = 1.0 + (z**2) / total
     center = (p + (z**2) / (2 * total)) / denom
-    margin = (
-        z
-        * math.sqrt((p * (1 - p) / total) + (z**2) / (4 * (total**2)))
-        / denom
-    )
+    margin = z * math.sqrt((p * (1 - p) / total) + (z**2) / (4 * (total**2))) / denom
     return max(0.0, center - margin), min(1.0, center + margin)
 
 
@@ -184,9 +199,7 @@ def _aggregate_arm_metrics(
     suffix: str,
 ) -> dict[str, float]:
     matched_rows = [
-        row
-        for row in by_model_rows
-        if str(row.get("model_label", "")).endswith(suffix)
+        row for row in by_model_rows if str(row.get("model_label", "")).endswith(suffix)
     ]
     return _aggregate_row_metrics(matched_rows)
 
@@ -213,7 +226,9 @@ def _aggregate_row_metrics(rows: list[dict[str, str]]) -> dict[str, float]:
         run_count += _safe_int(row.get("run_count"))
         runs_with_violations += _safe_int(row.get("runs_with_violations"))
         hard_violation_count += _safe_int(row.get("hard_violation_count"))
-        enforcement_modified_runs += _safe_int(row.get("enforcement_modified_run_count"))
+        enforcement_modified_runs += _safe_int(
+            row.get("enforcement_modified_run_count")
+        )
         llm_cost_usd_total += _safe_float(row.get("llm_cost_estimated_usd_total"))
         llm_total_tokens += _safe_int(row.get("llm_total_tokens_total"))
 
@@ -238,7 +253,9 @@ def _aggregate_row_metrics(rows: list[dict[str, str]]) -> dict[str, float]:
 def _aggregate_human_metrics(by_model_rows: list[dict[str, str]]) -> dict[str, float]:
     # Prefer canonical human baseline label first.
     human_rows = [
-        row for row in by_model_rows if str(row.get("model_label", "")).strip() == "human"
+        row
+        for row in by_model_rows
+        if str(row.get("model_label", "")).strip() == "human"
     ]
     if human_rows:
         return _aggregate_row_metrics(human_rows)
@@ -280,18 +297,20 @@ def _observed_rule_ids(by_rule_treatment_rows: list[dict[str, str]]) -> list[str
     return sorted(rules)
 
 
-def build_values_tex(
-    summary: dict[str, Any],
-    by_model_rows: list[dict[str, str]],
-    by_rule_treatment_rows: list[dict[str, str]],
-    dataset_audit: dict[str, Any],
-    incident_id: str,
-    incident_dir: Path,
-    llm_fallback_bundle: Path | None = None,
-    gate_bundle: Path | None = None,
-    repeat_stability: dict[str, Any] | None = None,
-) -> str:
-    conversion_quality = _read_json(incident_dir / "evidence" / "conversion_quality.json")
+def build_values_tex(inputs: ValuesTexInputs) -> str:  # noqa: PLR0915
+    summary = inputs.summary
+    by_model_rows = inputs.by_model_rows
+    by_rule_treatment_rows = inputs.by_rule_treatment_rows
+    dataset_audit = inputs.dataset_audit
+    incident_id = inputs.incident_id
+    incident_dir = inputs.incident_dir
+    llm_fallback_bundle = inputs.llm_fallback_bundle
+    gate_bundle = inputs.gate_bundle
+    repeat_stability = inputs.repeat_stability
+
+    conversion_quality = _read_json(
+        incident_dir / "evidence" / "conversion_quality.json"
+    )
     source_manifest = _read_json(incident_dir / "evidence" / "source_manifest.json")
     anon = source_manifest.get("anonymization_summary", {})
     first_incident_privacy_issue_count = _count_incident_privacy_issues(
@@ -325,7 +344,9 @@ def build_values_tex(
         current_has_llm = _has_llm_arm_rows(by_model_rows)
         fallback_has_llm = _has_llm_arm_rows(fallback_by_model)
         if fallback_has_llm:
-            current_llm_runs = _llm_total_run_count(by_model_rows) if current_has_llm else 0
+            current_llm_runs = (
+                _llm_total_run_count(by_model_rows) if current_has_llm else 0
+            )
             fallback_llm_runs = _llm_total_run_count(fallback_by_model)
             should_use_fallback = (not current_has_llm) or (
                 fallback_llm_runs > current_llm_runs
@@ -359,7 +380,8 @@ def build_values_tex(
 
     gate_incident_count = _safe_int(gate_summary.get("incident_count"))
     gate_model_count = _safe_int(
-        gate_coverage.get("selected_model_count") or gate_coverage.get("planned_model_count"),
+        gate_coverage.get("selected_model_count")
+        or gate_coverage.get("planned_model_count"),
     )
     gate_arm_count = _safe_int(gate_coverage.get("planned_arm_count"))
     gate_llm_trajectory_count = _safe_int(
@@ -367,17 +389,27 @@ def build_values_tex(
         if isinstance(gate_summary.get("mode_counts"), dict)
         else 0,
     )
-    gate_llm_trajectory_success_count = _safe_int(gate_coverage.get("successful_run_count"))
-    gate_preflight_failure_count = _safe_int(gate_coverage.get("preflight_failure_count"))
-    gate_execution_failure_count = _safe_int(gate_coverage.get("execution_failure_count"))
+    gate_llm_trajectory_success_count = _safe_int(
+        gate_coverage.get("successful_run_count")
+    )
+    gate_preflight_failure_count = _safe_int(
+        gate_coverage.get("preflight_failure_count")
+    )
+    gate_execution_failure_count = _safe_int(
+        gate_coverage.get("execution_failure_count")
+    )
     gate_runs_per_row = 0
     if gate_model_count > 0 and gate_arm_count > 0:
-        gate_runs_per_row = gate_llm_trajectory_count // (gate_model_count * gate_arm_count)
+        gate_runs_per_row = gate_llm_trajectory_count // (
+            gate_model_count * gate_arm_count
+        )
     if gate_runs_per_row <= 0:
         gate_runs_per_row = gate_incident_count
 
     gate_llm_total_tokens = _safe_int(gate_summary.get("llm_total_tokens_total"))
-    gate_llm_cost_usd_total = _safe_float(gate_summary.get("llm_cost_estimated_usd_total"))
+    gate_llm_cost_usd_total = _safe_float(
+        gate_summary.get("llm_cost_estimated_usd_total")
+    )
     repeat_stability = repeat_stability if isinstance(repeat_stability, dict) else {}
     stability_repeat_count = _safe_int(repeat_stability.get("repeat_count"))
     stability_incident_violation = repeat_stability.get("incident_violation_rate", {})
@@ -389,9 +421,13 @@ def build_values_tex(
     stability_r3 = stability_by_rule.get("R3", {})
     stability_r4 = stability_by_rule.get("R4", {})
 
-    planned_campaign_incidents = gate_incident_count if gate_incident_count > 0 else 50
-    planned_campaign_model_count = 2
-    planned_campaign_arm_count = 2
+    planned_campaign_incidents = (
+        gate_incident_count
+        if gate_incident_count > 0
+        else DEFAULT_CAMPAIGN_INCIDENT_COUNT
+    )
+    planned_campaign_model_count = PLANNED_CAMPAIGN_MODEL_COUNT
+    planned_campaign_arm_count = PLANNED_CAMPAIGN_ARM_COUNT
     gate_campaign_projected_llm_trajectories = (
         planned_campaign_incidents
         * planned_campaign_model_count
@@ -412,16 +448,18 @@ def build_values_tex(
         if gate_llm_trajectory_count > 0
         else 0.0
     )
-    gate_campaign_projected_tokens = int(
-        round(gate_tokens_per_llm_trajectory * gate_campaign_projected_llm_trajectories),
+    gate_campaign_projected_tokens = round(
+        gate_tokens_per_llm_trajectory * gate_campaign_projected_llm_trajectories,
     )
     gate_campaign_projected_cost_usd = (
         gate_cost_per_llm_trajectory * gate_campaign_projected_llm_trajectories
     )
-    gate_campaign_projected_tokens_conservative = int(
-        round(gate_campaign_projected_tokens * 1.5),
+    gate_campaign_projected_tokens_conservative = round(
+        gate_campaign_projected_tokens * CONSERVATIVE_COST_MULTIPLIER,
     )
-    gate_campaign_projected_cost_usd_conservative = gate_campaign_projected_cost_usd * 1.5
+    gate_campaign_projected_cost_usd_conservative = (
+        gate_campaign_projected_cost_usd * CONSERVATIVE_COST_MULTIPLIER
+    )
     llm_only_actions = gate_summary.get("llm_only_actions") or {}
     human_only_actions = gate_summary.get("human_only_actions") or {}
 
@@ -467,7 +505,9 @@ def build_values_tex(
         _macro("ValAnonPhoneTokens", str(_safe_int(anon.get("phone_tokens")))),
         _macro("ValAnonHostTokens", str(_safe_int(anon.get("host_tokens")))),
         _macro("ValAnonUserTokens", str(_safe_int(anon.get("user_tokens")))),
-        _macro("ValPilotIncidentCount", str(_safe_int(llm_summary.get("incident_count")))),
+        _macro(
+            "ValPilotIncidentCount", str(_safe_int(llm_summary.get("incident_count")))
+        ),
         _macro("ValPilotLlmZeroViolationRate", f"{zero_rate:.4f}"),
         _macro("ValPilotLlmPolicyViolationRate", f"{policy_rate:.4f}"),
         _macro("ValPilotRuleRThreeDelta", f"{r3_delta:.4f}"),
@@ -672,6 +712,10 @@ def build_values_tex(
             f"{_safe_float(gate_summary.get('task_coverage_drop_rate')):.4f}",
         ),
         _macro(
+            "ValOfficialRemovedActionCount",
+            str(_safe_int(gate_summary.get("enforcement_actions_removed_count_total"))),
+        ),
+        _macro(
             "ValOfficialViolationCountRThree",
             str(_safe_int((gate_summary.get("violations_by_rule") or {}).get("R3"))),
         ),
@@ -742,19 +786,19 @@ def build_values_tex(
         ),
         _macro(
             "ValStabilityViolationCountRThreeMin",
-            str(int(round(_series_value(stability_r3, "min")))),
+            str(round(_series_value(stability_r3, "min"))),
         ),
         _macro(
             "ValStabilityViolationCountRThreeMax",
-            str(int(round(_series_value(stability_r3, "max")))),
+            str(round(_series_value(stability_r3, "max"))),
         ),
         _macro(
             "ValStabilityViolationCountRFourMin",
-            str(int(round(_series_value(stability_r4, "min")))),
+            str(round(_series_value(stability_r4, "min"))),
         ),
         _macro(
             "ValStabilityViolationCountRFourMax",
-            str(int(round(_series_value(stability_r4, "max")))),
+            str(round(_series_value(stability_r4, "max"))),
         ),
     ]
     return "\n".join(lines) + "\n"
@@ -790,9 +834,7 @@ def main() -> None:
         else None
     )
     gate_bundle = (
-        Path(args.gate_bundle).expanduser().resolve()
-        if args.gate_bundle
-        else None
+        Path(args.gate_bundle).expanduser().resolve() if args.gate_bundle else None
     )
     repeat_stability = (
         _read_json(Path(args.repeat_stability_json).expanduser().resolve())
@@ -801,15 +843,17 @@ def main() -> None:
     )
 
     tex = build_values_tex(
-        summary=summary,
-        by_model_rows=by_model_rows,
-        by_rule_treatment_rows=by_rule_treatment_rows,
-        dataset_audit=dataset_audit,
-        incident_id=incident_id,
-        incident_dir=incident_dir,
-        llm_fallback_bundle=llm_fallback_bundle,
-        gate_bundle=gate_bundle,
-        repeat_stability=repeat_stability,
+        ValuesTexInputs(
+            summary=summary,
+            by_model_rows=by_model_rows,
+            by_rule_treatment_rows=by_rule_treatment_rows,
+            dataset_audit=dataset_audit,
+            incident_id=incident_id,
+            incident_dir=incident_dir,
+            llm_fallback_bundle=llm_fallback_bundle,
+            gate_bundle=gate_bundle,
+            repeat_stability=repeat_stability,
+        )
     )
     output_path = Path(args.output_tex).expanduser().resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)

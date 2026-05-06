@@ -20,6 +20,9 @@ from soc_llm_policy.mapping_support import (
 from soc_llm_policy.paths import RepoPaths, repo_relative_path, resolve_repo_root
 from soc_llm_policy.pipeline import list_inbox_incidents
 
+MIN_DUAL_MODEL_COUNT = 2
+MIN_DUAL_ARM_COUNT = 2
+
 
 def _parse_csv_list(raw: str | None) -> list[str]:
     if raw is None:
@@ -55,7 +58,9 @@ def _load_json_object(path: Path) -> dict[str, Any]:
 
 
 def _load_incident_type(paths: RepoPaths, incident_id: str) -> str:
-    meta = parse_incident_meta(read_json(paths.inbox_incident_dir(incident_id) / "incident_meta.json"))
+    meta = parse_incident_meta(
+        read_json(paths.inbox_incident_dir(incident_id) / "incident_meta.json")
+    )
     return meta.incident_type
 
 
@@ -103,7 +108,10 @@ def _score_official_bundle(
     summary_run_consistent = 1 if successful_run_count == llm_run_count else 0
     single_repeat_summary = 1 if planned_repeat_count == 1 else 0
 
-    if require_dual_model and (selected_model_count < 2 or planned_arm_count < 2):
+    if require_dual_model and (
+        selected_model_count < MIN_DUAL_MODEL_COUNT
+        or planned_arm_count < MIN_DUAL_ARM_COUNT
+    ):
         return None
 
     return (
@@ -172,7 +180,9 @@ def _resolve_official_summary_source(
     paper_sync_sources = _load_json_object(paper_sync_sources_path)
     gate_bundle = paper_sync_sources.get("gate_bundle")
     if isinstance(gate_bundle, str) and gate_bundle.strip():
-        summary_path = (Path(gate_bundle).expanduser().resolve().parent / "summary.json").resolve()
+        summary_path = (
+            Path(gate_bundle).expanduser().resolve().parent / "summary.json"
+        ).resolve()
         if summary_path.exists():
             return summary_path
 
@@ -215,7 +225,7 @@ def _support_manifest_for_incident(
     )
 
 
-def _build_mapping_support_summary(
+def _build_mapping_support_summary(  # noqa: PLR0915
     *,
     paths: RepoPaths,
     incidents: list[str],
@@ -263,12 +273,8 @@ def _build_mapping_support_summary(
         task_count = int(manifest.get("task_count", 0) or 0)
         zero_match = int(manifest.get("zero_match_count", 0) or 0)
         ambiguous_match = int(manifest.get("ambiguous_match_count", 0) or 0)
-        single_match = int(
-            manifest.get("single_keyword_unique_match_count", 0) or 0
-        )
-        multi_match = int(
-            manifest.get("multi_keyword_unique_match_count", 0) or 0
-        )
+        single_match = int(manifest.get("single_keyword_unique_match_count", 0) or 0)
+        multi_match = int(manifest.get("multi_keyword_unique_match_count", 0) or 0)
         approval_proxy_match = int(
             manifest.get("approval_proxy_unique_match_count", 0) or 0
         )
@@ -326,7 +332,8 @@ def _build_mapping_support_summary(
         unique_match_count = int(action_entry["unique_match_count"])
         action_entry["single_keyword_share_within_action"] = (
             round(
-                int(action_entry["single_keyword_unique_match_count"]) / unique_match_count,
+                int(action_entry["single_keyword_unique_match_count"])
+                / unique_match_count,
                 4,
             )
             if unique_match_count > 0
@@ -334,7 +341,8 @@ def _build_mapping_support_summary(
         )
         action_entry["multi_keyword_share_within_action"] = (
             round(
-                int(action_entry["multi_keyword_unique_match_count"]) / unique_match_count,
+                int(action_entry["multi_keyword_unique_match_count"])
+                / unique_match_count,
                 4,
             )
             if unique_match_count > 0
@@ -388,11 +396,7 @@ def _build_approval_proxy_scope(
                     approval_required_actions.append(action_id)
 
     proxy_actions = sorted(
-        {
-            rule.action_id
-            for rule in mapping_rules
-            if bool(rule.approval_proxy)
-        }
+        {rule.action_id for rule in mapping_rules if bool(rule.approval_proxy)}
     )
     return {
         "approval_required_catalog_action_ids": sorted(approval_required_actions),
@@ -405,7 +409,6 @@ def _build_approval_proxy_scope(
 
 def _build_official_evaluation_scope(
     *,
-    paths: RepoPaths,
     official_summary: dict[str, Any],
     policy_rule_ids: list[str],
 ) -> dict[str, Any]:
@@ -417,20 +420,12 @@ def _build_official_evaluation_scope(
         violations_by_rule = {}
     violation_total = sum(int(value or 0) for value in violations_by_rule.values())
     observed_rule_ids = sorted(
-        rule_id
-        for rule_id, count in violations_by_rule.items()
-        if int(count or 0) > 0
+        rule_id for rule_id, count in violations_by_rule.items() if int(count or 0) > 0
     )
     approval_only_violation_types_observed = sorted(
         str(key)
         for key in (official_summary.get("violations_by_type", {}) or {}).keys()
     ) == ["approval_required"]
-    official_runs_manifest = _load_json_object(
-        paths.outputs_analysis_dir / "official_runs_manifest.json"
-    )
-    execution_accounting = official_runs_manifest.get("execution_accounting", {})
-    if not isinstance(execution_accounting, dict):
-        execution_accounting = {}
     return {
         "available": True,
         "run_count": int(official_summary.get("run_count", 0) or 0),
@@ -440,7 +435,9 @@ def _build_official_evaluation_scope(
         "rule_ids_without_observed_violation_counts": sorted(
             set(policy_rule_ids) - set(observed_rule_ids)
         ),
-        "approval_only_violation_types_observed": approval_only_violation_types_observed,
+        "approval_only_violation_types_observed": (
+            approval_only_violation_types_observed
+        ),
         "approval_rule_violation_share": 1.0
         if violation_total > 0 and approval_only_violation_types_observed
         else 0.0,
@@ -472,11 +469,8 @@ def _build_official_evaluation_scope(
             official_summary.get("llm_cost_estimated_usd_avg_per_run", 0.0) or 0.0
         ),
         "run_success_rate": float(
-            execution_accounting.get(
-                "run_success_rate",
-                (
-                    official_summary.get("experiment_coverage", {}) or {}
-                ).get("run_success_rate", 0.0),
+            (official_summary.get("experiment_coverage", {}) or {}).get(
+                "run_success_rate", 0.0
             )
             or 0.0
         ),
@@ -490,11 +484,15 @@ def _build_criticism_response_map(report: dict[str, Any]) -> list[dict[str, Any]
     official_scope = report["official_evaluation_scope"]
     return [
         {
-            "criticism": "The mapped human baseline is opaque and relies heavily on keyword rules.",
+            "criticism": (
+                "The mapped human baseline is opaque and relies heavily on "
+                "keyword rules."
+            ),
             "response_strength": "partial_but_material",
             "response": (
-                "The artifact now exposes aggregate mapping-support evidence: zero unmatched tasks, "
-                "zero ambiguous ties, complete conversion coverage, and an explicit split between "
+                "The artifact now exposes aggregate mapping-support evidence: "
+                "zero unmatched tasks, zero ambiguous ties, complete conversion "
+                "coverage, and an explicit split between "
                 "single-keyword and multi-keyword unique matches."
             ),
             "evidence": {
@@ -507,12 +505,16 @@ def _build_criticism_response_map(report: dict[str, Any]) -> list[dict[str, Any]
             },
         },
         {
-            "criticism": "The global action/policy surface is narrow and may overstate generality.",
+            "criticism": (
+                "The global action/policy surface is narrow and may overstate "
+                "generality."
+            ),
             "response_strength": "addressed_transparently",
             "response": (
-                "The assessment makes the narrowness explicit instead of burying it: the human baseline "
-                "covers only part of the catalog, the mapping contract covers only part of the catalog, "
-                "and the constrained action surface is smaller still."
+                "The assessment makes the narrowness explicit instead of "
+                "burying it: the human baseline covers only part of the "
+                "catalog, the mapping contract covers only part of the "
+                "catalog, and the constrained action surface is smaller still."
             ),
             "evidence": {
                 "action_catalog_count": global_surface["action_catalog_count"],
@@ -524,20 +526,28 @@ def _build_criticism_response_map(report: dict[str, Any]) -> list[dict[str, Any]
             },
         },
         {
-            "criticism": "Observed evidence is concentrated in approval governance rather than the full rule family.",
+            "criticism": (
+                "Observed evidence is concentrated in approval governance "
+                "rather than the full rule family."
+            ),
             "response_strength": "addressed_transparently",
             "response": (
-                "The report states that the completed official evaluation shows violation evidence only on "
-                "approval rules under this freeze, with no inserted or reordered actions."
+                "The report states that the completed official evaluation "
+                "shows violation evidence only on approval rules under this "
+                "freeze, with no inserted or reordered actions."
             ),
             "evidence": official_scope,
         },
         {
-            "criticism": "Approval context is only partially grounded in the mapping contract.",
+            "criticism": (
+                "Approval context is only partially grounded in the mapping "
+                "contract."
+            ),
             "response_strength": "addressed_transparently",
             "response": (
-                "The report makes proxy scope explicit by showing which approval-required catalog actions "
-                "have a mapping proxy and which do not."
+                "The report makes proxy scope explicit by showing which "
+                "approval-required catalog actions have a mapping proxy and "
+                "which do not."
             ),
             "evidence": approval_proxy_scope,
         },
@@ -545,11 +555,15 @@ def _build_criticism_response_map(report: dict[str, Any]) -> list[dict[str, Any]
             "criticism": "Cost accounting is unclear.",
             "response_strength": "addressed",
             "response": (
-                "The official aggregate summary is now copied into canonical analysis outputs so public "
-                "auditors can inspect token totals, total cost, average cost per run, and run-success rate directly."
+                "The official aggregate summary is now copied into canonical "
+                "analysis outputs so public auditors can inspect token totals, "
+                "total cost, average cost per run, and run-success rate "
+                "directly."
             ),
             "evidence": {
-                "llm_total_tokens_total": official_scope.get("llm_total_tokens_total", 0),
+                "llm_total_tokens_total": official_scope.get(
+                    "llm_total_tokens_total", 0
+                ),
                 "llm_cost_estimated_usd_total": official_scope.get(
                     "llm_cost_estimated_usd_total",
                     0.0,
@@ -579,17 +593,22 @@ def build_global_artifact_assessment(
         incidents=incidents,
         write_missing_support_manifests=write_missing_support_manifests,
     )
-    official_summary = _load_json_object(official_summary_path) if official_summary_path else {}
+    official_summary = (
+        _load_json_object(official_summary_path) if official_summary_path else {}
+    )
 
     action_catalog = provenance.get("action_catalog", {})
-    action_items = action_catalog.get("items") if isinstance(action_catalog, dict) else []
+    action_items = (
+        action_catalog.get("items") if isinstance(action_catalog, dict) else []
+    )
     policy_rules = provenance.get("policy_rules", {})
     rule_items = policy_rules.get("items") if isinstance(policy_rules, dict) else []
 
     human_baseline_action_ids = sorted(
         str(item.get("action_id") or "").strip()
         for item in action_items
-        if isinstance(item, dict) and bool(item.get("observed_in_human_baseline", False))
+        if isinstance(item, dict)
+        and bool(item.get("observed_in_human_baseline", False))
     )
     catalog_action_ids = sorted(
         str(item.get("action_id") or "").strip()
@@ -613,7 +632,9 @@ def build_global_artifact_assessment(
             else None
         ),
         "dataset_strengths": {
-            "privacy_issue_count": int(dataset_report.get("privacy_issue_count", 0) or 0),
+            "privacy_issue_count": int(
+                dataset_report.get("privacy_issue_count", 0) or 0
+            ),
             "invalid_incident_count": int(
                 dataset_report.get("invalid_incident_count", 0) or 0
             ),
@@ -640,9 +661,7 @@ def build_global_artifact_assessment(
                 .get("mapping_action_count", 0)
                 or 0
             ),
-            "mapping_action_ids": sorted(
-                rule.action_id for rule in mapping_rules
-            ),
+            "mapping_action_ids": sorted(rule.action_id for rule in mapping_rules),
             "catalog_actions_missing_mapping_rules": (
                 (dataset_report.get("corpus_readiness", {}) or {})
                 .get("global_artifact_scope", {})
@@ -663,7 +682,6 @@ def build_global_artifact_assessment(
             mapping_rules=mapping_rules,
         ),
         "official_evaluation_scope": _build_official_evaluation_scope(
-            paths=paths,
             official_summary=official_summary,
             policy_rule_ids=policy_rule_ids,
         ),
@@ -677,14 +695,18 @@ def _render_markdown(report: dict[str, Any]) -> str:
     global_surface = report["global_surface"]
     official_scope = report["official_evaluation_scope"]
     approval_proxy_scope = report["approval_proxy_scope"]
+    enforcement_removed = official_scope["enforcement_actions_removed_count_total"]
+    enforcement_deferred = official_scope["enforcement_actions_deferred_count_total"]
+    enforcement_inserted = official_scope["enforcement_actions_inserted_count_total"]
+    enforcement_reordered = official_scope["enforcement_actions_reordered_count_total"]
     lines = [
         "# Global Artifact Assessment",
         "",
         "## Summary",
         "",
         (
-            "This report separates what the current frozen globals support strongly "
-            "from what remains narrow under the official freeze."
+            "This report separates what the current declared globals support strongly "
+            "from what remains narrow in the official evaluation."
         ),
         "",
         "## Stable Evidence",
@@ -696,13 +718,16 @@ def _render_markdown(report: dict[str, Any]) -> str:
             f"{mapping_support['ambiguous_match_count']} ambiguous."
         ),
         (
-            f"- Unique-match split: {mapping_support['single_keyword_unique_match_count']} "
-            f"single-keyword ({mapping_support['single_keyword_unique_match_rate']:.4f}) and "
+            "- Unique-match split: "
+            f"{mapping_support['single_keyword_unique_match_count']} "
+            "single-keyword "
+            f"({mapping_support['single_keyword_unique_match_rate']:.4f}) and "
             f"{mapping_support['multi_keyword_unique_match_count']} multi-keyword "
             f"({mapping_support['multi_keyword_unique_match_rate']:.4f})."
         ),
         (
-            f"- Human-baseline action coverage: {global_surface['human_baseline_action_count']}/"
+            "- Human-baseline action coverage: "
+            f"{global_surface['human_baseline_action_count']}/"
             f"{global_surface['action_catalog_count']} catalog actions."
         ),
         "",
@@ -735,24 +760,31 @@ def _render_markdown(report: dict[str, Any]) -> str:
                     + ", ".join(official_scope["observed_rule_ids"])
                 ),
                 (
-                    "- Rules without observed violation counts in the official summary: "
-                    + ", ".join(official_scope["rule_ids_without_observed_violation_counts"])
+                    "- Rules without observed violation counts in the "
+                    "official summary: "
+                    + ", ".join(
+                        official_scope["rule_ids_without_observed_violation_counts"]
+                    )
                 ),
                 (
-                    f"- Enforcement counts: remove={official_scope['enforcement_actions_removed_count_total']}, "
-                    f"defer={official_scope['enforcement_actions_deferred_count_total']}, "
-                    f"insert={official_scope['enforcement_actions_inserted_count_total']}, "
-                    f"reorder={official_scope['enforcement_actions_reordered_count_total']}."
+                    "- Enforcement counts: "
+                    f"remove={enforcement_removed}, defer={enforcement_deferred}, "
+                    f"insert={enforcement_inserted}, reorder={enforcement_reordered}."
                 ),
                 (
-                    f"- Cost accounting: {official_scope['llm_total_tokens_total']} tokens, "
+                    "- Cost accounting: "
+                    f"{official_scope['llm_total_tokens_total']} tokens, "
                     f"USD {official_scope['llm_cost_estimated_usd_total']:.6f} total, "
-                    f"USD {official_scope['llm_cost_estimated_usd_avg_per_run']:.6f} per run."
+                    "USD "
+                    f"{official_scope['llm_cost_estimated_usd_avg_per_run']:.6f} "
+                    "per run."
                 ),
             ]
         )
     else:
-        lines.append("- No official aggregate summary was available when this report ran.")
+        lines.append(
+            "- No official aggregate summary was available when this report ran."
+        )
     lines.extend(
         [
             "",
@@ -762,16 +794,19 @@ def _render_markdown(report: dict[str, Any]) -> str:
     )
     for item in report["criticism_response_map"]:
         lines.append(f"- {item['criticism']}")
-        lines.append(f"  Response strength: {item['response_strength']}. {item['response']}")
+        lines.append(
+            f"  Response strength: {item['response_strength']}. {item['response']}"
+        )
     lines.extend(
         [
             "",
             "## Interpretation Boundary",
             "",
             (
-                "This report improves visibility into mapper robustness and global-surface narrowness, "
-                "but it does not replace a human audit of task-to-action mappings, ground-truth approval "
-                "logs, or broader rule-family activation."
+                "This report improves visibility into mapper robustness and "
+                "global-surface narrowness, but it does not replace a human "
+                "audit of task-to-action mappings, ground-truth approval logs, "
+                "or broader rule-family activation."
             ),
             "",
         ]
@@ -801,12 +836,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--official-summary-output-json",
         default="results/analysis/official_evaluation_summary.json",
-        help="Canonical copy of the aggregate official evaluation summary when available.",
+        help=(
+            "Canonical copy of the aggregate official evaluation summary "
+            "when available."
+        ),
     )
     parser.add_argument(
         "--no-write-support-manifests",
         action="store_true",
-        help="Do not persist per-incident mapping_support_manifest.json files when missing.",
+        help=(
+            "Do not persist per-incident mapping_support_manifest.json files "
+            "when missing."
+        ),
     )
     return parser
 
@@ -820,7 +861,9 @@ def main(argv: list[str] | None = None) -> None:
         paths=paths,
         explicit_path=args.official_summary_json,
     )
-    official_summary_output_path = Path(args.official_summary_output_json).expanduser().resolve()
+    official_summary_output_path = (
+        Path(args.official_summary_output_json).expanduser().resolve()
+    )
     _copy_official_summary(
         source_path=official_summary_path,
         output_path=official_summary_output_path,
@@ -839,10 +882,7 @@ def main(argv: list[str] | None = None) -> None:
     print(f"Global artifact assessment saved at: {output_json}")
     print(f"Global artifact assessment summary saved at: {output_md}")
     if official_summary_path is not None:
-        print(
-            "Official evaluation summary copied to: "
-            f"{official_summary_output_path}"
-        )
+        print(f"Official evaluation summary copied to: {official_summary_output_path}")
 
 
 if __name__ == "__main__":

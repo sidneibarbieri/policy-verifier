@@ -17,6 +17,8 @@ import yaml
 from soc_llm_policy.paths import repo_relative_path, resolve_repo_root
 from soc_llm_policy.raw_json import load_json_object_with_invalid_escape_repair
 
+MAX_TASK_SAMPLE_NAMES = 3
+
 _STOPWORDS = {
     "a",
     "an",
@@ -162,8 +164,16 @@ def _infer_action_from_cluster(text: str) -> tuple[str, bool]:
     checks: list[tuple[tuple[str, ...], str, bool]] = [
         (("restore", "recuper"), "restore_host", True),
         (("contain", "conten", "isola", "isolat", "erradic"), "isolate_host", True),
-        (("forens", "detec", "triag", "cadeia", "binar", "investig"), "collect_forensics", False),
-        (("credencial", "credential", "identity", "senha", "password"), "reset_admin_credentials", False),
+        (
+            ("forens", "detec", "triag", "cadeia", "binar", "investig"),
+            "collect_forensics",
+            False,
+        ),
+        (
+            ("credencial", "credential", "identity", "senha", "password"),
+            "reset_admin_credentials",
+            False,
+        ),
         (("egress", "outbound", "saida", "bloque"), "block_egress_ip", False),
     ]
 
@@ -197,7 +207,7 @@ def _write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str]) ->
             writer.writerow(row)
 
 
-def main() -> None:
+def main() -> None:  # noqa: PLR0915
     parser = argparse.ArgumentParser(
         description="Generate safe suggestions for global policy artifacts.",
     )
@@ -315,7 +325,7 @@ def main() -> None:
 
             sample_name = str(task.get("name") or "").strip()
             if sample_name and sample_name not in task_cluster_samples[task_name]:
-                if len(task_cluster_samples[task_name]) < 3:
+                if len(task_cluster_samples[task_name]) < MAX_TASK_SAMPLE_NAMES:
                     task_cluster_samples[task_name].append(sample_name)
 
     clusters_sorted = sorted(
@@ -366,7 +376,10 @@ def main() -> None:
             }
         )
 
-        if suggested_action_id not in existing_actions and suggested_action_id not in seen_action_candidates:
+        if (
+            suggested_action_id not in existing_actions
+            and suggested_action_id not in seen_action_candidates
+        ):
             seen_action_candidates.add(suggested_action_id)
             reversible = suggested_action_id != "restore_host"
             action_catalog_candidates.append(
@@ -411,8 +424,12 @@ def main() -> None:
             "top_tokens",
         ],
     )
-    _write_yaml(output_dir / "mapping_rule_candidates.yaml", {"rules": mapping_candidates})
-    _write_yaml(output_dir / "action_catalog_candidates.yaml", action_catalog_candidates)
+    _write_yaml(
+        output_dir / "mapping_rule_candidates.yaml", {"rules": mapping_candidates}
+    )
+    _write_yaml(
+        output_dir / "action_catalog_candidates.yaml", action_catalog_candidates
+    )
     _write_yaml(output_dir / "constraints_candidates.yaml", require_approval_candidates)
 
     summary = {
@@ -425,7 +442,9 @@ def main() -> None:
         "task_count_total": total_tasks,
         "task_count_mapped": mapped_tasks,
         "task_count_unmapped": unmapped_tasks,
-        "mapping_coverage": round((mapped_tasks / total_tasks), 4) if total_tasks else 0.0,
+        "mapping_coverage": round((mapped_tasks / total_tasks), 4)
+        if total_tasks
+        else 0.0,
         "unmapped_cluster_count": len(task_cluster_counter),
         "mapping_rule_candidate_count": len(mapping_candidates),
         "action_catalog_candidate_count": len(action_catalog_candidates),
@@ -443,16 +462,34 @@ def main() -> None:
             "",
             "## Files",
             "- `summary.json`: aggregate counts and coverage",
-            "- `unmapped_task_clusters.csv`: unmapped task clusters from raw incoming incidents",
-            "- `mapping_rule_candidates.yaml`: candidate extensions for `local_redaction/action_mapping_bank.yaml`",
-            "- `action_catalog_candidates.yaml`: candidate actions not present in `policy/action_catalog.yaml`",
-            "- `constraints_candidates.yaml`: candidate `require_approval` rules missing from `policy/constraints.yaml`",
+            (
+                "- `unmapped_task_clusters.csv`: unmapped task clusters from "
+                "raw incoming incidents"
+            ),
+            (
+                "- `mapping_rule_candidates.yaml`: candidate extensions for "
+                "`local_redaction/action_mapping_bank.yaml`"
+            ),
+            (
+                "- `action_catalog_candidates.yaml`: candidate actions not "
+                "present in `policy/action_catalog.yaml`"
+            ),
+            (
+                "- `constraints_candidates.yaml`: candidate `require_approval` "
+                "rules missing from `policy/constraints.yaml`"
+            ),
             "",
             "## Suggested review workflow",
-            "1. Review `unmapped_task_clusters.csv` and keep only high-confidence clusters.",
+            (
+                "1. Review `unmapped_task_clusters.csv` and keep only "
+                "high-confidence clusters."
+            ),
             "2. Promote selected entries to `action_mapping_bank.yaml`.",
             "3. If new action IDs are accepted, promote to `action_catalog.yaml`.",
-            "4. For approval-gated actions, promote matching rules to `constraints.yaml`.",
+            (
+                "4. For approval-gated actions, promote matching rules to "
+                "`constraints.yaml`."
+            ),
             "5. Re-run anonymization and dataset audit before evaluation execution.",
             "",
         ]

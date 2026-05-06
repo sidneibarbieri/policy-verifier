@@ -3,7 +3,7 @@
   "manifest_version": "1.0",
   "reported_evaluation_run_id": "exp_final_20260409T222111Z_r1_completed_after_repair",
   "reported_bundle_state": "completed_after_repair",
-  "dataset_release_id": "submission_freeze_200",
+  "dataset_release_id": "submission_freeze",
   "eval_protocol_version": "official",
   "approval_policy_mode": "remove",
   "incident_count": 200,
@@ -106,15 +106,17 @@
   ],
   "repair_follow_up": {
     "present": true,
-    "initial_batch_failure_count": 1,
-    "initial_batch_failure_count_by_exception_type": {
+    "status": "completed_before_final_reporting",
+    "pre_final_transient_failure_count": 1,
+    "pre_final_failure_count_by_exception_type": {
       "LLMAdapterError": 1
     },
-    "initial_batch_failure_count_by_model": {
+    "pre_final_failure_count_by_model": {
       "anthropic_sonnet46": 1
     },
+    "final_reported_unresolved_failure_count": 0,
     "completed_successful_run_count": 800,
-    "note": "The reported public accounting corresponds to the completed official evaluation after targeted repair of a transient pre-final failure."
+    "note": "The reported official accounting is the completed post-repair evaluation. The pre-final transient provider/API failure count is provenance only and is not an unresolved failure in the reported results."
   },
   "public_bundle_scope": {
     "includes_raw_prompts": false,
@@ -122,13 +124,16 @@
     "includes_provider_request_payloads": false,
     "includes_private_incident_lineage": false,
     "includes_public_run_accounting": true,
-    "includes_public_aggregate_official_summary": true
+    "includes_public_aggregate_official_summary": true,
+    "includes_public_row_level_official_metrics": true,
+    "includes_raw_per_run_execution_payloads": false
   },
   "public_evidence_files": {
     "official_evaluation_summary": "artifact_outputs/analysis/official_evaluation_summary.json",
     "official_pairwise_tests": "artifact_outputs/analysis/official_pairwise_tests.json",
     "analysis_bundle": "artifact_outputs/analysis/analysis_bundle.json",
     "protocol_freeze": "artifact_outputs/analysis/protocol_freeze.json",
-    "repeat_stability_summary": "artifact_outputs/analysis/repeat_stability/repeat_stability_summary.json"
+    "repeat_stability_summary": "artifact_outputs/analysis/repeat_stability/repeat_stability_summary.json",
+    "official_llm_analysis_bundle": "artifact_outputs/analysis/official_llm_analysis_bundle.json"
   }
 }

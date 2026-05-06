@@ -7,12 +7,6 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from soc_llm_policy.json_stability import write_stable_json
-from soc_llm_policy.mapping_support import (
-    build_mapping_support_manifest,
-    load_mapping_rules,
-    load_mapping_support_manifest,
-)
 from soc_llm_policy.io import (
     parse_action_catalog,
     parse_human_actions,
@@ -23,6 +17,12 @@ from soc_llm_policy.io import (
     read_json,
     read_jsonl,
     read_yaml_list,
+)
+from soc_llm_policy.json_stability import write_stable_json
+from soc_llm_policy.mapping_support import (
+    build_mapping_support_manifest,
+    load_mapping_rules,
+    load_mapping_support_manifest,
 )
 from soc_llm_policy.paths import (
     RepoPaths,
@@ -192,7 +192,9 @@ def _load_conversion_quality(
     paths: RepoPaths,
     incident_id: str,
 ) -> dict[str, Any] | None:
-    quality_path = paths.inbox_incident_dir(incident_id) / "evidence" / "conversion_quality.json"
+    quality_path = (
+        paths.inbox_incident_dir(incident_id) / "evidence" / "conversion_quality.json"
+    )
     if not quality_path.exists():
         return None
     try:
@@ -210,12 +212,7 @@ def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
     mapping_rules = load_mapping_rules(paths.action_mapping_bank_path)
 
     catalog_actions = sorted({item.action_id for item in catalog})
-    mapping_actions = sorted(
-        {
-            rule.action_id
-            for rule in mapping_rules
-        }
-    )
+    mapping_actions = sorted({rule.action_id for rule in mapping_rules})
     constrained_actions = sorted({rule.action for rule in rules})
 
     rule_type_counts: dict[str, int] = {}
@@ -226,7 +223,9 @@ def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
 
     catalog_action_count = len(catalog_actions)
     mapping_action_coverage = (
-        round(len(set(mapping_actions) & set(catalog_actions)) / catalog_action_count, 4)
+        round(
+            len(set(mapping_actions) & set(catalog_actions)) / catalog_action_count, 4
+        )
         if catalog_action_count > 0
         else 0.0
     )
@@ -245,7 +244,7 @@ def _load_global_artifact_scope(paths: RepoPaths) -> dict[str, Any]:
             1 for item in catalog if item.requires_approval
         ),
         "reversible_action_count": sum(1 for item in catalog if item.reversible),
-            "mapping_rule_count": len(mapping_rules),
+        "mapping_rule_count": len(mapping_rules),
         "mapping_action_count": len(mapping_actions),
         "mapping_action_coverage_over_catalog": mapping_action_coverage,
         "catalog_actions_missing_mapping_rules": sorted(
@@ -306,7 +305,9 @@ def _extract_mitre_features(event: dict[str, Any]) -> tuple[set[str], set[str]]:
     return mitre_ids, mitre_labels
 
 
-def _load_incident_telemetry_events(paths: RepoPaths, incident_id: str) -> list[dict[str, Any]]:
+def _load_incident_telemetry_events(
+    paths: RepoPaths, incident_id: str
+) -> list[dict[str, Any]]:
     telemetry_path = paths.inbox_incident_dir(incident_id) / "incident_telemetry.jsonl"
     if not telemetry_path.exists():
         return []
@@ -319,7 +320,7 @@ def _load_incident_telemetry_events(paths: RepoPaths, incident_id: str) -> list[
     return [item for item in rows if isinstance(item, dict)]
 
 
-def _build_corpus_readiness(
+def _build_corpus_readiness(  # noqa: PLR0915
     *,
     incidents: list[str],
     incident_results: list[dict[str, Any]],
@@ -365,7 +366,9 @@ def _build_corpus_readiness(
                 )
             if support_manifest is not None:
                 sensitivity_incident_count += 1
-                sensitivity_task_count_total += _safe_int(support_manifest.get("task_count"))
+                sensitivity_task_count_total += _safe_int(
+                    support_manifest.get("task_count")
+                )
                 ambiguous_match_count_total += _safe_int(
                     support_manifest.get("ambiguous_match_count")
                 )
@@ -420,7 +423,9 @@ def _build_corpus_readiness(
         else 0.0
     )
     fallback_usage_rate = (
-        round(fallback_used_count / conversion_count, 4) if conversion_count > 0 else 0.0
+        round(fallback_used_count / conversion_count, 4)
+        if conversion_count > 0
+        else 0.0
     )
     unmatched_tasks_per_incident_avg = (
         round(unmatched_task_count_total / conversion_count, 4)
@@ -496,7 +501,9 @@ def _build_corpus_readiness(
             "ambiguous_match_rate": ambiguous_match_rate,
             "zero_match_count": zero_match_count_total,
             "zero_match_rate": zero_match_rate,
-            "single_keyword_unique_match_count": single_keyword_unique_match_count_total,
+            "single_keyword_unique_match_count": (
+                single_keyword_unique_match_count_total
+            ),
             "single_keyword_unique_match_rate": single_keyword_unique_match_rate,
             "multi_keyword_unique_match_count": multi_keyword_unique_match_count_total,
             "multi_keyword_unique_match_rate": multi_keyword_unique_match_rate,

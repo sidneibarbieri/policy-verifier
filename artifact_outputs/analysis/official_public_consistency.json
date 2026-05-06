@@ -1,0 +1,212 @@
+{
+  "status": "pass",
+  "check_count": 41,
+  "failed_check_count": 0,
+  "checks": [
+    {
+      "name": "row_count_matches_bundle",
+      "ok": true,
+      "detail": "rows=800, declared=800"
+    },
+    {
+      "name": "row_count_matches_summary",
+      "ok": true,
+      "detail": "rows=800, summary.run_count=800"
+    },
+    {
+      "name": "manifest_completed_count_matches_rows",
+      "ok": true,
+      "detail": "rows=800, manifest.completed=800"
+    },
+    {
+      "name": "manifest_final_failures_zero",
+      "ok": true,
+      "detail": "failed_total=0, execution_failures=0"
+    },
+    {
+      "name": "summary_field_run_count",
+      "ok": true,
+      "detail": "bundle=800, official=800"
+    },
+    {
+      "name": "summary_field_incident_count",
+      "ok": true,
+      "detail": "bundle=200, official=200"
+    },
+    {
+      "name": "summary_field_incident_violation_rate",
+      "ok": true,
+      "detail": "bundle=0.88, official=0.88"
+    },
+    {
+      "name": "summary_field_enforcement_modification_rate",
+      "ok": true,
+      "detail": "bundle=0.56, official=0.56"
+    },
+    {
+      "name": "summary_field_task_coverage_drop_rate",
+      "ok": true,
+      "detail": "bundle=0.0, official=0.0"
+    },
+    {
+      "name": "summary_field_llm_total_tokens_total",
+      "ok": true,
+      "detail": "bundle=734740, official=734740"
+    },
+    {
+      "name": "summary_field_llm_cost_estimated_usd_total",
+      "ok": true,
+      "detail": "bundle=3.034621, official=3.034621"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_completed_runs",
+      "ok": true,
+      "detail": "computed=200, manifest=200"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_run_violation_rate",
+      "ok": true,
+      "detail": "computed=0.87, manifest=0.87"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_enforcement_modification_rate",
+      "ok": true,
+      "detail": "computed=0.87, manifest=0.87"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_task_coverage_enforced_avg",
+      "ok": true,
+      "detail": "computed=0.7634, manifest=0.7634"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_delta_jaccard_avg",
+      "ok": true,
+      "detail": "computed=0.1544, manifest=0.1544"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_llm_total_tokens_total",
+      "ok": true,
+      "detail": "computed=208163, manifest=208163"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_policy_prompt_llm_cost_estimated_usd_total",
+      "ok": true,
+      "detail": "computed=1.002765, manifest=1.002765"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_completed_runs",
+      "ok": true,
+      "detail": "computed=200, manifest=200"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_run_violation_rate",
+      "ok": true,
+      "detail": "computed=0.36, manifest=0.36"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_enforcement_modification_rate",
+      "ok": true,
+      "detail": "computed=0.36, manifest=0.36"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_task_coverage_enforced_avg",
+      "ok": true,
+      "detail": "computed=0.7567, manifest=0.7567"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_delta_jaccard_avg",
+      "ok": true,
+      "detail": "computed=0.0678, manifest=0.0678"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_llm_total_tokens_total",
+      "ok": true,
+      "detail": "computed=190709, manifest=190709"
+    },
+    {
+      "name": "manifest_model_claude-sonnet-4-6_llm_zero_llm_cost_estimated_usd_total",
+      "ok": true,
+      "detail": "computed=0.892155, manifest=0.892155"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_completed_runs",
+      "ok": true,
+      "detail": "computed=200, manifest=200"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_run_violation_rate",
+      "ok": true,
+      "detail": "computed=0.47, manifest=0.47"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_enforcement_modification_rate",
+      "ok": true,
+      "detail": "computed=0.47, manifest=0.47"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_task_coverage_enforced_avg",
+      "ok": true,
+      "detail": "computed=0.74, manifest=0.74"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_delta_jaccard_avg",
+      "ok": true,
+      "detail": "computed=0.0917, manifest=0.0917"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_llm_total_tokens_total",
+      "ok": true,
+      "detail": "computed=172442, manifest=172442"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_policy_prompt_llm_cost_estimated_usd_total",
+      "ok": true,
+      "detail": "computed=0.568034, manifest=0.568034"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_completed_runs",
+      "ok": true,
+      "detail": "computed=200, manifest=200"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_run_violation_rate",
+      "ok": true,
+      "detail": "computed=0.54, manifest=0.54"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_enforcement_modification_rate",
+      "ok": true,
+      "detail": "computed=0.54, manifest=0.54"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_task_coverage_enforced_avg",
+      "ok": true,
+      "detail": "computed=0.81, manifest=0.81"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_delta_jaccard_avg",
+      "ok": true,
+      "detail": "computed=0.1092, manifest=0.1092"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_llm_total_tokens_total",
+      "ok": true,
+      "detail": "computed=163426, manifest=163426"
+    },
+    {
+      "name": "manifest_model_gpt-5.2_llm_zero_llm_cost_estimated_usd_total",
+      "ok": true,
+      "detail": "computed=0.571667, manifest=0.571667"
+    },
+    {
+      "name": "pairwise_row_count_matches",
+      "ok": true,
+      "detail": "bundle=6, public_rows=6, declared=6"
+    },
+    {
+      "name": "pairwise_signatures_match",
+      "ok": true,
+      "detail": "compared paired count, rate difference, McNemar p-value, and Cohen h"
+    }
+  ]
+}

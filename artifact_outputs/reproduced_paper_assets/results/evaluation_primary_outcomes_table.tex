@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\caption{Official evaluation primary outcomes by model and arm. The human baseline (shaded) anchors paired comparisons; bold marks the highest violation rate.}
+\label{tab:evaluation_primary_outcomes}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\rowcolors{2}{stagefill}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\centering\arraybackslash}p{0.055\textwidth}>{\centering\arraybackslash}p{0.08\textwidth}>{\centering\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.075\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}@{}}
+\toprule
+Model/arm & Runs & Viol. rate & 95\% CI & Hard viol./run & Enf. mod. rate & Task cov. & $\Delta$Jaccard \\
+\midrule
+claude-sonnet-4-6 / LLM zero & 200 & 0.3600 & [0.2967, 0.4286] & 0.3650 & 0.3600 & 0.7567 & 0.0678 \\
+claude-sonnet-4-6 / LLM policy & 200 & \textbf{0.8700} & [0.8163, 0.9097] & 0.9100 & 0.8700 & 0.7634 & 0.1544 \\
+gpt-5.2 / LLM zero & 200 & 0.5400 & [0.4708, 0.6077] & 0.5650 & 0.5400 & 0.8100 & 0.1092 \\
+gpt-5.2 / LLM policy & 200 & 0.4700 & [0.4020, 0.5391] & 0.4900 & 0.4700 & 0.7400 & 0.0917 \\
+\rowcolor{gray!8}
+human / Human baseline & 200 & 0.0000 & [0.0000, 0.0188] & 0.0000 & 0.0000 & 1.0000 & 0.0000 \\
+\bottomrule
+\end{tabularx}
+\end{table*}

@@ -297,9 +297,7 @@ def _accumulate_run_verifier(
     row: dict[str, Any],
 ) -> None:
     incident_key = str(
-        row.get("incident_dir_id")
-        or verifier.incident_dir_id
-        or verifier.incident_id
+        row.get("incident_dir_id") or verifier.incident_dir_id or verifier.incident_id
     )
     state.rows.append(row)
     state.unique_incident_ids.add(incident_key)
@@ -538,7 +536,9 @@ def _select_latest_runs_per_incident_model(
         if current is None or run_tag > current[0]:
             latest[key] = (run_tag, verifier, row)
     selected = [value[1:] for value in latest.values()]
-    selected.sort(key=lambda item: (str(item[1]["incident_dir_id"]), str(item[1]["model_label"])))
+    selected.sort(
+        key=lambda item: (str(item[1]["incident_dir_id"]), str(item[1]["model_label"]))
+    )
     return selected
 
 
@@ -632,9 +632,7 @@ def _build_by_model_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         bucket["task_coverage_raw_sum"] += float(row.get("task_coverage_raw", 0.0))
         bucket["f1_raw_sum"] += float(row.get("f1_raw", 0.0))
         bucket["jaccard_raw_sum"] += float(row.get("jaccard_raw", 0.0))
-        bucket["precision_enforced_sum"] += float(
-            row.get("precision_enforced", 0.0)
-        )
+        bucket["precision_enforced_sum"] += float(row.get("precision_enforced", 0.0))
         bucket["recall_enforced_sum"] += float(row.get("recall_enforced", 0.0))
         bucket["task_coverage_enforced_sum"] += float(
             row.get("task_coverage_enforced", 0.0)
@@ -642,9 +640,7 @@ def _build_by_model_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         bucket["f1_enforced_sum"] += float(row.get("f1_enforced", 0.0))
         bucket["jaccard_enforced_sum"] += float(row.get("jaccard_enforced", 0.0))
         bucket["delta_jaccard_sum"] += float(row.get("delta_jaccard", 0.0))
-        bucket["task_coverage_delta_sum"] += float(
-            row.get("task_coverage_delta", 0.0)
-        )
+        bucket["task_coverage_delta_sum"] += float(row.get("task_coverage_delta", 0.0))
         if float(row.get("task_coverage_delta", 0.0)) < 0:
             bucket["task_coverage_drop_run_count"] += 1
         if int(row.get("violation_count", 0)) > 0:
@@ -747,9 +743,7 @@ def _build_by_model_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     bucket["task_coverage_delta_sum"] / run_count,
                     4,
                 ),
-                "task_coverage_drop_run_count": bucket[
-                    "task_coverage_drop_run_count"
-                ],
+                "task_coverage_drop_run_count": bucket["task_coverage_drop_run_count"],
                 "task_coverage_drop_rate": round(
                     bucket["task_coverage_drop_run_count"] / run_count,
                     4,
@@ -839,9 +833,7 @@ def _wilson_interval(successes: int, total: int) -> tuple[float, float]:
     denom = 1.0 + (_Z_95**2) / total
     center = (p + (_Z_95**2) / (2 * total)) / denom
     margin = (
-        _Z_95
-        * math.sqrt((p * (1 - p) / total) + (_Z_95**2) / (4 * (total**2)))
-        / denom
+        _Z_95 * math.sqrt((p * (1 - p) / total) + (_Z_95**2) / (4 * (total**2))) / denom
     )
     low = max(0.0, center - margin)
     high = min(1.0, center + margin)
@@ -1331,8 +1323,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--eval-protocol-version",
-        default="v1",
-        help="Evaluation protocol version used to generate this bundle.",
+        default="official",
+        help="Evaluation state label used to generate this bundle.",
     )
     parser.add_argument(
         "--by-model-csv",
@@ -1362,7 +1354,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--canonical-only",
         action="store_true",
-        help="Analyze only canonical verifier_output.json per incident, ignoring versioned histories.",
+        help=(
+            "Analyze only canonical verifier_output.json per incident, "
+            "ignoring versioned histories."
+        ),
     )
     return parser
 

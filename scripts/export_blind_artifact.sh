@@ -66,7 +66,13 @@ fi
 
 rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
-rsync -a --delete "${SOURCE_DIR}/" "${OUTPUT_DIR}/"
+rsync -a --delete \
+  --exclude='.venv/' \
+  --exclude='__pycache__/' \
+  --exclude='.pytest_cache/' \
+  --exclude='.mypy_cache/' \
+  --exclude='.ruff_cache/' \
+  "${SOURCE_DIR}/" "${OUTPUT_DIR}/"
 
 if [[ "${MAKE_TARBALL}" -eq 1 ]]; then
   tarball_path="${OUTPUT_DIR%/}.tar.gz"

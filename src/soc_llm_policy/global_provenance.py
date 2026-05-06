@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter, defaultdict
 from datetime import UTC, datetime
@@ -24,8 +25,6 @@ from soc_llm_policy.pipeline import list_inbox_incidents
 
 
 def _sha256_file(path: Path) -> str:
-    import hashlib
-
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(65536), b""):
@@ -60,17 +59,23 @@ def _load_mapping_rules(path: Path) -> list[dict[str, Any]]:
         out.append(
             {
                 "action_id": action_id,
-                "approval_proxy": bool(item.get("approval_proxy", item.get("approval", False))),
+                "approval_proxy": bool(
+                    item.get("approval_proxy", item.get("approval", False))
+                ),
                 "match_policy": str(item.get("match_policy", "any_keyword")).strip()
                 or "any_keyword",
                 "priority": int(item.get("priority", 0) or 0),
-                "keywords": [str(keyword) for keyword in keywords if str(keyword).strip()],
+                "keywords": [
+                    str(keyword) for keyword in keywords if str(keyword).strip()
+                ],
             }
         )
     return out
 
 
-def _incident_ids(paths: RepoPaths, include_all: bool, incidents_csv: str | None) -> list[str]:
+def _incident_ids(
+    paths: RepoPaths, include_all: bool, incidents_csv: str | None
+) -> list[str]:
     if include_all:
         return list_inbox_incidents(paths)
     if not incidents_csv:
@@ -90,8 +95,12 @@ def _build_action_stats(paths: RepoPaths, incident_ids: list[str]) -> dict[str, 
 
     for incident_id in incident_ids:
         incident_dir = paths.inbox_incident_dir(incident_id)
-        human_actions = parse_human_actions(read_jsonl(incident_dir / "incident_human_actions.jsonl", strict=True))
-        telemetry = parse_telemetry(read_jsonl(incident_dir / "incident_telemetry.jsonl", strict=True))
+        human_actions = parse_human_actions(
+            read_jsonl(incident_dir / "incident_human_actions.jsonl", strict=True)
+        )
+        telemetry = parse_telemetry(
+            read_jsonl(incident_dir / "incident_telemetry.jsonl", strict=True)
+        )
         ordered_actions = [action.action_id for action in human_actions]
         ordered_actions_by_incident[incident_id] = ordered_actions
         telemetry_by_incident[incident_id] = telemetry
@@ -116,12 +125,14 @@ def _build_action_stats(paths: RepoPaths, incident_ids: list[str]) -> dict[str, 
     }
 
 
-def build_global_provenance(
+def build_global_provenance(  # noqa: PLR0912, PLR0915
     *,
     paths: RepoPaths,
     incident_ids: list[str],
 ) -> dict[str, Any]:
-    freeze_manifest = _read_json_object(paths.outputs_analysis_dir / "protocol_freeze.json")
+    freeze_manifest = _read_json_object(
+        paths.outputs_analysis_dir / "protocol_freeze.json"
+    )
     summary = _read_json_object(paths.outputs_analysis_dir / "summary.json")
     catalog = parse_action_catalog(read_yaml_list(paths.inbox_action_catalog_path))
     rules = parse_rules(read_yaml_list(paths.inbox_constraints_path))
@@ -143,12 +154,23 @@ def build_global_provenance(
                 "action_id": item.action_id,
                 "requires_approval": item.requires_approval,
                 "reversible": item.reversible,
-                "observed_in_human_baseline": item.action_id in stats["action_incidents"],
-                "observed_incident_count": len(stats["action_incidents"].get(item.action_id, set())),
-                "observed_action_count": int(stats["action_counts"].get(item.action_id, 0)),
-                "approved_incident_count": len(stats["approval_incidents"].get(item.action_id, set())),
-                "approved_action_count": int(stats["approval_counts"].get(item.action_id, 0)),
-                "constrained_by_rule_ids": sorted(constrained_actions.get(item.action_id, [])),
+                "observed_in_human_baseline": item.action_id
+                in stats["action_incidents"],
+                "observed_incident_count": len(
+                    stats["action_incidents"].get(item.action_id, set())
+                ),
+                "observed_action_count": int(
+                    stats["action_counts"].get(item.action_id, 0)
+                ),
+                "approved_incident_count": len(
+                    stats["approval_incidents"].get(item.action_id, set())
+                ),
+                "approved_action_count": int(
+                    stats["approval_counts"].get(item.action_id, 0)
+                ),
+                "constrained_by_rule_ids": sorted(
+                    constrained_actions.get(item.action_id, [])
+                ),
                 "covered_by_mapping_rule": item.action_id in mapped_actions,
                 "mapping_rule_count": len(mapped_actions.get(item.action_id, [])),
                 "provenance_basis": [
@@ -179,8 +201,12 @@ def build_global_provenance(
                 command_contains = scope.get("command_contains") or []
                 if telemetry_has_indicator(
                     telemetry=telemetry,
-                    event_type_contains=event_type_contains if isinstance(event_type_contains, list) else [],
-                    command_contains=command_contains if isinstance(command_contains, list) else [],
+                    event_type_contains=event_type_contains
+                    if isinstance(event_type_contains, list)
+                    else [],
+                    command_contains=command_contains
+                    if isinstance(command_contains, list)
+                    else [],
                 ):
                     applicable_incidents += 1
                     if not action_present:
@@ -191,15 +217,21 @@ def build_global_provenance(
                     condition_action = rule.condition_action or ""
                     if condition_action not in ordered_actions:
                         human_violation_incidents += 1
-                    else:
-                        if ordered_actions.index(condition_action) > ordered_actions.index(rule.action):
-                            human_violation_incidents += 1
+                    elif ordered_actions.index(
+                        condition_action
+                    ) > ordered_actions.index(rule.action):
+                        human_violation_incidents += 1
             elif rule.type == "require_approval":
                 if action_present:
                     applicable_incidents += 1
                     verifier_output = stats["verifier_by_incident"].get(incident_id, {})
-                    approved_actions = verifier_output.get("incident_approved_actions", [])
-                    if isinstance(approved_actions, list) and rule.action in approved_actions:
+                    approved_actions = verifier_output.get(
+                        "incident_approved_actions", []
+                    )
+                    if (
+                        isinstance(approved_actions, list)
+                        and rule.action in approved_actions
+                    ):
                         approval_context_incidents += 1
                     else:
                         human_violation_incidents += 1
@@ -210,7 +242,9 @@ def build_global_provenance(
         ]
         decision_record = None
         if rule.rule_id == "R4":
-            provenance_basis.append("corpus_audit_candidate_promoted_after_manual_review")
+            provenance_basis.append(
+                "corpus_audit_candidate_promoted_after_manual_review"
+            )
             decision_record = "docs/EVAL_PROTOCOL.md"
         else:
             provenance_basis.append("institutional_policy_rule")
@@ -243,7 +277,9 @@ def build_global_provenance(
                 "approval_proxy": bool(rule["approval_proxy"]),
                 "keyword_count": len(rule["keywords"]),
                 "keywords": rule["keywords"],
-                "mapped_incident_count": len(stats["action_incidents"].get(action_id, set())),
+                "mapped_incident_count": len(
+                    stats["action_incidents"].get(action_id, set())
+                ),
                 "mapped_action_count": int(stats["action_counts"].get(action_id, 0)),
                 "provenance_basis": [
                     "institution_authored_mapping_contract",
@@ -265,7 +301,9 @@ def build_global_provenance(
         for item in attack_rule_items
         if isinstance(item, dict) and str(item.get("tactic_id") or "").strip()
     }
-    attack_summary = summary.get("attack_technique_counts", {}) if isinstance(summary, dict) else {}
+    attack_summary = (
+        summary.get("attack_technique_counts", {}) if isinstance(summary, dict) else {}
+    )
     if isinstance(attack_summary, dict):
         matched_technique_ids = {
             str(technique_id).strip()
@@ -278,7 +316,9 @@ def build_global_provenance(
             for item in attack_summary
             if isinstance(item, dict) and str(item.get("technique_id") or "").strip()
         }
-    tactic_summary = summary.get("attack_tactic_counts", {}) if isinstance(summary, dict) else {}
+    tactic_summary = (
+        summary.get("attack_tactic_counts", {}) if isinstance(summary, dict) else {}
+    )
     if isinstance(tactic_summary, dict):
         matched_tactic_ids = {
             str(tactic_id).strip()
@@ -295,7 +335,9 @@ def build_global_provenance(
     return {
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "dataset_release_id": freeze_manifest.get("dataset_release_id", "unknown"),
-        "eval_protocol_version": freeze_manifest.get("eval_protocol_version", "unknown"),
+        "eval_protocol_version": freeze_manifest.get(
+            "eval_protocol_version", "unknown"
+        ),
         "incident_count": len(incident_ids),
         "input_hashes": {
             "action_catalog": _sha256_file(paths.inbox_action_catalog_path),
@@ -314,7 +356,9 @@ def build_global_provenance(
             "corpus_matched_attack_tactic_count": len(matched_tactic_ids),
         },
         "action_catalog": {
-            "path": repo_relative_path(paths.inbox_action_catalog_path, paths.repo_root),
+            "path": repo_relative_path(
+                paths.inbox_action_catalog_path, paths.repo_root
+            ),
             "items": action_items,
         },
         "policy_rules": {
@@ -328,7 +372,10 @@ def build_global_provenance(
         "attack_mapping": {
             "path": repo_relative_path(paths.attack_mapping_path, paths.repo_root),
             "heuristic_status": "coverage_enrichment_only",
-            "matched_signal_note": "ATT&CK remains heuristic enrichment over normalized event type, category, and case-note text.",
+            "matched_signal_note": (
+                "ATT&CK remains heuristic enrichment over normalized event "
+                "type, category, and case-note text."
+            ),
             "rule_count": len(attack_rule_items),
             "technique_count": len(attack_techniques),
             "tactic_count": len(attack_tactics),
@@ -336,8 +383,15 @@ def build_global_provenance(
             "corpus_matched_tactic_count": len(matched_tactic_ids),
         },
         "notes": [
-            "Global artifacts are institution-authored and versioned; the corpus provides evidence for coverage review and candidate gaps, not automatic promotion.",
-            "This provenance manifest is intended to make action, rule, and mapping scope auditable under the active freeze.",
+            (
+                "Global artifacts are institution-authored and versioned; the "
+                "corpus provides evidence for coverage review and candidate "
+                "gaps, not automatic promotion."
+            ),
+            (
+                "This provenance manifest is intended to make action, rule, "
+                "and mapping scope auditable under the active freeze."
+            ),
         ],
     }
 
@@ -359,7 +413,8 @@ def _render_markdown(report: dict[str, Any]) -> str:
     ]
     for item in report.get("action_catalog", {}).get("items", []):
         lines.append(
-            f"- `{item['action_id']}`: observed in {item['observed_incident_count']} incidents "
+            f"- `{item['action_id']}`: observed in "
+            f"{item['observed_incident_count']} incidents "
             f"({item['observed_action_count']} mapped actions), "
             f"approval-gated={str(item['requires_approval']).lower()}, "
             f"constrained by {item['constrained_by_rule_ids'] or '[]'}"
@@ -380,18 +435,35 @@ def _render_markdown(report: dict[str, Any]) -> str:
     for item in report.get("mapping_rules", {}).get("items", []):
         lines.append(
             f"- `{item['action_id']}` mapping: {item['keyword_count']} keywords, "
-            f"match policy `{item['match_policy']}`, observed in {item['mapped_incident_count']} incidents"
+            f"match policy `{item['match_policy']}`, observed in "
+            f"{item['mapped_incident_count']} incidents"
         )
+    attack_mapping = report.get("attack_mapping", {})
     lines.extend(
         [
             "",
             "## ATT&CK layer",
-            f"- Rule count: `{report.get('attack_mapping', {}).get('rule_count', 0)}`",
-            f"- Techniques covered by mapping: `{report.get('attack_mapping', {}).get('technique_count', 0)}`",
-            f"- Tactics covered by mapping: `{report.get('attack_mapping', {}).get('tactic_count', 0)}`",
-            f"- Corpus-matched techniques: `{report.get('attack_mapping', {}).get('corpus_matched_technique_count', 0)}`",
-            f"- Corpus-matched tactics: `{report.get('attack_mapping', {}).get('corpus_matched_tactic_count', 0)}`",
-            "- Status: heuristic coverage enrichment only, not technique-level ground truth.",
+            f"- Rule count: `{attack_mapping.get('rule_count', 0)}`",
+            (
+                "- Techniques covered by mapping: "
+                f"`{attack_mapping.get('technique_count', 0)}`"
+            ),
+            (
+                "- Tactics covered by mapping: "
+                f"`{attack_mapping.get('tactic_count', 0)}`"
+            ),
+            (
+                "- Corpus-matched techniques: "
+                f"`{attack_mapping.get('corpus_matched_technique_count', 0)}`"
+            ),
+            (
+                "- Corpus-matched tactics: "
+                f"`{attack_mapping.get('corpus_matched_tactic_count', 0)}`"
+            ),
+            (
+                "- Status: heuristic coverage enrichment only, not "
+                "technique-level ground truth."
+            ),
         ]
     )
     return "\n".join(lines) + "\n"
@@ -400,7 +472,9 @@ def _render_markdown(report: dict[str, Any]) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="soc_llm_policy.global_provenance",
-        description="Write a canonical provenance report for the active global artifacts.",
+        description=(
+            "Write a canonical provenance report for the active global artifacts."
+        ),
     )
     parser.add_argument("--repo-root", default=None)
     parser.add_argument("--all", action="store_true")

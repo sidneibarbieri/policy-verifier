@@ -1,18 +1,24 @@
 # Artifact README
 
-This package is the canonical public artifact for the official frozen evaluation.
+This package is the canonical public artifact for the official evaluation. It
+is the runnable software-and-data package used to validate SOCpilot experiments,
+not the paper submission itself.
 
 ## What is inside
 - `artifact_data/`: anonymized dataset and active global artifacts used by the study.
 - `artifact_outputs/analysis/protocol_freeze.json`: single source of truth for the official protocol freeze.
+- `artifact_outputs/analysis/official_llm_analysis_bundle.json`: sanitized non-private row-level metrics from the completed official paid evaluation.
 - `artifact_outputs/analysis/`: canonical non-private analysis outputs included at packaging time.
 - `artifact_outputs/analysis/official_evaluation_summary.json`: aggregate totals from the completed paid evaluation, retained for auditability without shipping paid execution traces.
-- `artifact_outputs/analysis/official_runs_manifest.json`: public execution accounting for the reported official evaluation, including per-cell run counts, tokens, and costs.
-- `artifact_outputs/analysis/official_pairwise_tests.json`: public paired-test summary for the reported official evaluation, including the exact contrasts shown in the paper's paired-tests table.
+- `artifact_outputs/analysis/official_pairwise_tests.json`: paired official contrasts used by the paper.
 - `artifact_outputs/analysis/repeat_stability/`: optional non-private robustness summaries for repeated frozen-corpus reruns.
 - `src/`, `scripts/`, `config/`, `local_redaction/`: code and frozen global mapping contract needed to audit and reproduce the artifact.
 - `config/models.freeze.yaml`: the frozen model registry used for the reported study, retained for auditability and cost reconstruction.
 - `config/models.example.yaml`: template for optional local reruns; local overrides are not part of the frozen artifact.
+
+The package intentionally excludes literature folders, private project notes,
+raw IBM SOAR exports, local anonymization lineage, provider credentials, raw
+paid provider payloads, and the manuscript workspace.
 
 ## Freeze summary
 - Artifact label: `submission_freeze`
@@ -38,26 +44,42 @@ source .venv/bin/activate
 ```
 
 ## Recommended verification order
+Open `REVIEWER_DASHBOARD.html` first when reviewing a downloaded copy of this
+package. It is a static, self-contained entry point for the public evidence
+surface: corpus readiness, official run accounting, policy coverage, paired
+contrasts, replay stability, and direct links to the files behind the paper
+claims. Regenerate it with:
+
 ```bash
-bash run.sh validate-public-artifact
+bash run.sh reproduce-results
 ```
 
-This zero-cost command runs artifact integrity checks, dataset audit,
+This zero-cost command validates the public artifact, regenerates paper result
+assets from shipped public bundles, writes a reproduction report, and renders
+both `REVIEWER_DASHBOARD.html` and the reviewer dashboard under
+`artifact_outputs/dashboard/`. To run only the integrity and dataset checks,
+use `./run.sh validate-public-artifact`.
+
+The validation path runs artifact integrity checks, dataset audit,
 global-artifact assessment, and release-hygiene rechecks and writes fresh
 verification reports under `artifact_outputs/analysis/`.
+When `official_llm_analysis_bundle.json` is present, the command also rechecks
+that the sanitized official row-level metrics agree with the shipped official
+summary, run manifest, and paired-test rows.
 Local transient files such as `.venv/` and `__pycache__/` are ignored by
-the integrity check.
+the release-surface checks for the packaged public path.
 It also verifies that `artifact_outputs/analysis/protocol_freeze.json` points
 to packaged files whose SHA-256 digests match the published bundle.
-The public package does not include the paid official LLM execution bundle; its
-analysis outputs are the non-private zero-cost outputs shipped at packaging
-time, including the human-baseline analysis bundle, the copied official
-summary, the public run-accounting manifest, and the public paired-test
-summary used for auditability. When present, `artifact_outputs/analysis/repeat_stability/` adds the non-private
-stability summaries used for robustness reporting in the paper. Per-run prompt
-messages and run snapshots belong to the paid execution lineage; the public
-bundle exposes the frozen arm definition, aggregate official accounting, and
-global inputs, but not the paid execution payloads.
+The public package does not include raw paid LLM prompts, provider payloads, or
+local execution snapshots. Reviewers can add their own keys and rerun provider
+experiments, but those executions create new run lineages unless all declared
+inputs match the reported state. Its analysis outputs are the non-private outputs
+shipped at packaging time, including the human-baseline analysis bundle,
+sanitized official row-level metrics, copied official summary, and paired-test
+rows used for auditability. When present, `artifact_outputs/analysis/repeat_stability/`
+adds the non-private stability summaries used for robustness reporting in the paper.
+The public bundle exposes the frozen arm definition and global inputs, plus
+sanitized metrics, but not the paid execution payloads.
 
 The frozen global policy surface is broader than the empirically exercised rule
 slice in this package. The official summary reports observed violations only for

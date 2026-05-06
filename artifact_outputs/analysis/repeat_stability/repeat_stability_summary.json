@@ -6,8 +6,6 @@
     2,
     3
   ],
-  "repaired_failure_count": 19,
-  "original_failure_count": 19,
   "incident_violation_rate": {
     "values": [
       0.87,
@@ -228,5 +226,10 @@
         "range": 0.0
       }
     }
-  }
+  },
+  "completed_repeat_row_count": 2400,
+  "pre_repair_failure_count": 19,
+  "repaired_slot_count": 19,
+  "final_unresolved_failure_count": 0,
+  "repair_note": "Repeat summaries are computed after targeted repair records fill any transient provider/API failures from the base repeated run."
 }

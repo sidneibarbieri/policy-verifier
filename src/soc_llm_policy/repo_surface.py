@@ -8,7 +8,6 @@ from typing import Any
 
 from soc_llm_policy.paths import RepoPaths, repo_relative_path, resolve_repo_root
 
-
 _DATASET_MARKERS = ("/dataset/incidents/", "/inbox/incidents/")
 _RAW_MARKERS = ("/incoming/raw/", "/external_data/raw_incoming/")
 _REDACTED_MARKERS = ("/incoming/redacted/", "/external_data/anonymized_staging/")
@@ -54,7 +53,9 @@ class RepoSurfaceReport:
     updated_json_count: int
 
 
-def _relative_tail(value: str, markers: tuple[str, ...], target_prefix: str) -> str | None:
+def _relative_tail(
+    value: str, markers: tuple[str, ...], target_prefix: str
+) -> str | None:
     normalized = value.replace("\\", "/")
     for marker in markers:
         if marker not in normalized:
@@ -66,66 +67,79 @@ def _relative_tail(value: str, markers: tuple[str, ...], target_prefix: str) -> 
 
 def _normalize_path_value(value: str, repo_root: Path) -> str:
     normalized = value.replace("\\", "/").strip()
+    normalized_value = _normalize_known_path_value(normalized)
+    if normalized_value is not None:
+        return normalized_value
+    return _normalize_filesystem_path_value(
+        normalized=normalized,
+        original_value=value,
+        repo_root=repo_root,
+    )
+
+
+def _normalize_known_path_value(normalized: str) -> str | None:
     if not normalized:
-        return value
+        return None
 
-    dataset_path = _relative_tail(normalized, _DATASET_MARKERS, "dataset/incidents")
-    if dataset_path is not None:
-        return dataset_path
+    marker_groups = [
+        (_DATASET_MARKERS, "dataset/incidents"),
+        (_RAW_MARKERS, "incoming/raw"),
+        (_REDACTED_MARKERS, "incoming/redacted"),
+    ]
+    for markers, target_prefix in marker_groups:
+        marker_path = _relative_tail(normalized, markers, target_prefix)
+        if marker_path is not None:
+            return marker_path
 
-    raw_path = _relative_tail(normalized, _RAW_MARKERS, "incoming/raw")
-    if raw_path is not None:
-        return raw_path
-
-    redacted_path = _relative_tail(normalized, _REDACTED_MARKERS, "incoming/redacted")
-    if redacted_path is not None:
-        return redacted_path
-
-    if any(marker in normalized for marker in _MAPPING_BANK_MARKERS):
-        return "local_redaction/action_mapping_bank.yaml"
-
-    if any(marker in normalized for marker in _ACTION_CATALOG_MARKERS):
-        return "policy/action_catalog.yaml"
-
-    if any(marker in normalized for marker in _CONSTRAINTS_MARKERS):
-        return "policy/constraints.yaml"
-
-    if any(marker in normalized for marker in _ANONYMIZATION_POLICY_MARKERS):
-        return "config/anonymization_policy.yaml"
-
-    if any(marker in normalized for marker in _OUTPUTS_INCIDENTS_MARKERS):
-        return "results/incidents"
+    fixed_paths = [
+        (_MAPPING_BANK_MARKERS, "local_redaction/action_mapping_bank.yaml"),
+        (_ACTION_CATALOG_MARKERS, "policy/action_catalog.yaml"),
+        (_CONSTRAINTS_MARKERS, "policy/constraints.yaml"),
+        (_ANONYMIZATION_POLICY_MARKERS, "config/anonymization_policy.yaml"),
+        (_OUTPUTS_INCIDENTS_MARKERS, "results/incidents"),
+        (_MITRE_STIX_MARKERS, "reference_data/mitre/enterprise-attack.json"),
+    ]
+    for markers, target_path in fixed_paths:
+        if any(marker in normalized for marker in markers):
+            return target_path
 
     if any(marker in normalized for marker in _OUTPUTS_ANALYSIS_MARKERS):
         tail = normalized.split("/analysis", 1)[1].lstrip("/")
         return f"results/analysis/{tail}" if tail else "results/analysis"
 
-    if any(marker in normalized for marker in _MITRE_STIX_MARKERS):
-        return "reference_data/mitre/enterprise-attack.json"
-
     if _REPO_ANCHOR in normalized:
         return normalized.split(_REPO_ANCHOR, 1)[1].lstrip("/")
+    return None
 
+
+def _normalize_filesystem_path_value(
+    *,
+    normalized: str,
+    original_value: str,
+    repo_root: Path,
+) -> str:
+    if not normalized:
+        return original_value
     candidate = Path(normalized).expanduser()
     if not candidate.is_absolute():
         return normalized
-
     try:
         return repo_relative_path(candidate, repo_root)
     except ValueError:
-        return value
+        return original_value
 
 
 def _normalize_json_value(value: Any, *, key: str | None, repo_root: Path) -> Any:
     if isinstance(value, dict):
         return {
-            item_key: _normalize_json_value(item_value, key=item_key, repo_root=repo_root)
+            item_key: _normalize_json_value(
+                item_value, key=item_key, repo_root=repo_root
+            )
             for item_key, item_value in value.items()
         }
     if isinstance(value, list):
         return [
-            _normalize_json_value(item, key=key, repo_root=repo_root)
-            for item in value
+            _normalize_json_value(item, key=key, repo_root=repo_root) for item in value
         ]
     if isinstance(value, str) and key in _PATH_KEYS:
         return _normalize_path_value(value, repo_root)
@@ -169,7 +183,9 @@ def sanitize_repo_surface(paths: RepoPaths) -> RepoSurfaceReport:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="soc_llm_policy.repo_surface",
-        description="Normalize tracked repository metadata to release-safe relative paths.",
+        description=(
+            "Normalize tracked repository metadata to release-safe relative paths."
+        ),
     )
     parser.add_argument("--repo-root", default=".")
     return parser
@@ -180,7 +196,8 @@ def main(argv: list[str] | None = None) -> int:
     repo_root = resolve_repo_root(args.repo_root)
     report = sanitize_repo_surface(RepoPaths(repo_root=repo_root))
     print(
-        f"Sanitized repository surface JSON files: {report.updated_json_count}/{report.scanned_json_count}",
+        "Sanitized repository surface JSON files: "
+        f"{report.updated_json_count}/{report.scanned_json_count}",
     )
     return 0
 

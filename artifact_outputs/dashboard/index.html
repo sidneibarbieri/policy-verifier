@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOCpilot Audit Dashboard</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --ink: #17202a;
+  --muted: #5e6a78;
+  --line: #d8dee8;
+  --blue: #235a8d;
+  --green: #17785f;
+  --red: #a43f32;
+  --paper: #ffffff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+header {
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: 0; }
+.subtitle { color: var(--muted); max-width: 980px; }
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 32px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,.96);
+}
+select, input {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: white;
+  min-width: 160px;
+}
+main { padding: 24px 32px 40px; }
+.quickstart {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.quick-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 14px;
+}
+.quick-card h3 { margin: 0 0 8px; font-size: 15px; }
+.quick-card p { margin: 0 0 10px; color: var(--muted); }
+.quick-card code {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f1f5f8;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 8px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+.metric { padding: 14px; background: var(--paper); min-height: 96px; }
+.metric-label { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+.metric-value { font-size: 25px; font-weight: 720; margin: 4px 0; }
+.metric-detail { color: var(--muted); font-size: 12px; }
+section { margin-top: 28px; }
+h2 { margin: 0 0 10px; font-size: 18px; }
+.note { color: var(--muted); margin: -4px 0 12px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+th, td {
+  padding: 9px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+th { font-size: 12px; color: var(--muted); text-transform: uppercase; }
+tbody tr:hover { background: #f1f5f8; }
+.bar {
+  display: inline-block;
+  width: 96px;
+  height: 8px;
+  margin-right: 8px;
+  background: #e8edf3;
+  vertical-align: middle;
+}
+.bar span { display: block; height: 100%; background: var(--blue); }
+.grid2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
+.evidence-list {
+  columns: 2;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 14px 18px;
+}
+.evidence-list li { break-inside: avoid; margin: 0 0 7px; }
+.evidence-list a { color: var(--blue); text-decoration: none; }
+.evidence-list a:hover { text-decoration: underline; }
+.pill {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+@media (max-width: 860px) {
+  header, main, .toolbar { padding-left: 16px; padding-right: 16px; }
+  .toolbar { flex-wrap: wrap; }
+  .grid2, .quickstart { grid-template-columns: 1fr; }
+  .evidence-list { columns: 1; }
+  table { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>SOCpilot Audit Dashboard</h1>
+  <div class="subtitle">Reviewer-facing view of the shipped public evidence: corpus readiness, run accounting, rule activation, paired contrasts, and replay consistency. All values are loaded from files in <code>artifact_outputs/analysis</code>.</div>
+</header>
+<div class="toolbar">
+  <label>Model <select id="modelFilter"><option value="">All models</option></select></label>
+  <label>Arm <select id="armFilter"><option value="">All arms</option></select></label>
+  <label>Search <input id="searchBox" placeholder="table text"></label>
+  <span class="pill">zero-cost public audit</span>
+</div>
+<main>
+  <section class="quickstart" aria-label="Reviewer quickstart">
+    <div class="quick-card"><h3>1. Inspect</h3><p>Open this file first. It summarizes the corpus, official runs, policy coverage, paired contrasts, and replay checks from the public evidence bundle.</p><code>REVIEWER_DASHBOARD.html</code></div>
+<div class="quick-card"><h3>2. Reproduce</h3><p>Run the zero-cost path to validate manifests, rerender paper assets, rebuild this dashboard, and write the reproduction report.</p><code>bash run.sh reproduce-results</code></div>
+<div class="quick-card"><h3>3. Audit</h3><p>Follow exact source files for run accounting, pairwise tests, rule coverage, and release hygiene.</p><code>artifact_outputs/analysis/</code></div>
+  </section>
+
+  <div class="metrics">
+    <div class="metric"><div class="metric-label">Public corpus</div><div class="metric-value">200</div><div class="metric-detail">canonical incidents</div></div>
+<div class="metric"><div class="metric-label">Completed runs</div><div class="metric-value">800</div><div class="metric-detail">LLM trajectories</div></div>
+<div class="metric"><div class="metric-label">Run success</div><div class="metric-value">100.0%</div><div class="metric-detail">official manifest</div></div>
+<div class="metric"><div class="metric-label">Privacy issues</div><div class="metric-value">0</div><div class="metric-detail">release audit</div></div>
+<div class="metric"><div class="metric-label">Mapping coverage</div><div class="metric-value">100.0%</div><div class="metric-detail">paired baseline</div></div>
+<div class="metric"><div class="metric-label">Violation rate</div><div class="metric-value">88.0%</div><div class="metric-detail">official aggregate</div></div>
+<div class="metric"><div class="metric-label">Actions removed</div><div class="metric-value">466</div><div class="metric-detail">approval gates</div></div>
+<div class="metric"><div class="metric-label">Cost</div><div class="metric-value">$3.0346</div><div class="metric-detail">reported execution</div></div>
+<div class="metric"><div class="metric-label">Public checks</div><div class="metric-value">0/41</div><div class="metric-detail">failed/total</div></div>
+  </div>
+
+  <section>
+    <h2>Model and Arm Outcomes</h2>
+    <p class="note">Violation and enforcement rates expose the provider split; task coverage shows whether deterministic enforcement removed baseline-covered work.</p>
+    <table id="outcomesTable">
+      <thead><tr><th>Model</th><th>Arm</th><th>Runs</th><th>Violation</th><th>Modified</th><th>Task coverage</th><th>Delta Jaccard</th><th>Cost</th></tr></thead>
+      <tbody><tr data-model="claude-sonnet-4-6" data-arm="policy"><td>claude-sonnet-4-6</td><td>policy</td><td>200</td><td><span class="bar"><span style="width:87.0%"></span></span>87.0%</td><td>87.0%</td><td>76.3%</td><td>0.1544</td><td>$1.0028</td></tr>
+<tr data-model="claude-sonnet-4-6" data-arm="zero"><td>claude-sonnet-4-6</td><td>zero</td><td>200</td><td><span class="bar"><span style="width:36.0%"></span></span>36.0%</td><td>36.0%</td><td>75.7%</td><td>0.0678</td><td>$0.8922</td></tr>
+<tr data-model="gpt-5.2" data-arm="policy"><td>gpt-5.2</td><td>policy</td><td>200</td><td><span class="bar"><span style="width:47.0%"></span></span>47.0%</td><td>47.0%</td><td>74.0%</td><td>0.0917</td><td>$0.5680</td></tr>
+<tr data-model="gpt-5.2" data-arm="zero"><td>gpt-5.2</td><td>zero</td><td>200</td><td><span class="bar"><span style="width:54.0%"></span></span>54.0%</td><td>54.0%</td><td>81.0%</td><td>0.1092</td><td>$0.5717</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="grid2">
+    <div>
+      <h2>Rule Activation</h2>
+      <p class="note">The official evaluation exercises approval gates; mandatory and ordering rules remain declared but inactive in this slice.</p>
+      <table><thead><tr><th>Rule</th><th>Family</th><th>Action</th><th>Repair</th><th>Violations</th><th>Status</th></tr></thead><tbody><tr data-rule-status="inactive"><td>R1</td><td>mandatory</td><td>isolate_host</td><td>insert</td><td>0</td><td>inactive</td></tr>
+<tr data-rule-status="inactive"><td>R2</td><td>prohibit_before</td><td>restore_host</td><td>insert</td><td>0</td><td>inactive</td></tr>
+<tr data-rule-status="active"><td>R3</td><td>require_approval</td><td>restore_host</td><td>remove</td><td>431</td><td>active</td></tr>
+<tr data-rule-status="active"><td>R4</td><td>require_approval</td><td>isolate_host</td><td>remove</td><td>35</td><td>active</td></tr></tbody></table>
+    </div>
+    <div>
+      <h2>Protocol Surface</h2>
+      <p class="note">These rows show why the claim is a declared protocol state rather than a generic SOC benchmark.</p>
+      <table><thead><tr><th>Surface</th><th>Count</th><th>Evidence</th></tr></thead><tbody><tr><td>Action catalog</td><td>5</td><td>block_egress_ip, collect_forensics, isolate_host, reset_admin_credentials, restore_host</td></tr>
+<tr><td>Mapped baseline actions</td><td>3</td><td>collect_forensics, isolate_host, reset_admin_credentials</td></tr>
+<tr><td>Policy rules</td><td>4</td><td>R1, R2, R3, R4</td></tr>
+<tr><td>Tasks with support</td><td>1147</td><td>zero unmatched; zero ambiguous</td></tr>
+<tr><td>Approval proxy coverage</td><td>1</td><td>isolate_host</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Paired Contrasts</h2>
+    <p class="note">Each row compares the same incident set across two model/arm cells.</p>
+    <table><thead><tr><th>Contrast</th><th>n</th><th>Rate diff</th><th>Cohen h</th><th>Holm p</th></tr></thead><tbody><tr><td>Claude|policy vs Claude|zero</td><td>200</td><td>+0.510</td><td>+1.117</td><td>0.000000</td></tr>
+<tr><td>Claude|policy vs GPT-5.2|policy</td><td>200</td><td>+0.400</td><td>+0.893</td><td>0.000000</td></tr>
+<tr><td>Claude|policy vs GPT-5.2|zero</td><td>200</td><td>+0.330</td><td>+0.753</td><td>0.000000</td></tr>
+<tr><td>Claude|zero vs GPT-5.2|policy</td><td>200</td><td>-0.110</td><td>-0.224</td><td>0.000632</td></tr>
+<tr><td>Claude|zero vs GPT-5.2|zero</td><td>200</td><td>-0.180</td><td>-0.364</td><td>0.000000</td></tr>
+<tr><td>GPT-5.2|policy vs GPT-5.2|zero</td><td>200</td><td>-0.070</td><td>-0.140</td><td>0.005578</td></tr></tbody></table>
+  </section>
+
+  <section>
+    <h2>Evidence Map</h2>
+    <p class="note">Direct links to the files most reviewers need when checking the paper claims against the artifact.</p>
+    <ul class="evidence-list"><li><a href="artifact_outputs/reproduction_report.md">Reproduction report</a></li>
+<li><a href="artifact_outputs/analysis/protocol_freeze.json">Protocol freeze</a></li>
+<li><a href="artifact_outputs/analysis/official_runs_manifest.json">Official run manifest</a></li>
+<li><a href="artifact_outputs/analysis/official_pairwise_tests.json">Official pairwise tests</a></li>
+<li><a href="artifact_outputs/analysis/official_public_consistency.json">Official public consistency</a></li>
+<li><a href="artifact_outputs/analysis/corpus_readiness.json">Corpus readiness</a></li>
+<li><a href="artifact_outputs/analysis/global_artifact_assessment.json">Global artifact assessment</a></li>
+<li><a href="artifact_outputs/reproduced_paper_assets/">Regenerated paper assets</a></li></ul>
+  </section>
+
+  <section class="grid2">
+    <div>
+      <h2>Replay Stability</h2>
+      <table><tbody>
+        <tr><th>Repeats</th><td>3</td></tr>
+        <tr><th>Violation range</th><td>87.0% to 87.5%</td></tr>
+        <tr><th>Modification range</th><td>54.9% to 56.1%</td></tr>
+        <tr><th>Task coverage drop</th><td>0.0%</td></tr>
+      </tbody></table>
+    </div>
+    <div>
+      <h2>Repair Accounting</h2>
+      <table><tbody>
+        <tr><th>Removed</th><td>466</td></tr>
+        <tr><th>Inserted</th><td>0</td></tr>
+        <tr><th>Reordered</th><td>0</td></tr>
+        <tr><th>Deferred</th><td>0</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+</main>
+<script>
+const rows = [...document.querySelectorAll("#outcomesTable tbody tr")];
+const modelFilter = document.querySelector("#modelFilter");
+const armFilter = document.querySelector("#armFilter");
+const searchBox = document.querySelector("#searchBox");
+for (const value of [...new Set(rows.map(row => row.dataset.model))].sort()) {
+  modelFilter.add(new Option(value, value));
+}
+for (const value of [...new Set(rows.map(row => row.dataset.arm))].sort()) {
+  armFilter.add(new Option(value, value));
+}
+function applyFilters() {
+  const model = modelFilter.value;
+  const arm = armFilter.value;
+  const query = searchBox.value.trim().toLowerCase();
+  for (const row of rows) {
+    const visible = (!model || row.dataset.model === model)
+      && (!arm || row.dataset.arm === arm)
+      && (!query || row.innerText.toLowerCase().includes(query));
+    row.style.display = visible ? "" : "none";
+  }
+}
+modelFilter.addEventListener("change", applyFilters);
+armFilter.addEventListener("change", applyFilters);
+searchBox.addEventListener("input", applyFilters);
+</script>
+</body>
+</html>

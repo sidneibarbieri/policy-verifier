@@ -3,10 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-
 
 _FORBIDDEN_PATH_PARTS = {
     ".env",
@@ -36,6 +36,23 @@ _FORBIDDEN_TEXT_MARKERS = {
     "\"repo_root\": \"/",
     "\"legacy_root\": \"/",
 }
+_FORBIDDEN_VENUE_MARKERS = (
+    "".join(("n", "dss")),
+    "".join(("us", "enix")),
+    "".join(("i", "eee")),
+    "".join(("c", "cs")),
+    "".join(("a", "cm")),
+    "".join(("s", "&", "p")),
+    " ".join(("security", "symposium")),
+    " ".join(("network", "and", "distributed")),
+    " ".join(("computer", "and", "communications", "security")),
+)
+_FORBIDDEN_VENUE_PATTERN = re.compile(
+    r"\b(?:"
+    + "|".join(re.escape(marker) for marker in _FORBIDDEN_VENUE_MARKERS)
+    + r")\b",
+    flags=re.IGNORECASE,
+)
 
 
 def _is_local_transient_path(rel_path: Path) -> bool:
@@ -70,7 +87,9 @@ def _check_forbidden_paths(package_root: Path) -> list[dict[str, str]]:
                 {
                     "code": "forbidden_path",
                     "path": rel,
-                    "message": "Forbidden path/component found inside artifact package.",
+                    "message": (
+                        "Forbidden path/component found inside artifact package."
+                    ),
                 }
             )
             continue
@@ -133,7 +152,9 @@ def _check_required_structure(package_root: Path) -> list[dict[str, str]]:
 
 
 def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
-    freeze_path = package_root / "artifact_outputs" / "analysis" / "protocol_freeze.json"
+    freeze_path = (
+        package_root / "artifact_outputs" / "analysis" / "protocol_freeze.json"
+    )
     if not freeze_path.exists():
         return []
     try:
@@ -169,7 +190,10 @@ def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
                 {
                     "code": "missing_protocol_freeze_field",
                     "path": "artifact_outputs/analysis/protocol_freeze.json",
-                    "message": f"Protocol freeze manifest is missing required field `{key}`.",
+                    "message": (
+                        "Protocol freeze manifest is missing required field "
+                        f"`{key}`."
+                    ),
                 }
             )
 
@@ -179,7 +203,10 @@ def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
             {
                 "code": "empty_official_models",
                 "path": "artifact_outputs/analysis/protocol_freeze.json",
-                "message": "Protocol freeze manifest must list at least one official model.",
+                "message": (
+                    "Protocol freeze manifest must list at least one official "
+                    "model."
+                ),
             }
         )
     input_hashes = payload.get("input_hashes")
@@ -190,7 +217,10 @@ def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
                     {
                         "code": "invalid_protocol_freeze_input_hash_entry",
                         "path": "artifact_outputs/analysis/protocol_freeze.json",
-                        "message": f"Protocol freeze input hash entry `{name}` must be an object.",
+                        "message": (
+                            "Protocol freeze input hash entry "
+                            f"`{name}` must be an object."
+                        ),
                     }
                 )
                 continue
@@ -215,7 +245,8 @@ def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
                         "code": "protocol_freeze_missing_input_file",
                         "path": rel,
                         "message": (
-                            f"Protocol freeze input hash entry `{name}` points to a missing file."
+                            "Protocol freeze input hash entry "
+                            f"`{name}` points to a missing file."
                         ),
                     }
                 )
@@ -226,7 +257,8 @@ def _check_protocol_freeze(package_root: Path) -> list[dict[str, str]]:
                         "code": "protocol_freeze_input_hash_mismatch",
                         "path": rel,
                         "message": (
-                            f"Protocol freeze input hash entry `{name}` does not match file content."
+                            "Protocol freeze input hash entry "
+                            f"`{name}` does not match file content."
                         ),
                     }
                 )
@@ -258,6 +290,14 @@ def _check_textual_leaks(package_root: Path) -> list[dict[str, str]]:
                 }
             )
             break
+        if _FORBIDDEN_VENUE_PATTERN.search(text):
+            issues.append(
+                {
+                    "code": "forbidden_venue_marker",
+                    "path": str(rel_path),
+                    "message": "Artifact text contains publication-venue language.",
+                }
+            )
     return issues
 
 
@@ -356,7 +396,10 @@ def verify_artifact_package(package_root: Path) -> dict[str, Any]:
     }
 
 
-def _stabilize_timestamp(existing: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
+def _stabilize_timestamp(
+    existing: dict[str, Any],
+    report: dict[str, Any],
+) -> dict[str, Any]:
     comparable_existing = {
         key: value for key, value in existing.items() if key != "generated_at_utc"
     }

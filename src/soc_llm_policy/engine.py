@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Literal
@@ -31,6 +32,16 @@ class Violation:
         return d
 
 
+@dataclass(frozen=True)
+class EnforcementRequest:
+    llm_actions: list[str]
+    telemetry: list[TelemetryEvent | dict[str, Any]]
+    rules: list[PolicyRule]
+    catalog: list[ActionCatalogItem]
+    incident_approved_actions: set[str] | None = None
+    approval_policy_mode: Literal["remove", "defer_to_human_approval"] = "remove"
+
+
 def _find_order_cycle(edges: dict[str, set[str]]) -> list[str] | None:
     """Return one cycle path if found, otherwise None."""
     visiting: set[str] = set()
@@ -41,7 +52,7 @@ def _find_order_cycle(edges: dict[str, set[str]]) -> list[str] | None:
         if node in visiting:
             if node in stack:
                 start = stack.index(node)
-                return stack[start:] + [node]
+                return [*stack[start:], node]
             return [node, node]
         if node in visited:
             return None
@@ -113,12 +124,79 @@ def _normalize_telemetry(
     ]
 
 
+def _normalized_needles(values: Any) -> list[str]:
+    if not isinstance(values, list):
+        return []
+    return [str(value).lower() for value in values if value]
+
+
+def _contains_any(text: str | None, needles: list[str]) -> bool:
+    if not needles:
+        return True
+    haystack = (text or "").lower()
+    return any(needle in haystack for needle in needles)
+
+
+def _contains_all(text: str | None, needles: list[str]) -> bool:
+    if not needles:
+        return True
+    haystack = (text or "").lower()
+    return all(needle in haystack for needle in needles)
+
+
+def _details_text(event: TelemetryEvent) -> str:
+    details = event.details.model_dump(mode="json")
+    return json.dumps(details, sort_keys=True, ensure_ascii=True).lower()
+
+
+def _event_matches_scope(event: TelemetryEvent, scope: dict[str, Any]) -> bool:
+    event_type_needles = _normalized_needles(scope.get("event_type_contains"))
+    category_needles = _normalized_needles(scope.get("category_contains"))
+    command_needles = _normalized_needles(scope.get("command_contains"))
+    details_needles = _normalized_needles(scope.get("details_text_contains"))
+    severity_needles = _normalized_needles(scope.get("severity_contains"))
+
+    has_predicate = any(
+        [
+            event_type_needles,
+            category_needles,
+            command_needles,
+            details_needles,
+            severity_needles,
+        ]
+    )
+    if not has_predicate:
+        return False
+
+    return (
+        _contains_any(event.event_type, event_type_needles)
+        and _contains_any(event.category, category_needles)
+        and _contains_all(event.details.command, command_needles)
+        and _contains_any(_details_text(event), details_needles)
+        and _contains_any(event.details.severity, severity_needles)
+    )
+
+
+def telemetry_matches_scope(
+    telemetry: list[TelemetryEvent | dict[str, Any]],
+    scope: dict[str, Any] | None,
+) -> bool:
+    """Check whether any telemetry event satisfies a typed rule scope."""
+    if not scope:
+        return False
+
+    for event in _normalize_telemetry(telemetry):
+        if _event_matches_scope(event, scope):
+            return True
+    return False
+
+
 def telemetry_has_indicator(
     telemetry: list[TelemetryEvent | dict[str, Any]],
     event_type_contains: list[str],
     command_contains: list[str],
 ) -> bool:
-    """Check whether telemetry events satisfy the rule indicator set."""
+    """Check whether telemetry events satisfy the legacy indicator set."""
     et_needles = [x.lower() for x in event_type_contains if x]
     cmd_needles = [y.lower() for y in command_contains if y]
 
@@ -156,15 +234,8 @@ def _apply_mandatory_rules(
     for rule in rules:
         if rule.type != "mandatory":
             continue
-        scope = rule.scope or {}
-        etc: list[str] = scope.get("event_type_contains") or []
-        cc: list[str] = scope.get("command_contains") or []
 
-        if not telemetry_has_indicator(
-            telemetry=telemetry,
-            event_type_contains=etc if isinstance(etc, list) else [],
-            command_contains=cc if isinstance(cc, list) else [],
-        ):
+        if not telemetry_matches_scope(telemetry=telemetry, scope=rule.scope):
             continue
 
         if rule.action not in filtered:
@@ -186,30 +257,58 @@ def _apply_order_rules(
     filtered: list[str],
     rules: list[PolicyRule],
 ) -> tuple[list[str], list[Violation]]:
-    """Step 2: action-order violations (prohibit_before)."""
+    """Step 2: action-order violations (prohibit_before).
+
+    Order constraints can form acyclic chains. Apply them to a fixed point so
+    a missing prerequisite introduced by one rule can itself trigger another
+    prerequisite in the same enforcement pass.
+    """
     violations: list[Violation] = []
+    emitted: set[tuple[str, str, str]] = set()
+    order_rules = [
+        rule
+        for rule in rules
+        if rule.type == "prohibit_before" and rule.condition_action
+    ]
+    if not order_rules:
+        return filtered, violations
 
-    for rule in rules:
-        if rule.type != "prohibit_before":
-            continue
-        if not rule.condition_action:
-            continue
-        if rule.action not in filtered:
-            continue
+    repair_limit = len(order_rules) * max(1, len(filtered) + len(order_rules) + 1)
+    repair_count = 0
+    changed = True
+    while changed:
+        changed = False
+        for rule in order_rules:
+            if rule.action not in filtered:
+                continue
 
-        idx = filtered.index(rule.action)
-        if rule.condition_action not in filtered[:idx]:
-            violations.append(
-                Violation(
-                    rule_id=rule.rule_id,
-                    severity=rule.severity,
-                    type="order_violation",
-                    action=rule.action,
-                    repair="insert_before",
-                    missing_before=rule.condition_action,
+            idx = filtered.index(rule.action)
+            condition_action = str(rule.condition_action)
+            if condition_action in filtered[:idx]:
+                continue
+
+            signature = (rule.rule_id, rule.action, condition_action)
+            if signature not in emitted:
+                violations.append(
+                    Violation(
+                        rule_id=rule.rule_id,
+                        severity=rule.severity,
+                        type="order_violation",
+                        action=rule.action,
+                        repair="insert_before",
+                        missing_before=condition_action,
+                    )
                 )
-            )
-            filtered.insert(idx, rule.condition_action)
+                emitted.add(signature)
+
+            if condition_action in filtered:
+                filtered = [action for action in filtered if action != condition_action]
+                idx = filtered.index(rule.action)
+            filtered.insert(idx, condition_action)
+            changed = True
+            repair_count += 1
+            if repair_count > repair_limit:
+                raise ValueError("Order repair did not converge")
 
     return filtered, violations
 
@@ -281,13 +380,29 @@ def _deduplicate(actions: list[str]) -> list[str]:
 # Public entrypoint
 
 
+def _coerce_enforcement_request(
+    request: EnforcementRequest | None,
+    kwargs: dict[str, Any],
+) -> EnforcementRequest:
+    if request is not None:
+        if kwargs:
+            raise TypeError("Do not mix EnforcementRequest with legacy keyword args.")
+        return request
+    if not kwargs:
+        raise TypeError("enforce_policy requires an EnforcementRequest.")
+    return EnforcementRequest(
+        llm_actions=kwargs.pop("llm_actions"),
+        telemetry=kwargs.pop("telemetry"),
+        rules=kwargs.pop("rules"),
+        catalog=kwargs.pop("catalog"),
+        incident_approved_actions=kwargs.pop("incident_approved_actions", None),
+        approval_policy_mode=kwargs.pop("approval_policy_mode", "remove"),
+    )
+
+
 def enforce_policy(
-    llm_actions: list[str],
-    telemetry: list[TelemetryEvent | dict[str, Any]],
-    rules: list[PolicyRule],
-    catalog: list[ActionCatalogItem],
-    incident_approved_actions: set[str] | None = None,
-    approval_policy_mode: Literal["remove", "defer_to_human_approval"] = "remove",
+    request: EnforcementRequest | None = None,
+    **kwargs: Any,
 ) -> tuple[list[Violation], list[str]]:
     """Verify and correct an LLM action plan against policy rules.
 
@@ -297,26 +412,27 @@ def enforce_policy(
     Returns:
         Tuple (violations, enforced_actions).
     """
-    validate_rule_consistency(rules)
+    request = _coerce_enforcement_request(request, kwargs)
+    validate_rule_consistency(request.rules)
 
-    filtered = list(validate_catalog(llm_actions, catalog))
-    normalized_telemetry = _normalize_telemetry(telemetry)
+    filtered = list(validate_catalog(request.llm_actions, request.catalog))
+    normalized_telemetry = _normalize_telemetry(request.telemetry)
 
     filtered, mandatory_violations = _apply_mandatory_rules(
         filtered,
         normalized_telemetry,
-        rules,
+        request.rules,
     )
-    filtered, order_violations = _apply_order_rules(filtered, rules)
+    filtered, order_violations = _apply_order_rules(filtered, request.rules)
     filtered, approval_violations = _apply_approval_rules(
         filtered,
-        rules,
-        catalog,
-        incident_approved_actions=incident_approved_actions,
-        approval_policy_mode=approval_policy_mode,
+        request.rules,
+        request.catalog,
+        incident_approved_actions=request.incident_approved_actions,
+        approval_policy_mode=request.approval_policy_mode,
     )
 
     violations = mandatory_violations + order_violations + approval_violations
-    enforced = _deduplicate(validate_catalog(filtered, catalog))
+    enforced = _deduplicate(validate_catalog(filtered, request.catalog))
 
     return violations, enforced

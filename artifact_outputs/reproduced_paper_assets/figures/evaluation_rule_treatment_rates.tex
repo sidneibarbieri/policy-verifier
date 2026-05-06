@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=4.8cm,y=1.0cm,font=\sffamily\small]
+  \definecolor{axisGray}{HTML}{667085}
+  \definecolor{zeroBlue}{HTML}{1A5276}
+  \definecolor{policyGreen}{HTML}{117864}
+  \definecolor{linkGray}{HTML}{8A94A6}
+  \draw[->, line width=0.8pt, draw=axisGray] (0,-0.55) -- (1.05,-0.55) node[below right, text=axisGray, align=left] {\small rule-level\\violation rate};
+  \foreach \x in {0,0.2,0.4,0.6,0.8,1.0}{
+    \draw[draw=axisGray!25] (\x,-0.55) -- (\x,1.65);
+    \draw[draw=axisGray, line width=0.6pt] (\x,-0.58) -- (\x,-0.52);
+    \node[below, text=axisGray] at (\x,-0.58) {\small \x};
+  }
+  \node[anchor=east, text=axisGray] at (-0.02,1.10) {\small R3};
+  \draw[densely dashed, draw=linkGray, line width=0.8pt] (0.4225,1.20) -- (0.6550,1.00);
+  \fill[zeroBlue] (0.4225,1.20) circle (2.0pt);
+  \fill[policyGreen] (0.6550,1.00) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=axisGray] at (0.7050,1.10) {policy - zero = +0.23};
+  \node[anchor=east, text=axisGray] at (-0.02,0.20) {\small R4};
+  \draw[densely dashed, draw=linkGray, line width=0.8pt] (0.0425,0.30) -- (0.0450,0.10);
+  \fill[zeroBlue] (0.0425,0.30) circle (2.0pt);
+  \fill[policyGreen] (0.0450,0.10) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=axisGray] at (0.0950,0.20) {policy - zero = +0.00};
+  \node[font=\small, text=axisGray, align=center] at (0.52,1.53) {{Inactive here and omitted from plot: R1, R2};
+  \fill[zeroBlue] (0.03,-1.12) circle (2.0pt);
+  \node[anchor=west, font=\small, text=zeroBlue] at (0.05,-1.12) {zero arm};
+  \fill[policyGreen] (0.36,-1.12) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=policyGreen] at (0.39,-1.12) {policy arm};
+\end{tikzpicture}

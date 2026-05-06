@@ -19,8 +19,8 @@ from soc_llm_policy.json_stability import write_stable_json
 from soc_llm_policy.paths import resolve_repo_root
 from soc_llm_policy.result_models import VerifierOutputModel
 
-
 RunKey = tuple[str, str, str]
+RUN_ID_TIMESTAMP_LENGTH = 16
 
 
 @dataclass(frozen=True)
@@ -43,7 +43,11 @@ class RunRecord:
 def _parse_base_run_timestamp(run_id: str) -> datetime:
     parts = run_id.split("_")
     for part in parts:
-        if len(part) == 16 and part.endswith("Z") and "T" in part:
+        if (
+            len(part) == RUN_ID_TIMESTAMP_LENGTH
+            and part.endswith("Z")
+            and "T" in part
+        ):
             return datetime.strptime(part, "%Y%m%dT%H%M%SZ").replace(tzinfo=UTC)
     raise ValueError(f"Could not parse timestamp from run id: {run_id}")
 
@@ -74,7 +78,9 @@ def _collect_base_records(
     base_run_started_at: datetime,
 ) -> dict[RunKey, list[RunRecord]]:
     grouped: dict[RunKey, list[RunRecord]] = defaultdict(list)
-    for incident_dir in sorted(path for path in outputs_incidents_dir.glob("INC_*") if path.is_dir()):
+    for incident_dir in sorted(
+        path for path in outputs_incidents_dir.glob("INC_*") if path.is_dir()
+    ):
         for path in sorted(incident_dir.glob("verifier_output_*.json")):
             timestamp_tag = _extract_timestamp_tag(path)
             timestamp = _parse_timestamp_tag(timestamp_tag)
@@ -135,7 +141,9 @@ def _assign_base_records_to_repeats(
     assignments: dict[RunKey, dict[int, RunRecord]] = {}
     for key, records in base_records.items():
         missing = set(failures_by_key.get(key, []))
-        available_slots = [slot for slot in range(1, planned_repeat_count + 1) if slot not in missing]
+        available_slots = [
+            slot for slot in range(1, planned_repeat_count + 1) if slot not in missing
+        ]
         if len(records) != len(available_slots):
             raise ValueError(
                 "Base repeat assignment mismatch for "
@@ -147,14 +155,18 @@ def _assign_base_records_to_repeats(
     return assignments
 
 
-def _collect_repair_records(repair_run_dirs: list[Path]) -> dict[RunKey, list[RunRecord]]:
+def _collect_repair_records(
+    repair_run_dirs: list[Path],
+) -> dict[RunKey, list[RunRecord]]:
     grouped: dict[RunKey, list[RunRecord]] = defaultdict(list)
     for repair_dir in repair_run_dirs:
         run_id = repair_dir.name
         incidents_root = repair_dir / "results" / "incidents"
         if not incidents_root.exists():
             raise FileNotFoundError(f"Repair incidents dir not found: {incidents_root}")
-        for incident_dir in sorted(path for path in incidents_root.glob("INC_*") if path.is_dir()):
+        for incident_dir in sorted(
+            path for path in incidents_root.glob("INC_*") if path.is_dir()
+        ):
             for path in sorted(incident_dir.glob("verifier_output_*.json")):
                 timestamp_tag = _extract_timestamp_tag(path)
                 timestamp = _parse_timestamp_tag(timestamp_tag)
@@ -184,10 +196,14 @@ def _merge_repair_records(
     repair_records: dict[RunKey, list[RunRecord]],
     planned_repeat_count: int,
 ) -> dict[RunKey, dict[int, RunRecord]]:
-    merged: dict[RunKey, dict[int, RunRecord]] = {key: dict(value) for key, value in assignments.items()}
+    merged: dict[RunKey, dict[int, RunRecord]] = {
+        key: dict(value) for key, value in assignments.items()
+    }
     for key, records in repair_records.items():
         slot_map = merged.setdefault(key, {})
-        missing_slots = [slot for slot in range(1, planned_repeat_count + 1) if slot not in slot_map]
+        missing_slots = [
+            slot for slot in range(1, planned_repeat_count + 1) if slot not in slot_map
+        ]
         if len(records) != len(missing_slots):
             raise ValueError(
                 "Repair repeat assignment mismatch for "
@@ -196,9 +212,13 @@ def _merge_repair_records(
         for slot, record in zip(missing_slots, records, strict=True):
             slot_map[slot] = record
     for key, slot_map in merged.items():
-        missing_slots = [slot for slot in range(1, planned_repeat_count + 1) if slot not in slot_map]
+        missing_slots = [
+            slot for slot in range(1, planned_repeat_count + 1) if slot not in slot_map
+        ]
         if missing_slots:
-            raise ValueError(f"Incomplete repeat coverage for {key}: missing {missing_slots}")
+            raise ValueError(
+                f"Incomplete repeat coverage for {key}: missing {missing_slots}"
+            )
     return merged
 
 
@@ -246,7 +266,7 @@ def _metric_series(values: list[float]) -> dict[str, Any]:
 def _build_stability_summary(
     *,
     repeat_outputs: list[dict[str, Any]],
-    repaired_failure_count: int,
+    repaired_slot_count: int,
     original_failures: list[dict[str, Any]],
 ) -> dict[str, Any]:
     summaries = [item["summary"] for item in repeat_outputs]
@@ -256,11 +276,15 @@ def _build_stability_summary(
         if isinstance(rules, dict):
             for rule_id, value in rules.items():
                 by_rule_series[str(rule_id)].append(float(value))
-    by_model_series: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+    by_model_series: dict[str, dict[str, list[float]]] = defaultdict(
+        lambda: defaultdict(list)
+    )
     for repeat in repeat_outputs:
         for row in repeat.get("by_model", []):
             model_label = str(row.get("model_label", "unknown"))
-            by_model_series[model_label]["run_violation_rate"].append(float(row.get("run_violation_rate", 0.0)))
+            by_model_series[model_label]["run_violation_rate"].append(
+                float(row.get("run_violation_rate", 0.0))
+            )
             by_model_series[model_label]["enforcement_modification_rate"].append(
                 float(row.get("enforcement_modification_rate", 0.0))
             )
@@ -272,8 +296,16 @@ def _build_stability_summary(
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "repeat_count": len(repeat_outputs),
         "repeat_indices": [item["repeat_index"] for item in repeat_outputs],
-        "repaired_failure_count": repaired_failure_count,
-        "original_failure_count": len(original_failures),
+        "completed_repeat_row_count": sum(
+            int(summary.get("run_count", 0) or 0) for summary in summaries
+        ),
+        "pre_repair_failure_count": len(original_failures),
+        "repaired_slot_count": repaired_slot_count,
+        "final_unresolved_failure_count": 0,
+        "repair_note": (
+            "Repeat summaries are computed after targeted repair records fill "
+            "any transient provider/API failures from the base repeated run."
+        ),
         "incident_violation_rate": _metric_series(
             [float(summary["incident_violation_rate"]) for summary in summaries]
         ),
@@ -290,7 +322,8 @@ def _build_stability_summary(
             [float(summary["llm_cost_estimated_usd_total"]) for summary in summaries]
         ),
         "violations_by_rule": {
-            rule_id: _metric_series(values) for rule_id, values in sorted(by_rule_series.items())
+            rule_id: _metric_series(values)
+            for rule_id, values in sorted(by_rule_series.items())
         },
         "by_model": {
             model_label: {
@@ -310,7 +343,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="soc_llm_policy.repeat_stability",
         description=(
-            "Reconstruct repeat-aware official summaries from a repeated official run and "
+            "Reconstruct repeat-aware official summaries from a repeated "
+            "official run and "
             "its follow-up repair runs."
         ),
     )
@@ -364,7 +398,9 @@ def main(argv: list[str] | None = None) -> int:
         outputs_incidents_dir=outputs_incidents_dir,
         base_run_started_at=base_run_started_at,
     )
-    failures_by_key, original_failures = _load_failures(base_run_dir / "experiment_failures.json")
+    failures_by_key, original_failures = _load_failures(
+        base_run_dir / "experiment_failures.json"
+    )
     assignments = _assign_base_records_to_repeats(
         base_records=base_records,
         failures_by_key=failures_by_key,
@@ -400,7 +436,9 @@ def main(argv: list[str] | None = None) -> int:
         _write_json(repeat_summary_path, summary)
         bundle = _build_analysis_bundle(
             AnalysisBundleInput(
-                eval_protocol_version=str(base_bundle.get("eval_protocol_version", "official")),
+                eval_protocol_version=str(
+                    base_bundle.get("eval_protocol_version", "official")
+                ),
                 repo_root=repo_root,
                 outputs_incidents_dir=repeat_dir,
                 incident_filter=None,
@@ -440,10 +478,12 @@ def main(argv: list[str] | None = None) -> int:
 
     repeat_stability_summary = _build_stability_summary(
         repeat_outputs=repeat_outputs,
-        repaired_failure_count=len(original_failures),
+        repaired_slot_count=len(original_failures),
         original_failures=original_failures,
     )
-    _write_json(output_dir / "repeat_assignments.json", {"assignments": repeat_assignment_rows})
+    _write_json(
+        output_dir / "repeat_assignments.json", {"assignments": repeat_assignment_rows}
+    )
     _write_json(output_dir / "repeat_stability_summary.json", repeat_stability_summary)
     _write_json(
         output_dir / "repeat_stability_manifest.json",
@@ -454,7 +494,14 @@ def main(argv: list[str] | None = None) -> int:
             "base_run_started_at_utc": base_run_started_at.isoformat(),
             "planned_repeat_count": planned_repeat_count,
             "repair_run_dirs": [str(path) for path in repair_run_dirs],
-            "original_failure_count": len(original_failures),
+            "pre_repair_failure_count": len(original_failures),
+            "repaired_slot_count": len(original_failures),
+            "final_unresolved_failure_count": 0,
+            "note": (
+                "The base repeated run may contain transient provider/API "
+                "failures; repeat_outputs and repeat_assignments describe the "
+                "completed post-repair evidence surface used for reporting."
+            ),
             "repeat_outputs": repeat_outputs,
         },
     )

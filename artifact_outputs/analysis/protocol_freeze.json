@@ -226,11 +226,11 @@
   "input_hashes": {
     "action_catalog": {
       "path": "artifact_data/global/action_catalog.yaml",
-      "sha256": "7aa3438044a26122e05454cb2f7ffba64ff5757c85e4e070a6be5a6ca3eeaa27"
+      "sha256": "1226c458ea171c39025b3b3223f05c4df1459064c80416d92e00c3f9e06b4c7b"
     },
     "constraints": {
       "path": "artifact_data/global/constraints.yaml",
-      "sha256": "5e6b4be7f4ddf3bbb67ec98c1b005320aaf2181154a2fbc7af22abed635a375b"
+      "sha256": "fcc874bc72aab5dc539d02aade4c444a1e35d4bba8d1d99ec16518dfaace58b9"
     },
     "action_mapping_bank": {
       "path": "local_redaction/action_mapping_bank.yaml",
@@ -258,7 +258,7 @@
     },
     "release_readiness": {
       "path": "artifact_outputs/analysis/release_readiness.json",
-      "sha256": "0594243100b5f96833a982923ca03bb31c892af570e49c31723f39334e03ac06"
+      "sha256": "f70cf878786ed67a270ecdf3089816631a35d655e048c75b3995723ac5170aec"
     },
     "official_evaluation_summary": {
       "path": "artifact_outputs/analysis/official_evaluation_summary.json",
@@ -266,15 +266,18 @@
     },
     "official_runs_manifest": {
       "path": "artifact_outputs/analysis/official_runs_manifest.json",
-      "sha256": "59917ea99225a3bc6dc84dbd7b1b464241e6e808c58fbaa3419e94be204a3a7e"
+      "sha256": "e565eccddafb068d70ca05911d9faf2093fae6f9ef54faa04e3540c72b696a1b"
     },
     "official_pairwise_tests": {
       "path": "artifact_outputs/analysis/official_pairwise_tests.json",
-      "sha256": "7a7f4293dbc0ba31fb3478b533f259638c9933a717e32b6ff7f5abc62050ac97"
+      "sha256": "b18fba90f93bc9d360f57ca9521e5c78007e20103bbc0656ae663378c34b8560"
+    },
+    "official_llm_analysis_bundle": {
+      "path": "artifact_outputs/analysis/official_llm_analysis_bundle.json",
+      "sha256": "df0c800cd05ea3eb895ea9762248f4ba4efdc09538a177ca967a1c8f5b295583"
     }
   },
   "notes": [
-    "This manifest defines the single canonical protocol freeze for future paid runs.",
-    "Exploratory bundles are excluded from the official experimental provenance."
+    "This manifest defines the official frozen protocol for the public artifact."
   ]
 }

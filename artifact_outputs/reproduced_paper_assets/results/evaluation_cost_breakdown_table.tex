@@ -1,0 +1,18 @@
+\begin{table}[t]
+\caption{Official evaluation LLM token and cost breakdown by model and arm.}
+\label{tab:evaluation_cost_breakdown}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\rowcolors{2}{stagefill}{white}
+\begin{tabularx}{\columnwidth}{@{}LCCCC@{}}
+\toprule
+Model/arm & \shortstack[c]{Prompt\\toks} & \shortstack[c]{Completion\\toks} & \shortstack[c]{Total\\toks} & USD \\
+\midrule
+claude / zero & 164040 & 26669 & 190709 & 0.892155 \\
+claude / policy & 176640 & 31523 & 208163 & 1.002765 \\
+gpt-5.2 / zero & 140107 & 23319 & 163426 & 0.571667 \\
+gpt-5.2 / policy & 150707 & 21735 & 172442 & 0.568034 \\
+\bottomrule
+\end{tabularx}
+\end{table}

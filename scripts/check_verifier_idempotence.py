@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from soc_llm_policy.engine import enforce_policy
+from soc_llm_policy.engine import EnforcementRequest, enforce_policy
 from soc_llm_policy.io import (
     parse_action_catalog,
     parse_rules,
@@ -103,12 +103,14 @@ def run_check(repo_root: Path) -> dict[str, Any]:
             telemetry_path = incidents_root / incident_id / "incident_telemetry.jsonl"
             telemetry = read_jsonl(telemetry_path, strict=False)
             violations2, enforced2 = enforce_policy(
-                llm_actions=enforced,
-                telemetry=telemetry,
-                rules=rules,
-                catalog=catalog,
-                incident_approved_actions=approved_actions,
-                approval_policy_mode=approval_mode,  # type: ignore[arg-type]
+                EnforcementRequest(
+                    llm_actions=enforced,
+                    telemetry=telemetry,
+                    rules=rules,
+                    catalog=catalog,
+                    incident_approved_actions=approved_actions,
+                    approval_policy_mode=approval_mode,  # type: ignore[arg-type]
+                )
             )
             checked += 1
             if enforced2 != enforced:

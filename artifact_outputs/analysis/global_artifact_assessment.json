@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-18T10:17:17.259764+00:00",
+  "generated_at_utc": "2026-04-14T15:24:04.492956+00:00",
   "dataset_release_id": "submission_freeze",
   "eval_protocol_version": "official",
   "incident_count": 200,
@@ -219,7 +219,7 @@
     "llm_total_tokens_total": 734740,
     "llm_cost_estimated_usd_total": 3.034621,
     "llm_cost_estimated_usd_avg_per_run": 0.003793,
-    "run_success_rate": 1.0
+    "run_success_rate": 0.0
   },
   "criticism_response_map": [
     {
@@ -275,7 +275,7 @@
         "llm_total_tokens_total": 734740,
         "llm_cost_estimated_usd_total": 3.034621,
         "llm_cost_estimated_usd_avg_per_run": 0.003793,
-        "run_success_rate": 1.0
+        "run_success_rate": 0.0
       }
     },
     {
@@ -303,7 +303,7 @@
         "llm_total_tokens_total": 734740,
         "llm_cost_estimated_usd_total": 3.034621,
         "llm_cost_estimated_usd_avg_per_run": 0.003793,
-        "run_success_rate": 1.0
+        "run_success_rate": 0.0
       }
     }
   ]

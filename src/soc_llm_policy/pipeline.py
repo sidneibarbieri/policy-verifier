@@ -14,7 +14,7 @@ from soc_llm_policy.attack import (
     summarize_attack_candidates,
     summarize_attack_context,
 )
-from soc_llm_policy.engine import Violation, enforce_policy
+from soc_llm_policy.engine import EnforcementRequest, Violation, enforce_policy
 from soc_llm_policy.ingest import merge_datasets_to_telemetry
 from soc_llm_policy.interfaces import LLMFactory, LLMPort
 from soc_llm_policy.io import (
@@ -311,7 +311,7 @@ def run_llm(
     llm_arm: str,
 ) -> LLMRunResult:
     """
-    Call the LLM to recommend incident-response actions.
+    Call the LLM copilot to propose incident-response actions.
 
     Reads credentials from the canonical project .env via LLMAdapter.from_env().
     Returns actions/deployment/reasoning for versioned persistence.
@@ -361,6 +361,13 @@ def run_llm(
                 "type": rule.type,
                 "action": rule.action,
                 "severity": rule.severity,
+                "condition_action": rule.condition_action,
+                "rationale": rule.rationale,
+                "evidence_basis": rule.evidence_basis,
+                "repair_operator": rule.repair_operator,
+                "alternative_repair_operator": rule.alternative_repair_operator,
+                "official_eval_activated": rule.official_eval_activated,
+                "approval_evidence": rule.approval_evidence,
             }
             for rule in rules
         ],
@@ -379,8 +386,8 @@ def run_llm(
     }
 
     _ok(f"LLM recommended {len(recommendation.actions)} action(s):")
-    for i, a in enumerate(recommendation.actions, 1):
-        _item(f"{i}. {a}")
+    for action_index, action_id in enumerate(recommendation.actions, 1):
+        _item(f"{action_index}. {action_id}")
     preview = recommendation.reasoning[:_REASONING_PREVIEW_LEN]
     suffix = "..." if len(recommendation.reasoning) > _REASONING_PREVIEW_LEN else ""
     _item(f"Reasoning: {preview}{suffix}")
@@ -432,7 +439,7 @@ def _save_llm_raw_output(
     run_tag: str,
     llm_result: LLMRunResult,
 ) -> None:
-    """Persiste a resposta bruta do LLM para rastreabilidade."""
+    """Persist the LLM response for traceability."""
     raw_output: dict[str, Any] = {
         "incident_id": incident_id,
         "model": llm_result.deployment,
@@ -542,13 +549,7 @@ def _action_ids(actions: list[HumanAction]) -> list[str]:
 
 
 def _approved_action_ids(actions: list[HumanAction]) -> list[str]:
-    return sorted(
-        {
-            action.action_id
-            for action in actions
-            if action.approval is True
-        }
-    )
+    return sorted({action.action_id for action in actions if action.approval is True})
 
 
 def _print_rule_results(rules: list[PolicyRule], violations: list[Violation]) -> None:
@@ -556,24 +557,26 @@ def _print_rule_results(rules: list[PolicyRule], violations: list[Violation]) ->
     print()
     _sep()
     for rule in rules:
-        rid = rule.rule_id
-        matched = [v for v in violations if v.rule_id == rid]
-        if matched:
-            for v in matched:
-                if v.type == "missing_mandatory":
+        rule_id = rule.rule_id
+        matched_violations = [
+            violation for violation in violations if violation.rule_id == rule_id
+        ]
+        if matched_violations:
+            for violation in matched_violations:
+                if violation.type == "missing_mandatory":
                     _warn(
-                        f"[{rid}] Missing mandatory action: '{v.action}' -> inserted automatically"  # noqa: E501
+                        f"[{rule_id}] Missing mandatory action: '{violation.action}' -> inserted automatically"  # noqa: E501
                     )
-                elif v.type == "order_violation":
+                elif violation.type == "order_violation":
                     _warn(
-                        f"[{rid}] Order violation: '{v.action}' requires '{v.missing_before}' first -> corrected"  # noqa: E501
+                        f"[{rule_id}] Order violation: '{violation.action}' requires '{violation.missing_before}' first -> corrected"  # noqa: E501
                     )
-                elif v.type == "approval_required":
+                elif violation.type == "approval_required":
                     _warn(
-                        f"[{rid}] Approval required: '{v.action}' removed from plan"
+                        f"[{rule_id}] Approval required: '{violation.action}' removed from plan"
                     )
         else:
-            _ok(f"[{rid}] OK")
+            _ok(f"[{rule_id}] OK")
     _sep()
 
 
@@ -697,12 +700,14 @@ def run_verifier(
 
     _step("", "Verifying policy compliance...")
     violations, enforced = enforce_policy(
-        llm_actions=actions_to_verify,
-        telemetry=telemetry,
-        rules=rules,
-        catalog=catalog,
-        incident_approved_actions=set(incident_approved_actions),
-        approval_policy_mode=options.approval_policy_mode,
+        EnforcementRequest(
+            llm_actions=actions_to_verify,
+            telemetry=telemetry,
+            rules=rules,
+            catalog=catalog,
+            incident_approved_actions=set(incident_approved_actions),
+            approval_policy_mode=options.approval_policy_mode,
+        )
     )
 
     _print_rule_results(rules, violations)

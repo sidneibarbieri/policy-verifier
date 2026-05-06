@@ -36,6 +36,7 @@ from soc_llm_policy.pipeline import main as pipeline_main
 type MainFn = Callable[[list[str] | None], None]
 type PreflightFn = Callable[[ModelProfile], tuple[bool, str]]
 _HTTP_RATE_LIMIT = 429
+_HTTP_BAD_REQUEST = 400
 
 
 @dataclass(frozen=True)
@@ -261,9 +262,7 @@ def _validate_incident_inputs(
                     parse_errors.append(f"invalid incident_meta: {exc}")
                 try:
                     actions_path = incident_dir / "incident_human_actions.jsonl"
-                    actions = parse_human_actions(
-                        read_jsonl(actions_path, strict=True)
-                    )
+                    actions = parse_human_actions(read_jsonl(actions_path, strict=True))
                     approval_missing_count = sum(
                         action.approval is None for action in actions
                     )
@@ -381,47 +380,52 @@ def _build_llm_env_values(profile: ModelProfile) -> dict[str, str]:
 def _check_deployment_available(profile: ModelProfile) -> tuple[bool, str]:
     provider = _normalize_provider(profile.provider)
     model = profile.deployment
+    unavailable: tuple[bool, str] | None = None
     if provider == "azure_openai":
         endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip()
         api_key = os.environ.get("AZURE_OPENAI_API_KEY", "").strip()
         api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-02-15-preview")
         if not endpoint or not api_key:
-            return (
+            unavailable = (
                 False,
                 "AZURE_OPENAI_ENDPOINT/API_KEY missing for preflight",
             )
-        url = (
-            f"{endpoint.rstrip('/')}/openai/deployments/{model}"
-            f"/chat/completions?api-version={api_version}"
-        )
-        payload = json.dumps(
-            {
-                "messages": [{"role": "user", "content": "ping"}],
-                "max_tokens": 1,
-                "temperature": 0,
-            }
-        ).encode("utf-8")
-        headers = {"Content-Type": "application/json", "api-key": api_key}
+        else:
+            url = (
+                f"{endpoint.rstrip('/')}/openai/deployments/{model}"
+                f"/chat/completions?api-version={api_version}"
+            )
+            payload = json.dumps(
+                {
+                    "messages": [{"role": "user", "content": "ping"}],
+                    "max_tokens": 1,
+                    "temperature": 0,
+                }
+            ).encode("utf-8")
+            headers = {"Content-Type": "application/json", "api-key": api_key}
     elif provider == "openai":
         api_key = os.environ.get("OPENAI_API_KEY", "").strip()
-        endpoint = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1").strip()
+        endpoint = os.environ.get(
+            "OPENAI_API_BASE", "https://api.openai.com/v1"
+        ).strip()
         if not api_key:
-            return False, "OPENAI_API_KEY missing for preflight"
-        url = f"{endpoint.rstrip('/')}/chat/completions"
-        payload = json.dumps(
-            {
-                "model": model,
-                "messages": [{"role": "user", "content": "ping"}],
-                # Some frontier models reject very small caps during preflight.
-                # Keep this low-cost but above strict minimums.
-                "max_completion_tokens": 16,
-                "temperature": 0,
+            unavailable = (False, "OPENAI_API_KEY missing for preflight")
+        else:
+            url = f"{endpoint.rstrip('/')}/chat/completions"
+            payload = json.dumps(
+                {
+                    "model": model,
+                    "messages": [{"role": "user", "content": "ping"}],
+                    # Some frontier models reject very small caps during preflight.
+                    # Keep this low-cost but above strict minimums.
+                    "max_completion_tokens": 16,
+                    "temperature": 0,
+                }
+            ).encode("utf-8")
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_key}",
             }
-        ).encode("utf-8")
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}",
-        }
     else:
         api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
         endpoint = os.environ.get(
@@ -430,21 +434,25 @@ def _check_deployment_available(profile: ModelProfile) -> tuple[bool, str]:
         ).strip()
         api_version = os.environ.get("ANTHROPIC_API_VERSION", "2023-06-01")
         if not api_key:
-            return False, "ANTHROPIC_API_KEY missing for preflight"
-        url = f"{endpoint.rstrip('/')}/messages"
-        payload = json.dumps(
-            {
-                "model": model,
-                "max_tokens": 1,
-                "temperature": 0,
-                "messages": [{"role": "user", "content": "ping"}],
+            unavailable = (False, "ANTHROPIC_API_KEY missing for preflight")
+        else:
+            url = f"{endpoint.rstrip('/')}/messages"
+            payload = json.dumps(
+                {
+                    "model": model,
+                    "max_tokens": 1,
+                    "temperature": 0,
+                    "messages": [{"role": "user", "content": "ping"}],
+                }
+            ).encode("utf-8")
+            headers = {
+                "Content-Type": "application/json",
+                "x-api-key": api_key,
+                "anthropic-version": api_version,
             }
-        ).encode("utf-8")
-        headers = {
-            "Content-Type": "application/json",
-            "x-api-key": api_key,
-            "anthropic-version": api_version,
-        }
+
+    if unavailable is not None:
+        return unavailable
 
     request = urllib.request.Request(url, data=payload, headers=headers, method="POST")
     try:
@@ -454,7 +462,7 @@ def _check_deployment_available(profile: ModelProfile) -> tuple[bool, str]:
         body = exc.read().decode("utf-8", errors="replace")
         if exc.code == _HTTP_RATE_LIMIT:
             return True, "rate_limited_but_available"
-        if provider == "openai" and exc.code == 400:
+        if provider == "openai" and exc.code == _HTTP_BAD_REQUEST:
             lowered = body.lower()
             if "max_tokens" in lowered and "output limit" in lowered:
                 return True, "max_tokens_guard_but_available"
@@ -535,8 +543,7 @@ def _run_data_preflight(config: ExperimentRunConfig) -> None:
     parse_error_total = int(data_preflight.get("parse_error_count", 0))
     if missing_total > 0 or parse_error_total > 0:
         raise FileNotFoundError(
-            "Data preflight failed. "
-            f"See: {config.data_preflight_json}"
+            f"Data preflight failed. See: {config.data_preflight_json}"
         )
     print(f"Data preflight OK: {config.data_preflight_json}")
 
@@ -563,7 +570,8 @@ def _select_models_for_execution(
         if ok:
             print(
                 "Preflight OK for model="
-                f"{profile.name} (provider={provider}, deployment={deployment}, {reason})"
+                f"{profile.name} (provider={provider}, "
+                f"deployment={deployment}, {reason})"
             )
             models_to_run.append(profile)
             continue
@@ -874,9 +882,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--approval-policy-mode",
         default="remove",
         choices=["remove", "defer_to_human_approval"],
-        help=(
-            "Approval handling mode forwarded to pipeline runs."
-        ),
+        help=("Approval handling mode forwarded to pipeline runs."),
     )
     parser.add_argument(
         "--summary-json",
@@ -896,8 +902,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--eval-protocol-version",
-        default="v1",
-        help="Evaluation protocol version recorded in the final bundle.",
+        default="official",
+        help="Evaluation state label recorded in the final bundle.",
     )
     parser.add_argument(
         "--no-archive-run",
@@ -944,9 +950,7 @@ def main(argv: list[str] | None = None) -> None:
     if int(args.min_incidents) <= 0:
         raise ValueError("--min-incidents must be >= 1.")
     run_id = (
-        _sanitize_run_component(str(args.run_id))
-        if args.run_id
-        else _default_run_id()
+        _sanitize_run_component(str(args.run_id)) if args.run_id else _default_run_id()
     )
     dataset_release_id = _sanitize_run_component(str(args.dataset_release_id))
     incidents = _resolve_incidents(paths, args.incidents, bool(args.all))

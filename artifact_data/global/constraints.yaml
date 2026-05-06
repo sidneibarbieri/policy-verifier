@@ -1,5 +1,5 @@
-# SOC policy rule set.
-# Frozen before any LLM execution. Changes require a new protocol version.
+# SOCpilot official policy rule set.
+# Frozen before provider execution. Changes define a separate evaluation state.
 #
 # Rule types:
 #   mandatory        - action MUST be present when telemetry scope matches
@@ -13,6 +13,10 @@
 
 # Mandatory containment
 - rule_id: R1
+  rationale: isolate host on high-confidence reverse-shell evidence
+  evidence_basis: command telemetry contains reverse-shell indicators
+  repair_operator: insert
+  official_eval_activated: false
   scope:
     event_type_contains: ["command_execution"]
     command_contains: ["bash -i", "/dev/tcp/"]
@@ -22,6 +26,10 @@
 
 # Ordering: forensics-first principle
 - rule_id: R2
+  rationale: preserve forensic opportunity before recovery changes system state
+  evidence_basis: action sequence proposes restoration before forensics
+  repair_operator: insert_before
+  official_eval_activated: false
   scope:
     global: true
   type: prohibit_before
@@ -31,6 +39,14 @@
 
 # Approval gates
 - rule_id: R3
+  rationale: restoration changes production state and requires explicit approval
+  evidence_basis: action sequence includes restore_host without public approval evidence
+  repair_operator: remove
+  alternative_repair_operator: defer_to_human_approval
+  official_eval_activated: true
+  approval_evidence:
+    source: public_canonical_package
+    default_when_absent: not_approved
   scope:
     global: true
   type: require_approval
@@ -38,6 +54,14 @@
   severity: hard
 
 - rule_id: R4
+  rationale: isolation can interrupt business workflow and requires explicit approval
+  evidence_basis: action sequence includes isolate_host without public approval evidence
+  repair_operator: remove
+  alternative_repair_operator: defer_to_human_approval
+  official_eval_activated: true
+  approval_evidence:
+    source: public_canonical_package
+    default_when_absent: not_approved
   scope:
     global: true
   type: require_approval

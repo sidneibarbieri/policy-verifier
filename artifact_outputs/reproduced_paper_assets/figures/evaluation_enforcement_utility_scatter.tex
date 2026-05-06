@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=4.6cm,y=1.0cm,font=\sffamily\small]
+  \definecolor{axisGray}{HTML}{667085}
+  \definecolor{llmZero}{HTML}{1A5276}
+  \definecolor{llmPolicy}{HTML}{117864}
+  \definecolor{linkGray}{HTML}{8A94A6}
+  \draw[->, line width=0.8pt, draw=axisGray] (0,-0.55) -- (1.04,-0.55) node[below right, text=axisGray, align=left] {\small enforcement-modification\\rate};
+  \foreach \x in {0,0.2,0.4,0.6,0.8,1.0}{
+    \draw[draw=axisGray!25] (\x,-0.55) -- (\x,1.65);
+    \draw[draw=axisGray, line width=0.6pt] (\x,-0.58) -- (\x,-0.52);
+    \node[below, text=axisGray] at (\x,-0.58) {\small \x};
+  }
+  \node[anchor=east, text=axisGray] at (-0.02,1.10) {\small claude};
+  \draw[-{Latex[length=5pt,width=5pt]}, line width=1.0pt, draw=linkGray] (0.3600,1.10) -- (0.8700,1.10);
+  \fill[llmZero] (0.3600,1.1000) circle (2.0pt);
+  \fill[llmPolicy] (0.8700,1.1000) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=axisGray] at (1.06,1.10) {$\Delta J$: 0.068 $\to$ 0.154};
+  \node[anchor=east, text=axisGray] at (-0.02,0.20) {\small gpt-5.2};
+  \draw[-{Latex[length=5pt,width=5pt]}, line width=1.0pt, draw=linkGray] (0.5400,0.20) -- (0.4700,0.20);
+  \fill[llmZero] (0.5400,0.2000) circle (2.0pt);
+  \fill[llmPolicy] (0.4700,0.2000) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=axisGray] at (1.06,0.20) {$\Delta J$: 0.109 $\to$ 0.092};
+  \fill[llmZero] (0.05,-1.120) circle (2.5pt);
+  \node[anchor=west, font=\small, text=llmZero] at (0.07,-1.120) {zero arm};
+  \fill[llmPolicy] (0.38,-1.120) +(-2.0pt,-2.0pt) rectangle +(2.0pt,2.0pt);
+  \node[anchor=west, font=\small, text=llmPolicy] at (0.41,-1.120) {policy arm};
+  \node[anchor=west, font=\small, text=linkGray] at (0.00,-1.360) {right labels: $\Delta$Jaccard vs paired human baseline};
+\end{tikzpicture}

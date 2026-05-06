@@ -8,6 +8,7 @@ from typing import Any, Literal
 import yaml
 from pydantic import BaseModel, Field
 
+
 class IncidentMeta(BaseModel):
     """Metadata for one security incident.
 
@@ -31,6 +32,7 @@ class TelemetryDetails(BaseModel):
     command: str | None = None
     severity: str | None = None
     log_source: str | None = None
+    source_summary: dict[str, Any] | None = None
     raw: dict[str, Any] | None = None
 
 
@@ -53,6 +55,9 @@ class ActionCatalogItem(BaseModel):
     action_id: str = Field(..., min_length=1)
     requires_approval: bool = False
     reversible: bool = False
+    phase: str | None = None
+    operational_role: str | None = None
+    baseline_support: str | None = None
 
 
 class PolicyRule(BaseModel):
@@ -68,6 +73,12 @@ class PolicyRule(BaseModel):
     action: str = Field(..., min_length=1)
     scope: dict[str, Any] | None = None
     condition_action: str | None = None
+    rationale: str | None = None
+    evidence_basis: str | None = None
+    repair_operator: str | None = None
+    alternative_repair_operator: str | None = None
+    official_eval_activated: bool | None = None
+    approval_evidence: dict[str, Any] | None = None
 
 
 class HumanAction(BaseModel):
@@ -135,9 +146,11 @@ def read_yaml_list(path: Path) -> list[dict[str, Any]]:
         raise ValueError(f"YAML top-level value must be a list: {path}")
 
     out: list[dict[str, Any]] = []
-    for i, item in enumerate(data):
+    for item_index, item in enumerate(data):
         if not isinstance(item, dict):
-            raise ValueError(f"YAML item must be an object. path={path} index={i}")
+            raise ValueError(
+                f"YAML item must be an object. path={path} index={item_index}"
+            )
         out.append(item)
     return out
 

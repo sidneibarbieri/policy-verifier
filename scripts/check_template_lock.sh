@@ -14,14 +14,14 @@ resolve_paper_dir() {
   fi
 
   local candidate
-  for candidate in "${ROOT_DIR}/../paper" "${ROOT_DIR}/../ACM CCS - Paper 1"; do
+  for candidate in "${ROOT_DIR}/../paper"; do
     if [[ -d "${candidate}" ]]; then
       printf '%s\n' "${candidate}"
       return
     fi
   done
 
-  echo "Paper workspace not found. Set SOC_LLM_POLICY_PAPER_DIR or create ../paper / ../ACM CCS - Paper 1." >&2
+  echo "Paper workspace not found. Set SOCPILOT_PAPER_DIR or create ../paper." >&2
   exit 1
 }
 
@@ -35,7 +35,7 @@ if [[ ! -f "${LOCK_FILE}" ]]; then
   exit 1
 fi
 
-echo "Verifying ACM template locked files..."
+echo "Verifying template locked files..."
 PAPER_DIR_ENV="${PAPER_DIR}" LOCK_FILE_ENV="${LOCK_FILE}" NORMALIZED_LOCK_FILE_ENV="${NORMALIZED_LOCK_FILE}" python3 <<'PY'
 from __future__ import annotations
 
@@ -68,4 +68,4 @@ PY
   shasum -a 256 -c "${NORMALIZED_LOCK_FILE}"
 )
 
-echo "ACM template integrity OK."
+echo "Template lock integrity OK."

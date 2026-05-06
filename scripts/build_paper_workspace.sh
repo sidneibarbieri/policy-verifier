@@ -4,24 +4,25 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 resolve_paper_dir() {
-  if [[ -n "${SOC_LLM_POLICY_PAPER_DIR:-}" ]]; then
-    if [[ -d "${SOC_LLM_POLICY_PAPER_DIR}" ]]; then
-      printf '%s\n' "${SOC_LLM_POLICY_PAPER_DIR}"
+  local configured_dir="${SOCPILOT_PAPER_DIR:-${SOC_LLM_POLICY_PAPER_DIR:-}}"
+  if [[ -n "${configured_dir}" ]]; then
+    if [[ -d "${configured_dir}" ]]; then
+      printf '%s\n' "${configured_dir}"
       return
     fi
-    echo "Configured paper workspace not found: ${SOC_LLM_POLICY_PAPER_DIR}" >&2
+    echo "Configured paper workspace not found: ${configured_dir}" >&2
     exit 1
   fi
 
   local candidate
-  for candidate in "${ROOT_DIR}/../paper" "${ROOT_DIR}/../ACM CCS - Paper 1"; do
+  for candidate in "${ROOT_DIR}/../paper"; do
     if [[ -d "${candidate}" ]]; then
       printf '%s\n' "${candidate}"
       return
     fi
   done
 
-  echo "Paper workspace not found. Set SOC_LLM_POLICY_PAPER_DIR or create ../paper / ../ACM CCS - Paper 1." >&2
+  echo "Paper workspace not found. Set SOCPILOT_PAPER_DIR or create ../paper." >&2
   exit 1
 }
 

@@ -1,7 +1,9 @@
 # Evaluation Protocol
 
 ## Objective
-Evaluate whether LLM-generated incident-response plans violate formal SOC constraints, where those violations concentrate, and how deterministic enforcement changes the resulting plans.
+Evaluate whether LLM-generated incident-response plans violate declared SOC
+policy rules, where those violations concentrate, and how deterministic
+enforcement changes the resulting plans before analyst review.
 
 ## Official frozen configuration
 - Incident count: `200`
@@ -13,8 +15,9 @@ Evaluate whether LLM-generated incident-response plans violate formal SOC constr
 - `artifact_outputs/analysis/protocol_freeze.json`
 - `artifact_outputs/analysis/summary.json`
 - `artifact_outputs/analysis/analysis_bundle.json`
+- `artifact_outputs/analysis/official_llm_analysis_bundle.json`
 - `artifact_outputs/analysis/official_evaluation_summary.json`
-- `artifact_outputs/analysis/official_runs_manifest.json`
+- `artifact_outputs/analysis/official_pairwise_tests.json`
 - `artifact_outputs/analysis/global_artifact_assessment.json`
 - `artifact_outputs/analysis/global_artifact_provenance.json`
 - `artifact_outputs/analysis/repeat_stability/` (when present)
@@ -22,10 +25,15 @@ Evaluate whether LLM-generated incident-response plans violate formal SOC constr
 ## Public-bundle scope
 - The packaged zero-cost bundle includes the frozen protocol manifest, canonical non-private analysis outputs, and the code needed to rerun integrity checks and dataset audits.
 - `artifact_outputs/analysis/analysis_bundle.json` in this public package covers the human-baseline analysis included at packaging time.
-- `artifact_outputs/analysis/official_evaluation_summary.json` preserves the aggregate paid-evaluation totals used by the paper, without shipping the paid execution lineage itself.
-- `artifact_outputs/analysis/official_runs_manifest.json` preserves public run accounting for the reported official evaluation without redistributing raw prompts, provider payloads, or model outputs.
+- `artifact_outputs/analysis/official_llm_analysis_bundle.json` preserves sanitized row-level metrics from the completed official paid evaluation, without raw prompts, raw provider payloads, local run snapshots, or private lineage.
+- `artifact_outputs/analysis/official_evaluation_summary.json` preserves the aggregate paid-evaluation totals used by the paper.
+- `artifact_outputs/analysis/official_pairwise_tests.json` preserves the paired official contrasts used by the paper.
 - `artifact_outputs/analysis/repeat_stability/`, when present, preserves non-private summaries of repeated frozen-corpus reruns used for robustness reporting.
-- The completed official LLM evaluation bundle, including the paid full-corpus execution lineage, is not included in this package because reproducing it requires paid API access.
+- Reproducing the paid provider calls themselves remains outside the public zero-cost path.
+- Reviewers may supply their own provider keys and run new experiments with the
+  same artifact or with their own incident packages. Such runs are new execution
+  lineages unless the incident slice, policy files, model registry, prompt
+  template, and verifier manifest all match the reported state.
 
 ## Rule-activation interpretation
 - The official summary in this package reports observed violations only for the approval-gated slice (`R3`, `R4`).

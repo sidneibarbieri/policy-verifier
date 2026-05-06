@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\caption{Official evaluation paired tests between arm/model configurations. Bold rows survive Holm correction at $\alpha=0.05$; Cohen's $h$ summarizes marginal rate separation.}
+\label{tab:evaluation_pairwise_tests}
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\rowcolors{2}{stagefill}{white}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.06\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.12\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}>{\centering\arraybackslash}p{0.10\textwidth}@{}}
+\toprule
+A vs B (model|arm) & $n$ & $\Delta$ rate & McNemar $p$ & Holm $p$ & Cohen's $h$ \\
+\midrule
+\textbf{claude|policy vs claude|zero} & \textbf{200} & \textbf{+0.5100} & \textbf{\textless{}0.0001} & \textbf{\textless{}0.0001} & \textbf{+1.1169} \\
+\textbf{claude|policy vs gpt-5.2|policy} & \textbf{200} & \textbf{+0.4000} & \textbf{\textless{}0.0001} & \textbf{\textless{}0.0001} & \textbf{+0.8931} \\
+\textbf{claude|policy vs gpt-5.2|zero} & \textbf{200} & \textbf{+0.3300} & \textbf{\textless{}0.0001} & \textbf{\textless{}0.0001} & \textbf{+0.7530} \\
+\textbf{claude|zero vs gpt-5.2|policy} & \textbf{200} & \textbf{$-$0.1100} & \textbf{0.0003} & \textbf{0.0006} & \textbf{$-$0.2238} \\
+\textbf{claude|zero vs gpt-5.2|zero} & \textbf{200} & \textbf{$-$0.1800} & \textbf{\textless{}0.0001} & \textbf{\textless{}0.0001} & \textbf{$-$0.3639} \\
+\textbf{gpt-5.2|policy vs gpt-5.2|zero} & \textbf{200} & \textbf{$-$0.0700} & \textbf{0.0056} & \textbf{0.0056} & \textbf{$-$0.1401} \\
+\bottomrule
+\end{tabularx}
+\end{table*}

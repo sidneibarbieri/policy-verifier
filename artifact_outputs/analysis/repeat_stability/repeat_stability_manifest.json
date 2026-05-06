@@ -10,7 +10,6 @@
     "<private-source>",
     "<private-source>"
   ],
-  "original_failure_count": 19,
   "repeat_outputs": [
     {
       "repeat_index": 1,
@@ -1194,5 +1193,9 @@
       "summary_path": "<private-source>",
       "analysis_bundle_path": "<private-source>"
     }
-  ]
+  ],
+  "pre_repair_failure_count": 19,
+  "repaired_slot_count": 19,
+  "final_unresolved_failure_count": 0,
+  "note": "The base repeated run may contain transient provider/API failures; repeat_outputs and repeat_assignments describe the completed post-repair evidence surface used for reporting."
 }
